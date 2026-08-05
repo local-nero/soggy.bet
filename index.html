@@ -2,23 +2,505 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-    <title>home • soggybet</title>
+    <meta
+        name="description"
+        content="SoggyBet — gamble fictional SoggyCoins and collect increasingly soggy cats."
+    >
 
-    <link rel="icon" href="/assets/branding/favicon.ico">
-    <link rel="stylesheet" href="/css/style.css">
+    <title>home • soggyBet</title>
+
+    <link
+        rel="icon"
+        href="/assets/branding/favicon.ico"
+    >
+
+    <link
+        rel="stylesheet"
+        href="/css/style.css"
+    >
 </head>
 
 <body>
+    <div class="app-shell">
 
-    <h1>🏠 home</h1>
+        <aside class="sidebar">
+            <a
+                class="sidebar-logo"
+                href="/"
+                aria-label="SoggyBet homepage"
+            >
+                <span class="sidebar-logo-mark">💧</span>
+                <span>SOGGYBET</span>
+            </a>
 
-    <script type="module" src="/js/app.js"></script>
+            <nav
+                class="sidebar-nav"
+                aria-label="Main navigation"
+            >
+                <a
+                    class="sidebar-link"
+                    href="/"
+                    data-nav-link
+                >
+                    <span>🏠</span>
+                    <span>home</span>
+                </a>
 
+                <a
+                    class="sidebar-link"
+                    href="/games/wheel.html"
+                    data-nav-link
+                >
+                    <span>🎡</span>
+                    <span>wheel</span>
+                </a>
+
+                <a
+                    class="sidebar-link"
+                    href="/inventory.html"
+                    data-nav-link
+                >
+                    <span>🐈</span>
+                    <span>inventory</span>
+                </a>
+
+                <a
+                    class="sidebar-link"
+                    href="/settings.html"
+                    data-nav-link
+                >
+                    <span>⚙️</span>
+                    <span>settings</span>
+                </a>
+            </nav>
+        </aside>
+
+        <main class="app-main">
+
+            <header class="topbar">
+                <div>
+                    <strong>SOGGYBET</strong>
+                    <span class="text-muted">beta</span>
+                </div>
+
+                <div class="topbar-actions">
+                    <div
+                        class="balance-pill"
+                        aria-label="Current SoggyCoin balance"
+                    >
+                        <span>💧</span>
+                        <strong data-balance>0</strong>
+                        <span class="text-muted">SC</span>
+                    </div>
+
+                    <button
+                        class="button"
+                        type="button"
+                        id="profile-button"
+                    >
+                        <span>👤</span>
+                        <span>guest</span>
+                    </button>
+                </div>
+            </header>
+
+            <div class="page-content">
+
+                <section>
+                    <span class="badge original">
+                        soggy original
+                    </span>
+
+                    <h1 class="page-title">
+                        gamble responsibly.
+                        <br>
+                        become irresponsibly soggy.
+                    </h1>
+
+                    <p class="page-description">
+                        spend SoggyCoins, win collectible soggy cats,
+                        and sell them back for even more SoggyCoins.
+                    </p>
+                </section>
+
+                <section class="section">
+                    <div class="section-header">
+                        <div>
+                            <h2 class="section-title">
+                                originals
+                            </h2>
+
+                            <p class="text-muted">
+                                games built specifically for soggybet
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="games-grid">
+
+                        <a
+                            class="game-card game-card-featured"
+                            href="/games/wheel.html"
+                        >
+                            <div class="game-card-art">
+                                <span class="game-card-emoji">
+                                    🎡
+                                </span>
+
+                                <span class="badge original">
+                                    play now
+                                </span>
+                            </div>
+
+                            <div class="game-card-content">
+                                <div>
+                                    <h3>Wheel</h3>
+                                    <p>
+                                        spin for SoggyCoins and collectible cats.
+                                    </p>
+                                </div>
+
+                                <span class="game-card-arrow">
+                                    →
+                                </span>
+                            </div>
+                        </a>
+
+                        <article class="game-card is-disabled">
+                            <div class="game-card-art">
+                                <span class="game-card-emoji">
+                                    💣
+                                </span>
+
+                                <span class="badge coming-soon">
+                                    coming soon
+                                </span>
+                            </div>
+
+                            <div class="game-card-content">
+                                <div>
+                                    <h3>litterbox</h3>
+                                    <p>
+                                        avoid the dry tiles and preserve the sogginess
+                                    </p>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="game-card is-disabled">
+                            <div class="game-card-art">
+                                <span class="game-card-emoji">
+                                    🐾
+                                </span>
+
+                                <span class="badge coming-soon">
+                                    coming soon
+                                </span>
+                            </div>
+
+                            <div class="game-card-content">
+                                <div>
+                                    <h3>catplinko</h3>
+                                    <p>
+                                        drop soggies through pegs and chase multipliers
+                                    </p>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="game-card is-disabled">
+                            <div class="game-card-art">
+                                <span class="game-card-emoji">
+                                    🎲
+                                </span>
+
+                                <span class="badge coming-soon">
+                                    coming soon
+                                </span>
+                            </div>
+
+                            <div class="game-card-content">
+                                <div>
+                                    <h3>dice</h3>
+                                    <p>
+                                        choose your odds and roll for extra sog
+                                    </p>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="game-card is-disabled">
+                            <div class="game-card-art">
+                                <span class="game-card-emoji">
+                                    📈
+                                </span>
+
+                                <span class="badge coming-soon">
+                                    coming soon
+                                </span>
+                            </div>
+
+                            <div class="game-card-content">
+                                <div>
+                                    <h3>limbo</h3>
+                                    <p>
+                                        set a target multiplier and pray to get sogged
+                                    </p>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="game-card is-disabled">
+                            <div class="game-card-art">
+                                <span class="game-card-emoji">
+                                    🃏
+                                </span>
+
+                                <span class="badge coming-soon">
+                                    coming soon
+                                </span>
+                            </div>
+
+                            <div class="game-card-content">
+                                <div>
+                                    <h3>blackcat</h3>
+                                    <p>
+                                        blackjack, but significantly more sogged
+                                    </p>
+                                </div>
+                            </div>
+                        </article>
+
+                    </div>
+                </section>
+
+                <section class="section">
+                    <div class="content-grid two-columns">
+
+                        <article class="card">
+                            <div class="section-header">
+                                <div>
+                                    <span class="badge original">
+                                        daily reward
+                                    </span>
+
+                                    <h2 class="section-title">
+                                        emergency sog fund
+                                    </h2>
+                                </div>
+
+                                <span class="daily-reward-icon">
+                                    🎁
+                                </span>
+                            </div>
+
+                            <p class="text-muted">
+                                claim a small number of SoggyCoins every day
+                                so you can continue making poor financial decisions.
+                            </p>
+
+                            <button
+                                class="button primary daily-reward-button"
+                                type="button"
+                                id="daily-reward-button"
+                            >
+                                claim 500 SC
+                            </button>
+                        </article>
+
+                        <article class="card">
+                            <div class="section-header">
+                                <div>
+                                    <span class="badge uncommon">
+                                        global activity
+                                    </span>
+
+                                    <h2 class="section-title">
+                                        recent sog
+                                    </h2>
+                                </div>
+                            </div>
+
+                            <div class="activity-feed">
+                                <div class="activity-item">
+                                    <span class="activity-icon">🐈</span>
+
+                                    <div>
+                                        <strong>sogmaster</strong>
+                                        <p class="text-muted">
+                                            won a Rare Bathtub Soggy.
+                                        </p>
+                                    </div>
+
+                                    <span class="activity-time">
+                                        now
+                                    </span>
+                                </div>
+
+                                <div class="activity-item">
+                                    <span class="activity-icon">💧</span>
+
+                                    <div>
+                                        <strong>blooberry</strong>
+                                        <p class="text-muted">
+                                            won 2,500 SoggyCoins.
+                                        </p>
+                                    </div>
+
+                                    <span class="activity-time">
+                                        1m
+                                    </span>
+                                </div>
+
+                                <div class="activity-item">
+                                    <span class="activity-icon">🌊</span>
+
+                                    <div>
+                                        <strong>lawnmower</strong>
+                                        <p class="text-muted">
+                                            discovered an Epic Soggy Cat.
+                                        </p>
+                                    </div>
+
+                                    <span class="activity-time">
+                                        3m
+                                    </span>
+                                </div>
+                            </div>
+                        </article>
+
+                    </div>
+                </section>
+
+                <section class="section">
+                    <article class="card touch-grass-preview">
+                        <div>
+                            <span class="badge uncommon">
+                                wellness
+                            </span>
+
+                            <h2 class="section-title">
+                                have you touched grass recently?
+                            </h2>
+
+                            <p class="text-muted">
+                                your grass-related statistics are available
+                                in settings.
+                            </p>
+                        </div>
+
+                        <a
+                            class="button"
+                            href="/settings.html"
+                        >
+                            Touch grass settings
+                        </a>
+                    </article>
+                </section>
+
+            </div>
+        </main>
+    </div>
+
+    <script
+        type="module"
+        src="/js/app.js"
+    ></script>
+
+    <script type="module">
+        import {
+            addBalance
+        } from "/js/balance.js";
+
+        import {
+            getPlayer,
+            updatePlayer
+        } from "/js/storage.js";
+
+        import {
+            showToast
+        } from "/js/app.js";
+
+        const DAILY_REWARD = 500;
+        const DAILY_REWARD_COOLDOWN = 24 * 60 * 60 * 1000;
+
+        const rewardButton = document.querySelector(
+            "#daily-reward-button"
+        );
+
+        function getRemainingRewardTime() {
+            const player = getPlayer();
+            const lastClaimed = player.dailyReward?.lastClaimed ?? 0;
+            const availableAt = lastClaimed + DAILY_REWARD_COOLDOWN;
+
+            return Math.max(0, availableAt - Date.now());
+        }
+
+        function formatRemainingTime(milliseconds) {
+            const totalMinutes = Math.ceil(
+                milliseconds / 60000
+            );
+
+            const hours = Math.floor(totalMinutes / 60);
+            const minutes = totalMinutes % 60;
+
+            if (hours > 0) {
+                return `${hours}h ${minutes}m`;
+            }
+
+            return `${minutes}m`;
+        }
+
+        function renderDailyReward() {
+            const remaining = getRemainingRewardTime();
+
+            if (remaining === 0) {
+                rewardButton.disabled = false;
+                rewardButton.textContent = `Claim ${DAILY_REWARD} SC`;
+                return;
+            }
+
+            rewardButton.disabled = true;
+            rewardButton.textContent =
+                `Available in ${formatRemainingTime(remaining)}`;
+        }
+
+        rewardButton.addEventListener("click", () => {
+            if (getRemainingRewardTime() > 0) {
+                return;
+            }
+
+            addBalance(DAILY_REWARD);
+
+            updatePlayer((player) => {
+                player.dailyReward = {
+                    lastClaimed: Date.now()
+                };
+
+                return player;
+            });
+
+            showToast(
+                `you claimed ${DAILY_REWARD} soggycoins.`,
+                "success"
+            );
+
+            renderDailyReward();
+        });
+
+        renderDailyReward();
+
+        window.setInterval(
+            renderDailyReward,
+            30000
+        );
+    </script>
 </body>
-
 </html>

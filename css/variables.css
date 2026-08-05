@@ -1,3 +1,5 @@
+/* Defines the site's reusable colors, sizes, spacing, shadows, radius, and transitions. | Do not tamper with if you're stupid */
+
 :root {
     --color-background: #0f1218;
     --color-surface: #171b24;
@@ -42,5 +44,3 @@
     --transition-fast: 140ms ease;
     --transition-normal: 220ms ease;
 }
-
-/* Defines the site's reusable colors, sizes, spacing, shadows, radius, and transitions. | Do not tamper with if you're stupid */

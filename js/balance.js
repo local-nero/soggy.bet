@@ -15,7 +15,7 @@ export function canAfford(amount) {
 
 export function addBalance(amount) {
     if (!Number.isFinite(amount) || amount <= 0) {
-        throw new Error("Balance amount must be greater than zero.");
+        throw new Error("balance amount must be greater than zero bro | addBalance");
     }
 
     return updatePlayer((player) => {
@@ -26,7 +26,7 @@ export function addBalance(amount) {
 
 export function subtractBalance(amount) {
     if (!Number.isFinite(amount) || amount <= 0) {
-        throw new Error("Balance amount must be greater than zero.");
+        throw new Error("balance amount MUST be greater from zero bro | subtractBalance");
     }
 
     if (!canAfford(amount)) {

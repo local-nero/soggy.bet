@@ -360,7 +360,23 @@
 }
 
 .coming-game {
-    opacity: 0.7;
+    opacity: 0.86;
+}
+
+.coming-game .casino-game-footer h3 {
+    color: rgb(245 247 251 / 78%);
+}
+
+.coming-game .casino-game-footer p {
+    color: rgb(146 157 177 / 78%);
+}
+
+.coming-game .game-art-symbol {
+    opacity: 0.82;
+}
+
+.coming-game .game-status.muted {
+    opacity: 0.85;
 }
 
 .casino-game-art {

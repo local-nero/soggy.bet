@@ -1,3 +1,5 @@
+/* removes inconsistent default browser slop styles */
+
 *,
 *::before,
 *::after {
@@ -64,5 +66,3 @@ textarea,
 select {
     min-width: 0;
 }
-
-/* removes inconsistent default browser slop styles */

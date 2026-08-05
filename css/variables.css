@@ -1,6 +1,7 @@
 /* Defines the site's reusable colors, sizes, spacing, shadows, radius, and transitions. | Do not tamper with if you're stupid */
 
 :root {
+    --font-ui: "Spotify Mix", sans-serif;
     --color-background: #0f1218;
     --color-surface: #171b24;
     --color-surface-light: #202633;

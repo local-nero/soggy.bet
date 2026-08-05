@@ -1,8 +1,8 @@
 <div align="center">
 
-# 💧 SoggyBet
+# 💧 soggybet
 
-### The internet's premier destination for gambling fake currency on soggy cat pictures.
+### mamytema studios' favorite gambling website
 
 ![License](https://img.shields.io/github/license/local-nero/soggy.bet?style=for-the-badge)
 ![HTML](https://img.shields.io/badge/HTML-E34F26?style=for-the-badge&logo=html5&logoColor=white)
@@ -12,56 +12,51 @@
 
 ---
 
-*A parody casino where you wager **SoggyCoins** to collect increasingly soggy cats.*
+*here you gamble **SoggyCoins** to collect increasingly rarer soggy cats.*
 
-**No real money. No crypto. No NFTs. Just wet cats.**
+**no crypto, nft or real money is involved. we are just gambling soggy cats here**
 
 </div>
 
 ---
 
-# 👋 About
+# 👋 about
 
-SoggyBet is an open-source parody casino inspired by modern gambling websites.
+soggy.bet is an open-source "parody" casino inspired by modern gambling websites
 
-Instead of depositing money, you earn **SoggyCoins**, play casino-style games, and collect a ridiculous assortment of soggy cat pictures.
+instead of depositing money, you earn **soggycoins™**, which you can use to play casino-style games, and collect a ridiculous amount of soggy cats
 
-The goal isn't profit.
-
-The goal is obtaining the **soggiest cat imaginable.**
+the whole goal of this is obtaining the **soggiest cat**
 
 ---
 
-# ✨ Features
+# ✨ features
 
-- 💧 SoggyCoins economy
-- 🐈 Hundreds of collectible soggy cats
-- 🎰 Casino-inspired original games
-- 📦 Inventory system
-- 💸 Sell cats for SoggyCoins
-- 🏆 Leaderboards
-- 🎁 Daily rewards
-- 📖 CatDex
-- 🌙 Modern responsive UI
-- ⚡ Fast, lightweight frontend
-- ☁️ Cloudflare Pages ready
+- 💧 soggycoins™ economy
+- 🐈 hundreds of soggy cats
+- 🎰 casino-inspired games
+- 📦 soggy inventory
+- 💸 sell soggies for more soggycoins™
+- 🏆 leaderboards
+- 🎁 daily rewards
+- 📖 CatDex - collect all the soggies
 
 ---
 
-# 🎮 Games
+# 🎮 games
 
 | Game | Description | Status |
 |------|-------------|--------|
-| 🎡 Wheel | Spin the wheel for cats and SoggyCoins. | 🚧 In Progress |
-| 💣 Litterbox | Avoid the dry tiles. | ⏳ Planned |
-| 🐾 CatPlinko | Drop your cat through pegs. | ⏳ Planned |
-| 🎲 Dice | Roll for profit. | ⏳ Planned |
-| 📈 Limbo | Guess the multiplier. | ⏳ Planned |
-| 🃏 BlackCat | Blackjack... but cats. | ⏳ Planned |
+| 🎡 Wheel | spin the wheel for cats and soggycoins™ | 🚧 In Progress |
+| 💣 Litterbox | avoid the dry tiles | ⏳ Planned |
+| 🐾 CatPlinko | drop your cat | ⏳ Planned |
+| 🎲 Dice | roll for profit. | ⏳ Planned |
+| 📈 Limbo | guess the multiplier | ⏳ Planned |
+| 🃏 BlackCat | blackjack but sogged up | ⏳ Planned |
 
 ---
 
-# 🐈 Rarities
+# 🐈 rarities
 
 | Rarity | Chance |
 |---------|--------|
@@ -75,102 +70,20 @@ The goal is obtaining the **soggiest cat imaginable.**
 
 ---
 
-# 💧 SoggyCoins
+# 💧 soggycoins™
 
-SoggyCoins are the main in-game currency.
+soggycoins™ are the main in-game currency.
 
 You can earn them by
 
-- 🎁 Daily rewards
-- 🐈 Selling cats
-- 🎡 Winning games
-- 🏆 Completing achievements
-- 📅 Events
+- 🎁 daily rewards
+- 🐈 selling soggies
+- 🎡 winning games
+- 🏆 completing achievements
+- 📅 events
 
-SoggyCoins **cannot** be purchased or exchanged for real-world money.
-
----
-
-# 📂 Project Structure
-
-```text
-.
-├── assets/
-│   ├── cats/
-│   ├── icons/
-│   └── logo/
-│
-├── css/
-│   ├── style.css
-│   ├── sidebar.css
-│   ├── navbar.css
-│   ├── home.css
-│   ├── games.css
-│   └── inventory.css
-│
-├── games/
-│   ├── wheel.html
-│   ├── litterbox.html
-│   ├── plinko.html
-│   ├── dice.html
-│   ├── limbo.html
-│   └── blackcat.html
-│
-├── js/
-│   ├── app.js
-│   ├── storage.js
-│   ├── ui.js
-│   └── games/
-│       ├── wheel.js
-│       ├── litterbox.js
-│       ├── plinko.js
-│       ├── dice.js
-│       ├── limbo.js
-│       └── blackcat.js
-│
-├── index.html
-├── inventory.html
-├── market.html
-├── profile.html
-├── LICENSE
-└── README.md
-```
-
----
-
-# 🚀 Development
-
-Clone the repository
-
-```bash
-git clone https://github.com/YOUR_USERNAME/soggybet.git
-```
-
-Open the project.
-
-```bash
-cd soggybet
-```
-
-Serve locally.
-
-Python
-
-```bash
-python -m http.server
-```
-
-Node
-
-```bash
-npx serve
-```
-
-Open
-
-```
-http://localhost:8000
-```
+soggycoins™ **cannot** be purchased or exchanged for real-world money.
+but if you do something for me i will probably give you some
 
 ---
 
@@ -219,28 +132,27 @@ http://localhost:8000
 
 Future
 
-- Cloudflare Workers
-- Cloudflare D1
-- Durable Objects
+- Cloudflare Workers (practically js)
+- Cloudflare D1 (database)
+- Durable Objects (database²)
 
 ---
 
-# ⚠️ Disclaimer
+# ⚠️ disclaimer
 
-SoggyBet is a parody project created for entertainment purposes.
+soggybet is a project created for entertainment purposes
 
-- No real money is involved.
-- SoggyCoins have no monetary value.
-- Soggy Cats cannot be exchanged for real currency.
-- This project is not affiliated with Stake, FakeStake, or any gambling platform.
+- no real money is actually involved
+- soggycoins™ have no monetary value
+- soggy cats cannot be exchanged for real currency
 
 ---
 
-# 🤝 Contributing
+# 🤝 contributing
 
-Contributions are welcome!
+contributions are welcome!
 
-Feel free to open an issue if you have an idea for
+feel free to open an issue if you have an idea for
 
 - a new game
 - a new soggy cat
@@ -248,11 +160,11 @@ Feel free to open an issue if you have an idea for
 - bug fixes
 - balancing suggestions
 
-Pull requests are always appreciated.
+pull requests are always appreciated too
 
 ---
 
-# 📜 License
+# 📜 license
 
 This project is licensed under the **MIT License**.
 
@@ -262,10 +174,10 @@ See the [LICENSE](LICENSE) file for more information.
 
 <div align="center">
 
-## 🌊 Become the soggiest.
+## 🌊 "Throughout Heaven and Earth, I alone am the soggiest one." - Satoru Soggojo
 
-*"One more spin..."*
+*"One more game!"*
 
-Made with ❤️, HTML, CSS, JavaScript, and an unreasonable number of soggy cat pictures.
+made with ❤️, HTML, CSS, JavaScript, and an unreasonable number of soggy cat pictures.
 
 </div>

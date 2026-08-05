@@ -1,0 +1,129 @@
+/* makes the fonts work */
+
+@font-face {
+    font-family: "Spotify Mix";
+    src: url("/assets/fonts/SpotifyMix-Thin.woff2") format("woff2");
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Spotify Mix";
+    src: url("/assets/fonts/SpotifyMix-ThinItalic.woff2") format("woff2");
+    font-weight: 100;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Spotify Mix";
+    src: url("/assets/fonts/SpotifyMix-Light.woff2") format("woff2");
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Spotify Mix";
+    src: url("/assets/fonts/SpotifyMix-LightItalic.woff2") format("woff2");
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Spotify Mix";
+    src: url("/assets/fonts/SpotifyMix-Regular.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Spotify Mix";
+    src: url("/assets/fonts/SpotifyMix-RegularItalic.woff2") format("woff2");
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Spotify Mix";
+    src: url("/assets/fonts/SpotifyMix-Medium.woff2") format("woff2");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Spotify Mix";
+    src: url("/assets/fonts/SpotifyMix-MediumItalic.woff2") format("woff2");
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Spotify Mix";
+    src: url("/assets/fonts/SpotifyMix-Bold.woff2") format("woff2");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Spotify Mix";
+    src: url("/assets/fonts/SpotifyMix-BoldItalic.woff2") format("woff2");
+    font-weight: 700;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Spotify Mix";
+    src: url("/assets/fonts/SpotifyMix-Extrabold.woff2") format("woff2");
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Spotify Mix";
+    src: url("/assets/fonts/SpotifyMix-ExtraboldItalic.woff2") format("woff2");
+    font-weight: 800;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Spotify Mix";
+    src: url("/assets/fonts/SpotifyMix-Black.woff2") format("woff2");
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Spotify Mix";
+    src: url("/assets/fonts/SpotifyMix-BlackItalic.woff2") format("woff2");
+    font-weight: 900;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Spotify Mix";
+    src: url("/assets/fonts/SpotifyMix-Ultra.woff2") format("woff2");
+    font-weight: 950;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Spotify Mix";
+    src: url("/assets/fonts/SpotifyMix-UltraItalic.woff2") format("woff2");
+    font-weight: 950;
+    font-style: italic;
+    font-display: swap;
+}

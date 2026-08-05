@@ -1,1 +1,59 @@
+/* defines badges for rarities, game types, and statuses | do not tamper with if youre stupid since it can break one of THE most important things */
 
+.badge {
+    display: inline-flex;
+    min-height: 24px;
+    align-items: center;
+    justify-content: center;
+    padding: 0 9px;
+
+    background: var(--color-surface-hover);
+    color: var(--color-text-muted);
+    border: 1px solid var(--color-border-light);
+    border-radius: 6px;
+
+    font-size: 0.7rem;
+    font-weight: 850;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+}
+
+.badge.common {
+    color: var(--color-common);
+}
+
+.badge.uncommon {
+    color: var(--color-uncommon);
+}
+
+.badge.rare {
+    color: var(--color-rare);
+}
+
+.badge.epic {
+    color: var(--color-epic);
+}
+
+.badge.legendary {
+    color: var(--color-legendary);
+}
+
+.badge.mythic {
+    color: var(--color-mythic);
+}
+
+.badge.divine {
+    color: var(--color-divine);
+}
+
+.badge.original {
+    color: var(--color-primary);
+    border-color: rgb(75 185 233 / 32%);
+    background: rgb(75 185 233 / 8%);
+}
+
+.badge.coming-soon {
+    color: var(--color-warning);
+    border-color: rgb(245 185 66 / 30%);
+    background: rgb(245 185 66 / 8%);
+}

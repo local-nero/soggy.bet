@@ -1,1 +1,46 @@
+:root {
+    --color-background: #0f1218;
+    --color-surface: #171b24;
+    --color-surface-light: #202633;
+    --color-surface-hover: #293140;
 
+    --color-border: #303849;
+    --color-border-light: #3b465a;
+
+    --color-text: #f5f7fb;
+    --color-text-muted: #929db1;
+    --color-text-dark: #11151c;
+
+    --color-primary: #4bb9e9;
+    --color-primary-hover: #68c8f0;
+    --color-primary-dark: #2288b5;
+
+    --color-success: #3ccf91;
+    --color-warning: #f5b942;
+    --color-danger: #ef5b68;
+
+    --color-common: #9ca3af;
+    --color-uncommon: #4ade80;
+    --color-rare: #3b82f6;
+    --color-epic: #a855f7;
+    --color-legendary: #f59e0b;
+    --color-mythic: #ef4444;
+    --color-divine: #f7d154;
+
+    --sidebar-width: 250px;
+    --topbar-height: 72px;
+
+    --radius-small: 8px;
+    --radius-medium: 12px;
+    --radius-large: 18px;
+    --radius-round: 999px;
+
+    --shadow-small: 0 4px 12px rgb(0 0 0 / 18%);
+    --shadow-medium: 0 12px 32px rgb(0 0 0 / 28%);
+    --shadow-large: 0 20px 50px rgb(0 0 0 / 38%);
+
+    --transition-fast: 140ms ease;
+    --transition-normal: 220ms ease;
+}
+
+/* Defines the site's reusable colors, sizes, spacing, shadows, radius, and transitions. | Do not tamper with if you're stupid */

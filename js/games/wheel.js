@@ -18,6 +18,7 @@ import {
 import {
     getRandomAnomaly,
     getRandomWheelSoggy,
+    getSoggyById,
     getWheelSoggiesByRarity
 } from "/js/soggies.js";
 
@@ -28,7 +29,6 @@ import {
     getAllWheelTypes,
     getAnomalyChance,
     getIndividualSoggyChance,
-    getRarityChance,
     getSpinCost,
     getWheelType,
     rollAnomaly,
@@ -44,24 +44,59 @@ import {
 
 
 /* =========================================================
-   DOM
+   dom
    ========================================================= */
 
 const wheel = document.querySelector("#wheel");
-const spinButton = document.querySelector("#spin-button");
-const wheelStatus = document.querySelector("#wheel-status");
-const wheelHistory = document.querySelector("#wheel-history");
 
-const spinCostText = document.querySelector("#spin-cost");
-const spinCostValue = document.querySelector("#spin-cost-value");
+const spinButton = document.querySelector(
+    "#spin-button"
+);
 
-const rewardModal = document.querySelector("#reward-modal");
-const rewardRarity = document.querySelector("#reward-rarity");
-const rewardTitle = document.querySelector("#reward-title");
-const rewardDescription = document.querySelector("#reward-description");
-const rewardValue = document.querySelector("#reward-value");
+const wheelStatus = document.querySelector(
+    "#wheel-status"
+);
 
-const rewardImage = document.querySelector("#reward-image");
+const wheelHistory = document.querySelector(
+    "#wheel-history"
+);
+
+const spinCostText = document.querySelector(
+    "#spin-cost"
+);
+
+const spinCostValue = document.querySelector(
+    "#spin-cost-value"
+);
+
+const wheelStageName = document.querySelector(
+    "#wheel-stage-name"
+);
+
+const rewardModal = document.querySelector(
+    "#reward-modal"
+);
+
+const rewardRarity = document.querySelector(
+    "#reward-rarity"
+);
+
+const rewardTitle = document.querySelector(
+    "#reward-title"
+);
+
+const rewardDescription = document.querySelector(
+    "#reward-description"
+);
+
+const rewardValue = document.querySelector(
+    "#reward-value"
+);
+
+const rewardImage = document.querySelector(
+    "#reward-image"
+);
+
 const rewardImageFallback = document.querySelector(
     "#reward-image-fallback"
 );
@@ -74,9 +109,6 @@ const sellRewardButton = document.querySelector(
     "#sell-reward-button"
 );
 
-
-/* optional ui we will use when present */
-
 const wheelTypeButtons = document.querySelectorAll(
     "[data-wheel-type]"
 );
@@ -85,19 +117,22 @@ const wagerButtons = document.querySelectorAll(
     "[data-wager]"
 );
 
-const wagerInput = document.querySelector("#wager-input");
+const wagerInput = document.querySelector(
+    "#wager-input"
+);
 
 const selectedWheelName = document.querySelector(
     "#selected-wheel-name"
 );
 
-const selectedWheelDescription = document.querySelector(
-    "#selected-wheel-description"
-);
+const selectedWheelDescription =
+    document.querySelector(
+        "#selected-wheel-description"
+    );
 
 
 /* =========================================================
-   CONFIG
+   config
    ========================================================= */
 
 const SPIN_DURATION = 6200;
@@ -122,7 +157,7 @@ const RARITY_COLORS = {
 
 
 /* =========================================================
-   STATE
+   state
    ========================================================= */
 
 let currentWheelId = "balanced";
@@ -132,12 +167,11 @@ let currentRotation = 0;
 let spinning = false;
 
 let pendingReward = null;
-
 let rewardResolved = true;
 
 
 /* =========================================================
-   PLAYER HELPERS
+   player helpers
    ========================================================= */
 
 function ensurePlayerShape(player) {
@@ -162,6 +196,12 @@ function ensurePlayerShape(player) {
     player.statistics.wheelSpins ??= 0;
     player.statistics.soggiesCollected ??= 0;
     player.statistics.soggiesSold ??= 0;
+
+    if (!player.settings) {
+        player.settings = {};
+    }
+
+    player.settings.cutscenes ??= "full";
 
     return player;
 }
@@ -244,10 +284,11 @@ function recordSpin(result) {
     updatePlayer((player) => {
         ensurePlayerShape(player);
 
-        const spinCost = getSpinCost(
-            currentWheelId,
-            currentWager
-        );
+        const spinCost =
+            getSpinCost(
+                currentWheelId,
+                currentWager
+            );
 
         player.statistics.totalWagered +=
             spinCost;
@@ -303,15 +344,22 @@ function recordSpin(result) {
 
 
 /* =========================================================
-   WHEEL + WAGER UI
+   wheel + wager ui
    ========================================================= */
 
 function setWheelType(wheelId) {
-    const wheelType = getWheelType(
-        wheelId
-    );
+    const wheelType =
+        getWheelType(
+            wheelId
+        );
 
-    currentWheelId = wheelType.id;
+    currentWheelId =
+        wheelType.id;
+
+    if (wheelStageName) {
+        wheelStageName.textContent =
+            wheelType.name;
+    }
 
     wheelTypeButtons.forEach(
         (button) => {
@@ -334,13 +382,13 @@ function setWheelType(wheelId) {
     }
 
     updateSpinCost();
-
     renderWheelVisual();
 }
 
 
 function setWager(value) {
-    const wager = Number(value);
+    const wager =
+        Number(value);
 
     if (
         !Number.isFinite(wager) ||
@@ -349,9 +397,10 @@ function setWager(value) {
         return;
     }
 
-    currentWager = Math.round(
-        wager
-    );
+    currentWager =
+        Math.round(
+            wager
+        );
 
     wagerButtons.forEach(
         (button) => {
@@ -374,25 +423,30 @@ function setWager(value) {
 
 
 function updateSpinCost() {
-    const cost = getSpinCost(
-        currentWheelId,
-        currentWager
-    );
+    const cost =
+        getSpinCost(
+            currentWheelId,
+            currentWager
+        );
 
     if (spinCostText) {
         spinCostText.textContent =
-            `${formatSoggyCoins(cost)} sc`;
+            `${formatSoggyCoins(
+                cost
+            )} sc`;
     }
 
     if (spinCostValue) {
         spinCostValue.textContent =
-            formatSoggyCoins(cost);
+            formatSoggyCoins(
+                cost
+            );
     }
 }
 
 
 /* =========================================================
-   VISUAL WHEEL
+   visual wheel
    ========================================================= */
 
 function renderWheelVisual() {
@@ -400,13 +454,15 @@ function renderWheelVisual() {
         return;
     }
 
-    const config = getWheelType(
-        currentWheelId
-    );
+    const config =
+        getWheelType(
+            currentWheelId
+        );
 
-    const segments = Object.entries(
-        config.rarityChances
-    );
+    const segments =
+        Object.entries(
+            config.rarityChances
+        );
 
     const colors = [];
 
@@ -416,13 +472,16 @@ function renderWheelVisual() {
         const [rarityId, chance]
         of segments
     ) {
-        const nextAngle =
-            currentAngle +
+        const segmentSize =
             (
                 chance /
                 100
             ) *
             360;
+
+        const nextAngle =
+            currentAngle +
+            segmentSize;
 
         const color =
             RARITY_COLORS[
@@ -444,7 +503,7 @@ function renderWheelVisual() {
 
 
 /* =========================================================
-   ODDS
+   odds
    ========================================================= */
 
 async function calculateFullSpinChance(
@@ -457,9 +516,10 @@ async function calculateFullSpinChance(
         return null;
     }
 
-    const config = getWheelType(
-        currentWheelId
-    );
+    const config =
+        getWheelType(
+            currentWheelId
+        );
 
     const pool =
         await getWheelSoggiesByRarity(
@@ -485,23 +545,6 @@ async function calculateFullSpinChance(
         return null;
     }
 
-    /*
-        rarity chance happens only after
-        reward type = soggy.
-
-        example:
-
-        balanced:
-        80% chance of a soggy
-
-        ultra legendary:
-        0.2%
-
-        9 ultra legendaries
-
-        80% × 0.2% / 9
-    */
-
     const soggyRewardFactor =
         config.soggyChance /
         100;
@@ -514,15 +557,10 @@ async function calculateFullSpinChance(
 
 
 /* =========================================================
-   RESULT ROLLING
+   result rolling
    ========================================================= */
 
 async function rollSpinResult() {
-    /*
-        anomaly check happens before
-        normal reward generation.
-    */
-
     if (
         anomalyConfig.enabled &&
         rollAnomaly(
@@ -556,6 +594,7 @@ async function rollSpinResult() {
 
         return {
             type: "coins",
+
             amount:
                 coinReward.amount,
 
@@ -597,31 +636,35 @@ async function rollSpinResult() {
 
 
 /* =========================================================
-   SPIN ANIMATION
+   spin animation
    ========================================================= */
 
 function getVisualSegmentCenter(
     result
 ) {
     if (
-        result.type === "coins"
+        result.type ===
+        "coins"
     ) {
-        /*
-            coin rewards are not represented
-            by a public rarity segment yet.
-
-            use a random visual position.
-        */
-
         return (
             Math.random() *
             360
         );
     }
 
-    const config = getWheelType(
-        currentWheelId
-    );
+    if (
+        result.anomaly
+    ) {
+        return (
+            Math.random() *
+            360
+        );
+    }
+
+    const config =
+        getWheelType(
+            currentWheelId
+        );
 
     let startAngle = 0;
 
@@ -649,7 +692,8 @@ function getVisualSegmentCenter(
         ) {
             return (
                 startAngle +
-                segmentSize / 2
+                segmentSize /
+                2
             );
         }
 
@@ -657,7 +701,10 @@ function getVisualSegmentCenter(
             segmentSize;
     }
 
-    return Math.random() * 360;
+    return (
+        Math.random() *
+        360
+    );
 }
 
 
@@ -670,7 +717,8 @@ function calculateTargetRotation(
         );
 
     const pointerTarget =
-        360 - center;
+        360 -
+        center;
 
     const normalizedCurrent =
         (
@@ -711,6 +759,25 @@ function calculateTargetRotation(
 function setSpinning(value) {
     spinning = value;
 
+    wheelTypeButtons.forEach(
+        (button) => {
+            button.disabled =
+                value;
+        }
+    );
+
+    wagerButtons.forEach(
+        (button) => {
+            button.disabled =
+                value;
+        }
+    );
+
+    if (wagerInput) {
+        wagerInput.disabled =
+            value;
+    }
+
     if (!spinButton) {
         return;
     }
@@ -718,15 +785,21 @@ function setSpinning(value) {
     spinButton.disabled =
         value;
 
-    spinButton.textContent =
+    spinButton.innerHTML =
         value
-            ? "spinning..."
-            : "spin wheel";
+            ? `
+                <span>spinning...</span>
+                <span class="spin-arrow">↻</span>
+            `
+            : `
+                <span>spin wheel</span>
+                <span class="spin-arrow">→</span>
+            `;
 }
 
 
 /* =========================================================
-   CUTSCENES
+   cutscenes
    ========================================================= */
 
 function ensureCutsceneElement() {
@@ -754,9 +827,12 @@ function ensureCutsceneElement() {
         <div class="soggy-cutscene-noise"></div>
 
         <div class="soggy-cutscene-center">
-            <div class="soggy-cutscene-star">✦</div>
+            <div class="soggy-cutscene-star">
+                ✦
+            </div>
 
-            <div class="soggy-cutscene-rarity"></div>
+            <div class="soggy-cutscene-rarity">
+            </div>
         </div>
     `;
 
@@ -804,21 +880,27 @@ async function playCutscene(
         CUTSCENE_RARITIES.has(
             rarity
         ) ||
-        rarity === "anomaly";
+        rarity ===
+            "anomaly";
 
     if (!shouldPlay) {
         return;
     }
 
     const player =
-        getPlayer();
+        ensurePlayerShape(
+            getPlayer()
+        );
 
     const setting =
         player.settings
             ?.cutscenes ??
         "full";
 
-    if (setting === "instant") {
+    if (
+        setting ===
+        "instant"
+    ) {
         return;
     }
 
@@ -841,7 +923,10 @@ async function playCutscene(
     rarityText.textContent =
         rarity === "anomaly"
             ? "████████"
-            : rarity;
+            : rarity.replace(
+                "-",
+                " "
+            );
 
     star.textContent =
         rarity === "anomaly"
@@ -883,7 +968,7 @@ async function playCutscene(
 
 
 /* =========================================================
-   REWARD MODAL
+   reward modal
    ========================================================= */
 
 function resetRewardModal() {
@@ -930,7 +1015,8 @@ async function showSoggyReward(
         newDiscovery
     };
 
-    rewardResolved = false;
+    rewardResolved =
+        false;
 
     resetRewardModal();
 
@@ -990,26 +1076,23 @@ async function showSoggyReward(
     rewardImageFallback.textContent =
         "🐈";
 
-    rewardImage.onload = () => {
-        rewardImage.hidden =
-            false;
+    rewardImage.onload =
+        () => {
+            rewardImage.hidden =
+                false;
 
-        rewardImageFallback.hidden =
-            true;
-    };
+            rewardImageFallback.hidden =
+                true;
+        };
 
-    rewardImage.onerror = () => {
-        rewardImage.hidden =
-            true;
+    rewardImage.onerror =
+        () => {
+            rewardImage.hidden =
+                true;
 
-        rewardImageFallback.hidden =
-            false;
-    };
-
-    /*
-        inject odds beneath card if
-        the html doesn't already have it
-    */
+            rewardImageFallback.hidden =
+                false;
+        };
 
     let oddsBox =
         rewardModal.querySelector(
@@ -1052,16 +1135,20 @@ async function showSoggyReward(
         oddsBox.innerHTML = `
             <div>
                 <span>chance</span>
-                <strong>${formatChance(
-                    result.chance
-                )}</strong>
+                <strong>
+                    ${formatChance(
+                        result.chance
+                    )}
+                </strong>
             </div>
 
             <div>
                 <span>odds</span>
-                <strong>${formatOdds(
-                    result.chance
-                )}</strong>
+                <strong>
+                    ${formatOdds(
+                        result.chance
+                    )}
+                </strong>
             </div>
         `;
     }
@@ -1092,10 +1179,6 @@ async function showSoggyReward(
         discovery.classList.add(
             "is-new"
         );
-
-        /*
-            first discovery cannot be sold
-        */
 
         sellRewardButton.hidden =
             true;
@@ -1132,9 +1215,11 @@ async function showSoggyReward(
 function showCoinReward(
     result
 ) {
-    pendingReward = result;
+    pendingReward =
+        result;
 
-    rewardResolved = false;
+    rewardResolved =
+        false;
 
     resetRewardModal();
 
@@ -1143,6 +1228,12 @@ function showCoinReward(
 
     rewardRarity.className =
         "badge original";
+
+    rewardImage.hidden =
+        true;
+
+    rewardImageFallback.hidden =
+        false;
 
     rewardImageFallback.textContent =
         "💧";
@@ -1170,8 +1261,26 @@ function showCoinReward(
     sellRewardButton.hidden =
         true;
 
+    const discovery =
+        rewardModal.querySelector(
+            ".reward-discovery"
+        );
+
+    if (discovery) {
+        discovery.textContent =
+            "";
+    }
+
+    const oddsBox =
+        rewardModal.querySelector(
+            ".reward-odds"
+        );
+
+    if (oddsBox) {
+        oddsBox.remove();
+    }
+
     rewardModal.classList.add(
-        "reward-rare",
         "is-open"
     );
 
@@ -1183,7 +1292,7 @@ function showCoinReward(
 
 
 /* =========================================================
-   REWARD RESOLUTION
+   reward resolution
    ========================================================= */
 
 function keepPendingReward() {
@@ -1293,17 +1402,21 @@ function sellPendingReward() {
         soggy.value
     );
 
-    updatePlayer((player) => {
-        ensurePlayerShape(player);
+    updatePlayer(
+        (player) => {
+            ensurePlayerShape(
+                player
+            );
 
-        player.statistics.totalWon +=
-            soggy.value;
+            player.statistics.totalWon +=
+                soggy.value;
 
-        player.statistics.soggiesSold +=
-            1;
+            player.statistics.soggiesSold +=
+                1;
 
-        return player;
-    });
+            return player;
+        }
+    );
 
     showToast(
         `${soggy.name} was released for ${formatSoggyCoins(
@@ -1320,11 +1433,6 @@ function sellPendingReward() {
 
 
 function closeRewardModal() {
-    /*
-        cannot accidentally throw away
-        an unresolved reward
-    */
-
     if (!rewardResolved) {
         return;
     }
@@ -1346,7 +1454,7 @@ function closeRewardModal() {
 
 
 /* =========================================================
-   HISTORY
+   history
    ========================================================= */
 
 function formatHistoryTime(
@@ -1364,7 +1472,7 @@ function formatHistoryTime(
 }
 
 
-function renderHistory() {
+async function renderHistory() {
     if (!wheelHistory) {
         return;
     }
@@ -1454,21 +1562,6 @@ function renderHistory() {
                 "strong"
             );
 
-        if (
-            entry.type ===
-            "coins"
-        ) {
-            title.textContent =
-                `${formatSoggyCoins(
-                    entry.amount
-                )} sc`;
-        } else {
-            title.textContent =
-                entry.anomaly
-                    ? "████████"
-                    : entry.soggyId;
-        }
-
         const detail =
             document.createElement(
                 "span"
@@ -1478,19 +1571,38 @@ function renderHistory() {
             entry.type ===
             "coins"
         ) {
+            title.textContent =
+                `${formatSoggyCoins(
+                    entry.amount
+                )} sc`;
+
             detail.textContent =
                 `${entry.multiplier}×`;
         } else if (
             entry.anomaly
         ) {
+            title.textContent =
+                "████████";
+
             detail.textContent =
                 "???";
         } else {
-            detail.textContent =
-                entry.rarity.replace(
-                    "-",
-                    " "
+            const soggy =
+                await getSoggyById(
+                    entry.soggyId
                 );
+
+            title.textContent =
+                soggy?.name ??
+                entry.soggyId;
+
+            detail.textContent =
+                entry.rarity
+                    ?.replaceAll(
+                        "-",
+                        " "
+                    ) ??
+                "";
         }
 
         card.append(
@@ -1507,11 +1619,19 @@ function renderHistory() {
 
 
 /* =========================================================
-   MAIN SPIN
+   main spin
    ========================================================= */
 
 async function spinWheel() {
     if (spinning) {
+        return;
+    }
+
+    if (
+        rewardModal?.classList.contains(
+            "is-open"
+        )
+    ) {
         return;
     }
 
@@ -1564,8 +1684,10 @@ async function spinWheel() {
 
         requestAnimationFrame(
             () => {
-                wheel.style.transform =
-                    `rotate(${targetRotation}deg)`;
+                if (wheel) {
+                    wheel.style.transform =
+                        `rotate(${targetRotation}deg)`;
+                }
             }
         );
 
@@ -1578,12 +1700,18 @@ async function spinWheel() {
             }
         );
 
-        if (result.type === "soggy") {
+        if (
+            result.type ===
+            "soggy"
+        ) {
             if (wheelStatus) {
                 wheelStatus.textContent =
                     result.anomaly
                         ? "..."
-                        : `landed on ${result.soggy.rarity.replace("-", " ")}.`;
+                        : `landed on ${result.soggy.rarity.replaceAll(
+                            "-",
+                            " "
+                        )}.`;
             }
 
             await playCutscene(
@@ -1613,10 +1741,6 @@ async function spinWheel() {
             error
         );
 
-        /*
-            refund failed spins
-        */
-
         addBalance(
             cost
         );
@@ -1633,13 +1757,13 @@ async function spinWheel() {
     } finally {
         setSpinning(false);
 
-        renderHistory();
+        await renderHistory();
     }
 }
 
 
 /* =========================================================
-   EVENTS
+   events
    ========================================================= */
 
 spinButton?.addEventListener(
@@ -1647,18 +1771,15 @@ spinButton?.addEventListener(
     spinWheel
 );
 
-
 keepRewardButton?.addEventListener(
     "click",
     keepPendingReward
 );
 
-
 sellRewardButton?.addEventListener(
     "click",
     sellPendingReward
 );
-
 
 wheelTypeButtons.forEach(
     (button) => {
@@ -1670,14 +1791,12 @@ wheelTypeButtons.forEach(
                 }
 
                 setWheelType(
-                    button.dataset
-                        .wheelType
+                    button.dataset.wheelType
                 );
             }
         );
     }
 );
-
 
 wagerButtons.forEach(
     (button) => {
@@ -1689,14 +1808,12 @@ wagerButtons.forEach(
                 }
 
                 setWager(
-                    button.dataset
-                        .wager
+                    button.dataset.wager
                 );
             }
         );
     }
 );
-
 
 wagerInput?.addEventListener(
     "change",
@@ -1710,7 +1827,6 @@ wagerInput?.addEventListener(
         );
     }
 );
-
 
 document.addEventListener(
     "keydown",
@@ -1731,7 +1847,7 @@ document.addEventListener(
 
 
 /* =========================================================
-   INIT
+   init
    ========================================================= */
 
 async function initializeWheel() {
@@ -1743,16 +1859,12 @@ async function initializeWheel() {
         currentWager
     );
 
-    renderHistory();
+    await renderHistory();
 
     if (wheelStatus) {
         wheelStatus.textContent =
             "the wheel is suspiciously dry.";
     }
-
-    /*
-        useful development information
-    */
 
     console.log(
         "[soggybet] wheel ready",

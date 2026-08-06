@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1"
+    >
+
+    <meta
+        name="robots"
+        content="noindex,nofollow"
+    >
+
+    <title>private puddle • soggybet</title>
+
+    <link
+        rel="stylesheet"
+        href="/css/style.css"
+    >
+
+    <style>
+        body {
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .unlock-page {
+            position: relative;
+
+            display: grid;
+            min-height: 100vh;
+            place-items: center;
+
+            overflow: hidden;
+            padding: 24px;
+
+            background:
+                radial-gradient(
+                    circle at 50% 45%,
+                    rgb(75 185 233 / 16%),
+                    transparent 35%
+                ),
+                linear-gradient(
+                    145deg,
+                    #111923,
+                    #090d13
+                );
+        }
+
+        .unlock-grid {
+            position: absolute;
+            inset: 0;
+
+            background-image:
+                linear-gradient(
+                    rgb(255 255 255 / 2%) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    rgb(255 255 255 / 2%) 1px,
+                    transparent 1px
+                );
+
+            background-size: 38px 38px;
+
+            mask-image:
+                radial-gradient(
+                    circle at center,
+                    black,
+                    transparent 75%
+                );
+
+            pointer-events: none;
+        }
+
+        .unlock-glow {
+            position: absolute;
+
+            width: min(620px, 80vw);
+            aspect-ratio: 1;
+
+            background:
+                rgb(75 185 233 / 12%);
+
+            border-radius: 50%;
+            filter: blur(90px);
+
+            pointer-events: none;
+        }
+
+        .unlock-card {
+            position: relative;
+            z-index: 2;
+
+            width: min(440px, 100%);
+            padding: 34px;
+
+            background:
+                radial-gradient(
+                    circle at 50% 0%,
+                    rgb(75 185 233 / 11%),
+                    transparent 38%
+                ),
+                rgb(22 29 38 / 96%);
+
+            border:
+                1px solid
+                rgb(255 255 255 / 8%);
+
+            border-radius: 24px;
+
+            box-shadow:
+                0 35px 90px
+                rgb(0 0 0 / 48%),
+                inset 0 1px
+                rgb(255 255 255 / 4%);
+
+            backdrop-filter: blur(20px);
+        }
+
+        .unlock-brand {
+            display: flex;
+            align-items: center;
+
+            gap: 11px;
+
+            margin-bottom: 27px;
+
+            font-size: 1.2rem;
+            font-weight: 850;
+            letter-spacing: -0.04em;
+        }
+
+        .unlock-logo {
+            display: grid;
+
+            width: 40px;
+            height: 40px;
+
+            place-items: center;
+
+            background:
+                var(--color-primary);
+
+            border-radius: 12px;
+
+            color:
+                var(--color-text-dark);
+
+            font-size: 1.2rem;
+        }
+
+        .unlock-eyebrow {
+            color:
+                var(--color-primary);
+
+            font-size: 0.68rem;
+            font-weight: 800;
+
+            letter-spacing: 0.08em;
+        }
+
+        .unlock-card h1 {
+            margin-top: 9px;
+
+            font-size:
+                clamp(
+                    2.35rem,
+                    8vw,
+                    3.6rem
+                );
+
+            font-weight: 900;
+
+            letter-spacing: -0.055em;
+            line-height: 0.96;
+        }
+
+        .unlock-card > p {
+            margin-top: 13px;
+
+            color:
+                var(--color-text-muted);
+
+            line-height: 1.55;
+        }
+
+        .unlock-form {
+            display: grid;
+
+            gap: 11px;
+
+            margin-top: 27px;
+        }
+
+        .unlock-label {
+            color:
+                var(--color-text-muted);
+
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .unlock-input-wrap {
+            display: grid;
+
+            grid-template-columns:
+                auto
+                minmax(0, 1fr);
+
+            align-items: center;
+
+            gap: 10px;
+
+            min-height: 50px;
+            padding: 0 14px;
+
+            background: #0d131a;
+
+            border:
+                1px solid
+                var(--color-border);
+
+            border-radius: 12px;
+
+            transition:
+                border-color
+                var(--transition-fast),
+                box-shadow
+                var(--transition-fast);
+        }
+
+        .unlock-input-wrap:focus-within {
+            border-color:
+                var(--color-primary);
+
+            box-shadow:
+                0 0 0 3px
+                rgb(75 185 233 / 10%);
+        }
+
+        .unlock-input-wrap span {
+            opacity: 0.75;
+        }
+
+        .unlock-input {
+            width: 100%;
+
+            background: transparent;
+            color: var(--color-text);
+
+            border: 0;
+            outline: 0;
+
+            font: inherit;
+        }
+
+        .unlock-button {
+            width: 100%;
+            min-height: 50px;
+
+            margin-top: 3px;
+        }
+
+        .unlock-error {
+            display: none;
+
+            padding: 11px 13px;
+
+            background:
+                rgb(239 91 104 / 10%);
+
+            color:
+                var(--color-danger);
+
+            border:
+                1px solid
+                rgb(239 91 104 / 25%);
+
+            border-radius: 11px;
+
+            font-size: 0.78rem;
+        }
+
+        .unlock-error.is-visible {
+            display: block;
+        }
+
+        .unlock-footer {
+            margin-top: 22px;
+
+            color:
+                var(--color-text-muted);
+
+            font-size: 0.7rem;
+            text-align: center;
+        }
+
+        .floating-drop {
+            position: absolute;
+
+            opacity: 0.5;
+
+            animation:
+                float-drop
+                5s ease-in-out
+                infinite;
+
+            pointer-events: none;
+        }
+
+        .floating-drop.one {
+            top: 15%;
+            left: 16%;
+
+            font-size: 2rem;
+        }
+
+        .floating-drop.two {
+            right: 13%;
+            bottom: 18%;
+
+            font-size: 2.7rem;
+
+            animation-delay: -2s;
+        }
+
+        .floating-drop.three {
+            top: 28%;
+            right: 20%;
+
+            font-size: 1.4rem;
+
+            animation-delay: -3.2s;
+        }
+
+        @keyframes float-drop {
+            50% {
+                transform:
+                    translateY(-12px)
+                    rotate(5deg);
+            }
+        }
+
+        @media (max-width: 520px) {
+            .unlock-card {
+                padding: 25px;
+            }
+
+            .floating-drop {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="unlock-page">
+
+        <div class="unlock-grid"></div>
+        <div class="unlock-glow"></div>
+
+        <span class="floating-drop one">
+            💧
+        </span>
+
+        <span class="floating-drop two">
+            💧
+        </span>
+
+        <span class="floating-drop three">
+            💧
+        </span>
+
+
+        <section class="unlock-card">
+
+            <div class="unlock-brand">
+                <span class="unlock-logo">
+                    💧
+                </span>
+
+                <span>soggybet</span>
+            </div>
+
+
+            <span class="unlock-eyebrow">
+                PRIVATE PUDDLE
+            </span>
+
+            <h1>
+                the sogs are behind a locked door.
+            </h1>
+
+            <p>
+                enter the password to access this
+                extremely classified moisture.
+            </p>
+
+
+            <div
+                class="unlock-error"
+                id="unlock-error"
+            >
+                incorrect password. the sogs remain inaccessible.
+            </div>
+
+
+            <form
+                class="unlock-form"
+                method="POST"
+                action="/unlock"
+            >
+
+                <input
+                    type="hidden"
+                    name="next"
+                    id="next-input"
+                    value="/"
+                >
+
+
+                <label
+                    class="unlock-label"
+                    for="password"
+                >
+                    puddle password
+                </label>
+
+
+                <div class="unlock-input-wrap">
+
+                    <span>
+                        🔒
+                    </span>
+
+                    <input
+                        class="unlock-input"
+                        id="password"
+                        name="password"
+                        type="password"
+                        autocomplete="current-password"
+                        placeholder="enter password"
+                        required
+                        autofocus
+                    >
+
+                </div>
+
+
+                <button
+                    class="button primary unlock-button"
+                    type="submit"
+                >
+                    enter the puddle
+                </button>
+
+            </form>
+
+
+            <div class="unlock-footer">
+                soggybet development build • unauthorized dryness prohibited
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script>
+        const params =
+            new URLSearchParams(
+                window.location.search
+            );
+
+        const next =
+            params.get("next");
+
+        if (
+            next &&
+            next.startsWith("/") &&
+            !next.startsWith("//")
+        ) {
+            document.querySelector(
+                "#next-input"
+            ).value = next;
+        }
+
+        if (
+            params.get("error") === "1"
+        ) {
+            document.querySelector(
+                "#unlock-error"
+            ).classList.add(
+                "is-visible"
+            );
+        }
+    </script>
+
+</body>
+</html>

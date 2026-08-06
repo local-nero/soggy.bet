@@ -1,3 +1,5 @@
+// coding is so fun
+
 import {
     publicRarityOrder
 } from "/data/rarities.js";

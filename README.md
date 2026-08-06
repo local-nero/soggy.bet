@@ -58,15 +58,19 @@ the whole goal of this is obtaining the **soggiest cat**
 
 # 🐈 rarities
 
-| Rarity | Chance |
-|---------|--------|
-| Common | 55% |
-| Uncommon | 25% |
-| Rare | 12% |
-| Epic | 5% |
-| Legendary | 2% |
-| Mythic | 0.9% |
-| Divine | 0.1% |
+| Rarity              | Chance |
+| ------------------- | -----: |
+| 🩶 Common           | 50.00% |
+| 🟢 Uncommon         | 24.00% |
+| 🔵 Rare             | 13.00% |
+| 🟣 Super Rare       |  6.00% |
+| 🟠 Epic             |  3.80% |
+| 🔴 Mythic           |  2.00% |
+| 🟡 Legendary        |  1.00% |
+| ✨ Ultra-Legendary  |  0.20% |
+
+> [!NOTE]
+> Secret (Anomaly) Soggies are **not** a rarity and **do not** appear in the public odds. They are obtained through hidden mechanics, extremely rare events, or other undisclosed methods.
 
 ---
 

@@ -1,4 +1,4 @@
-/* Ended up having to re-write the CSS code since it wasn't matching the homepage quality */
+/* changed a little */
 
 .sidebar-link svg {
     width: 19px;
@@ -12,13 +12,17 @@
     stroke-linejoin: round;
 }
 
-/* page header */
+
+/* =========================================================
+   header
+   ========================================================= */
 
 .wheel-page-header {
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
     gap: 24px;
+
     margin-bottom: 24px;
 }
 
@@ -36,16 +40,24 @@
     margin-top: 10px;
 
     color: var(--color-text-muted);
+
     font-size: 0.95rem;
 }
 
-/* main game */
+
+/* =========================================================
+   game shell
+   ========================================================= */
 
 .wheel-game {
     display: grid;
-    grid-template-columns: minmax(0, 1.35fr) minmax(360px, 0.65fr);
 
-    min-height: 650px;
+    grid-template-columns:
+        minmax(0, 1.35fr)
+        minmax(350px, 0.65fr);
+
+    min-height: 620px;
+
     overflow: hidden;
 
     background: #151b24;
@@ -58,21 +70,28 @@
         inset 0 1px rgb(255 255 255 / 4%);
 }
 
-/* wheel stage */
+
+/* =========================================================
+   stage
+   ========================================================= */
 
 .wheel-stage {
     position: relative;
 
     display: grid;
+
     min-width: 0;
+    min-height: 620px;
+
     place-items: center;
+
     overflow: hidden;
 
     background:
         radial-gradient(
             circle at 50% 50%,
-            rgb(60 191 238 / 17%),
-            transparent 39%
+            rgb(60 191 238 / 18%),
+            transparent 41%
         ),
         linear-gradient(
             145deg,
@@ -106,39 +125,39 @@
             black,
             transparent 76%
         );
+
+    pointer-events: none;
 }
 
 .wheel-stage-glow {
     position: absolute;
 
-    width: 600px;
-    height: 600px;
+    width: 590px;
+    height: 590px;
 
-    background: rgb(69 192 238 / 11%);
+    background:
+        rgb(69 192 238 / 12%);
+
     border-radius: 50%;
+
     filter: blur(75px);
+
+    pointer-events: none;
 }
 
-/* actual wheel */
+
+/* =========================================================
+   wheel
+   ========================================================= */
 
 .wheel {
     position: relative;
+
     z-index: 3;
 
-    width: min(510px, calc(100% - 100px));
-    aspect-ratio: 1;
+    width: min(500px, calc(100% - 90px));
 
-    background:
-        conic-gradient(
-            #9ca3af 0deg 180deg,
-            #4ade80 180deg 266.4deg,
-            #3b82f6 266.4deg 313.2deg,
-            #a855f7 313.2deg 334.8deg,
-            #f97316 334.8deg 348.48deg,
-            #ef4444 348.48deg 355.68deg,
-            #facc15 355.68deg 359.28deg,
-            #67e8f9 359.28deg 360deg
-        );
+    aspect-ratio: 1;
 
     border: 15px solid #101820;
     border-radius: 50%;
@@ -149,20 +168,27 @@
         inset 0 0 0 5px rgb(255 255 255 / 10%);
 
     transition:
-        transform 6.2s
+        transform
+        6.2s
         cubic-bezier(
             0.08,
             0.71,
             0.12,
             1
         );
+
+    will-change: transform;
 }
 
 .wheel::before {
     position: absolute;
+
     inset: 7%;
 
-    border: 2px solid rgb(255 255 255 / 20%);
+    border:
+        2px solid
+        rgb(255 255 255 / 20%);
+
     border-radius: 50%;
 
     content: "";
@@ -170,10 +196,16 @@
 
 .wheel::after {
     position: absolute;
+
     inset: 20%;
 
-    background: rgb(7 14 19 / 10%);
-    border: 1px solid rgb(0 0 0 / 22%);
+    background:
+        rgb(7 14 19 / 10%);
+
+    border:
+        1px solid
+        rgb(0 0 0 / 22%);
+
     border-radius: 50%;
 
     content: "";
@@ -181,20 +213,35 @@
 
 .wheel-inner-ring {
     position: absolute;
+
     inset: 13%;
 
-    border: 1px dashed rgb(255 255 255 / 17%);
+    border:
+        1px dashed
+        rgb(255 255 255 / 17%);
+
     border-radius: 50%;
 }
 
+
+/* center */
+
 .wheel-center {
     position: absolute;
-    inset: 50% auto auto 50%;
+
+    inset:
+        50%
+        auto
+        auto
+        50%;
+
     z-index: 5;
 
     display: grid;
+
     width: 104px;
     height: 104px;
+
     place-items: center;
 
     background:
@@ -204,63 +251,98 @@
             #0d161c
         );
 
-    border: 5px solid rgb(255 255 255 / 10%);
+    border:
+        5px solid
+        rgb(255 255 255 / 10%);
+
     border-radius: 50%;
 
     box-shadow:
-        0 20px 32px rgb(0 0 0 / 40%),
-        inset 0 1px rgb(255 255 255 / 8%);
+        0 20px 32px
+        rgb(0 0 0 / 40%),
+        inset 0 1px
+        rgb(255 255 255 / 8%);
 
-    font-size: 2.45rem;
-
-    transform: translate(-50%, -50%);
+    transform:
+        translate(-50%, -50%);
 }
 
-/* pointer */
+.wheel-center span {
+    display: block;
+
+    width: 21px;
+    height: 21px;
+
+    background:
+        var(--color-primary);
+
+    border:
+        4px solid
+        rgb(255 255 255 / 15%);
+
+    border-radius: 50%;
+
+    box-shadow:
+        0 0 24px
+        rgb(75 185 233 / 45%);
+}
+
+
+/* =========================================================
+   fixed droplet pointer
+   ========================================================= */
 
 .wheel-pointer {
     position: absolute;
-    top: 58px;
+
+    /*
+        positioned independently from the wheel.
+        therefore it never rotates.
+    */
+
+    top: 38px;
     left: 50%;
-    z-index: 10;
 
-    display: grid;
-    place-items: center;
+    z-index: 20;
 
-    transform: translateX(-50%);
-}
-
-.wheel-pointer span {
-    display: block;
-
-    width: 0;
-    height: 0;
-
-    border-top: 39px solid #f4f7fb;
-    border-right: 24px solid transparent;
-    border-left: 24px solid transparent;
+    font-size: 3.2rem;
+    line-height: 1;
 
     filter:
         drop-shadow(
             0 8px 8px
-            rgb(0 0 0 / 40%)
+            rgb(0 0 0 / 45%)
         );
+
+    transform:
+        translateX(-50%)
+        rotate(180deg);
+
+    pointer-events: none;
 }
 
-/* stage footer */
+
+/* =========================================================
+   stage label
+   ========================================================= */
 
 .wheel-stage-caption {
     position: absolute;
+
     bottom: 25px;
     left: 28px;
+
     z-index: 5;
 
     display: grid;
+
     gap: 2px;
 }
 
 .wheel-stage-caption span {
-    color: var(--color-text-muted);
+    color:
+        var(--color-text-muted);
+
     font-size: 0.72rem;
 }
 
@@ -268,11 +350,16 @@
     font-size: 1rem;
 }
 
-/* right panel */
+
+/* =========================================================
+   controls
+   ========================================================= */
 
 .wheel-panel {
     display: flex;
+
     flex-direction: column;
+
     padding: 38px;
 
     background:
@@ -289,68 +376,95 @@
 
     font-size: 2.2rem;
     font-weight: 900;
+
     letter-spacing: -0.045em;
 }
 
 .wheel-panel-heading p {
     margin-top: 8px;
 
-    color: var(--color-text-muted);
+    color:
+        var(--color-text-muted);
+
     font-size: 0.88rem;
+
     line-height: 1.5;
 }
 
-/* sections */
+
+/* control sections */
 
 .wheel-control-section {
     margin-top: 29px;
 }
 
-.wheel-control-section + .wheel-control-section {
+.wheel-control-section +
+.wheel-control-section {
     padding-top: 26px;
 
-    border-top: 1px solid var(--color-border);
+    border-top:
+        1px solid
+        var(--color-border);
 }
 
 .wheel-control-heading {
     display: flex;
+
     align-items: center;
     justify-content: space-between;
+
     gap: 15px;
 
     margin-bottom: 11px;
 }
 
 .wheel-control-heading > span {
-    color: var(--color-text-muted);
+    color:
+        var(--color-text-muted);
 
     font-size: 0.75rem;
+
     font-weight: 650;
 }
 
 .wheel-control-heading strong {
-    color: var(--color-text);
-
     font-size: 0.75rem;
 }
 
-/* wheel selectors */
+
+/* =========================================================
+   type buttons
+   ========================================================= */
 
 .wheel-type-tabs {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    grid-template-columns:
+        repeat(
+            2,
+            minmax(0, 1fr)
+        );
+
     gap: 8px;
 }
 
 .wheel-type-button,
 .wager-button {
     min-height: 43px;
-    padding: 0 13px;
+
+    padding:
+        0
+        13px;
 
     background: #202735;
-    color: var(--color-text-muted);
 
-    border: 1px solid var(--color-border);
+    color:
+        var(--color-text-muted);
+
+    border:
+        1px solid
+        var(--color-border);
+
     border-radius: 11px;
 
     cursor: pointer;
@@ -358,66 +472,109 @@
     font-weight: 700;
 
     transition:
-        background var(--transition-fast),
-        border-color var(--transition-fast),
-        color var(--transition-fast),
-        transform var(--transition-fast);
+        background
+        var(--transition-fast),
+
+        border-color
+        var(--transition-fast),
+
+        color
+        var(--transition-fast),
+
+        transform
+        var(--transition-fast);
 }
 
 .wheel-type-button:hover,
 .wager-button:hover {
     background: #252e3e;
-    color: var(--color-text);
 
-    border-color: var(--color-border-light);
+    color:
+        var(--color-text);
 
-    transform: translateY(-1px);
+    border-color:
+        var(--color-border-light);
+
+    transform:
+        translateY(-1px);
 }
 
 .wheel-type-button.is-active,
 .wager-button.is-active {
-    background: rgb(75 185 233 / 13%);
-    color: var(--color-primary);
+    background:
+        rgb(75 185 233 / 13%);
 
-    border-color: rgb(75 185 233 / 40%);
+    color:
+        var(--color-primary);
+
+    border-color:
+        rgb(75 185 233 / 40%);
 
     box-shadow:
-        inset 0 0 0 1px
+        inset
+        0
+        0
+        0
+        1px
         rgb(75 185 233 / 5%);
 }
 
-/* wager */
+
+/* =========================================================
+   wager
+   ========================================================= */
 
 .wager-buttons {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+
+    grid-template-columns:
+        repeat(
+            3,
+            minmax(0, 1fr)
+        );
+
     gap: 8px;
 }
 
 .custom-wager {
     display: grid;
+
     gap: 7px;
+
     margin-top: 11px;
 }
 
 .custom-wager > span {
-    color: var(--color-text-muted);
+    color:
+        var(--color-text-muted);
+
     font-size: 0.7rem;
 }
 
 .custom-wager-input {
     display: grid;
-    grid-template-columns: auto minmax(0, 1fr) auto;
+
+    grid-template-columns:
+        auto
+        minmax(0, 1fr)
+        auto;
 
     align-items: center;
+
     gap: 9px;
 
     min-height: 46px;
-    padding: 0 14px;
+
+    padding:
+        0
+        14px;
 
     background: #0f141c;
 
-    border: 1px solid var(--color-border);
+    border:
+        1px solid
+        var(--color-border);
+
     border-radius: 12px;
 }
 
@@ -425,42 +582,65 @@
     width: 100%;
 
     background: none;
-    color: var(--color-text);
+
+    color:
+        var(--color-text);
 
     border: 0;
-    outline: 0;
+
+    outline: none;
 
     font: inherit;
+
     font-weight: 700;
 }
 
 .custom-wager-input > span:last-child {
-    color: var(--color-text-muted);
+    color:
+        var(--color-text-muted);
+
     font-size: 0.75rem;
 }
 
-/* summary */
+
+/* =========================================================
+   summary
+   ========================================================= */
 
 .spin-summary {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+
+    grid-template-columns:
+        1fr
+        1fr;
+
     gap: 9px;
+
     margin-top: 27px;
 }
 
 .spin-summary > div {
     display: grid;
+
     gap: 5px;
-    padding: 14px 15px;
+
+    padding:
+        14px
+        15px;
 
     background: #10161e;
 
-    border: 1px solid var(--color-border);
+    border:
+        1px solid
+        var(--color-border);
+
     border-radius: 12px;
 }
 
 .spin-summary span {
-    color: var(--color-text-muted);
+    color:
+        var(--color-text-muted);
+
     font-size: 0.7rem;
 }
 
@@ -468,16 +648,24 @@
     font-size: 0.9rem;
 }
 
-/* spin */
+
+/* =========================================================
+   spin button
+   ========================================================= */
 
 .wheel-spin-button {
-    justify-content: space-between;
+    justify-content:
+        space-between;
 
     width: 100%;
+
     min-height: 54px;
 
     margin-top: 14px;
-    padding: 0 19px;
+
+    padding:
+        0
+        19px;
 
     font-size: 1rem;
 }
@@ -488,38 +676,58 @@
 
 .wheel-spin-button:disabled {
     opacity: 0.55;
+
     cursor: not-allowed;
+
     transform: none;
 }
 
 .wheel-status {
     min-height: 20px;
+
     margin-top: 11px;
 
-    color: var(--color-text-muted);
+    color:
+        var(--color-text-muted);
 
     text-align: center;
 
     font-size: 0.75rem;
 }
 
-/* history */
+
+/* =========================================================
+   history
+   ========================================================= */
 
 .wheel-history {
     display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+
+    grid-template-columns:
+        repeat(
+            5,
+            minmax(0, 1fr)
+        );
+
     gap: 11px;
 }
 
 .wheel-history-empty {
-    grid-column: 1 / -1;
+    grid-column:
+        1 / -1;
 
     padding: 29px;
 
-    background: var(--color-surface);
-    color: var(--color-text-muted);
+    background:
+        var(--color-surface);
 
-    border: 1px dashed var(--color-border);
+    color:
+        var(--color-text-muted);
+
+    border:
+        1px dashed
+        var(--color-border);
+
     border-radius: 16px;
 
     text-align: center;
@@ -527,17 +735,24 @@
 
 .history-card {
     display: grid;
+
     gap: 7px;
+
     padding: 15px;
 
-    background: var(--color-surface);
+    background:
+        var(--color-surface);
 
-    border: 1px solid var(--color-border);
+    border:
+        1px solid
+        var(--color-border);
+
     border-radius: 14px;
 }
 
 .history-card-top {
     display: flex;
+
     align-items: center;
     justify-content: space-between;
 }
@@ -548,7 +763,9 @@
 
 .history-card time,
 .history-card span {
-    color: var(--color-text-muted);
+    color:
+        var(--color-text-muted);
+
     font-size: 0.7rem;
 }
 
@@ -558,47 +775,87 @@
     font-size: 0.85rem;
 
     text-overflow: ellipsis;
+
     white-space: nowrap;
 }
 
-/* reward modal */
+
+/* =========================================================
+   reward modal
+   ========================================================= */
 
 .reward-modal {
     position: fixed;
+
     inset: 0;
+
     z-index: 300;
 
     display: grid;
+
     place-items: center;
 
-    padding: 20px;
+    overflow-y: auto;
+
+    padding:
+        clamp(
+            10px,
+            2vh,
+            20px
+        );
 
     opacity: 0;
+
     pointer-events: none;
 
-    transition: opacity 180ms ease;
+    transition:
+        opacity
+        180ms ease;
 }
 
 .reward-modal.is-open {
     opacity: 1;
+
     pointer-events: auto;
 }
 
 .reward-modal-backdrop {
-    position: absolute;
+    position: fixed;
+
     inset: 0;
 
-    background: rgb(4 7 11 / 82%);
-    backdrop-filter: blur(16px);
+    background:
+        rgb(4 7 11 / 82%);
+
+    backdrop-filter:
+        blur(16px);
 }
+
+
+/* actual reward card */
 
 .reward-modal-card {
     position: relative;
+
     z-index: 2;
 
-    width: min(470px, 100%);
+    width:
+        min(
+            450px,
+            calc(100vw - 24px)
+        );
 
-    padding: 29px;
+    max-height:
+        calc(100dvh - 24px);
+
+    overflow-y: auto;
+
+    padding:
+        clamp(
+            16px,
+            2.2vh,
+            27px
+        );
 
     background:
         radial-gradient(
@@ -608,8 +865,11 @@
         ),
         #161d26;
 
-    border: 1px solid rgb(255 255 255 / 9%);
-    border-radius: 24px;
+    border:
+        1px solid
+        rgb(255 255 255 / 9%);
+
+    border-radius: 22px;
 
     box-shadow:
         0 42px 100px
@@ -617,36 +877,58 @@
 
     text-align: center;
 
-    transform:
-        translateY(18px)
-        scale(0.97);
+    scrollbar-width: thin;
 
-    transition: transform 220ms ease;
+    transform:
+        translateY(16px)
+        scale(0.98);
+
+    transition:
+        transform
+        220ms ease;
 }
 
-.reward-modal.is-open .reward-modal-card {
+.reward-modal.is-open
+.reward-modal-card {
     transform:
         translateY(0)
         scale(1);
 }
 
 .reward-kicker {
-    margin-top: 14px;
+    margin-top: 8px;
 
-    color: var(--color-text-muted);
-    font-size: 0.78rem;
+    color:
+        var(--color-text-muted);
+
+    font-size: 0.74rem;
 }
+
+
+/* reward image */
 
 .reward-image-shell {
     position: relative;
 
     display: grid;
-    min-height: 290px;
+
+    height:
+        clamp(
+            170px,
+            32vh,
+            275px
+        );
+
     place-items: center;
 
     overflow: hidden;
 
-    margin-top: 17px;
+    margin-top:
+        clamp(
+            9px,
+            1.5vh,
+            15px
+        );
 
     background:
         radial-gradient(
@@ -656,13 +938,17 @@
         ),
         #101820;
 
-    border: 1px solid var(--color-border);
-    border-radius: 18px;
+    border:
+        1px solid
+        var(--color-border);
+
+    border-radius: 17px;
 }
 
 .reward-image-shell img {
     width: 100%;
-    height: 290px;
+
+    height: 100%;
 
     object-fit: contain;
 }
@@ -670,142 +956,242 @@
 .reward-image-fallback {
     position: absolute;
 
-    font-size: 7rem;
+    font-size: 6rem;
 }
 
+
+/* discovery */
+
 .reward-discovery {
-    margin-top: 16px;
+    margin-top:
+        clamp(
+            8px,
+            1.4vh,
+            14px
+        );
 
-    color: var(--color-text-muted);
+    color:
+        var(--color-text-muted);
 
-    font-size: 0.76rem;
+    font-size: 0.74rem;
+
     font-weight: 700;
 }
 
 .reward-discovery.is-new {
-    color: var(--color-success);
+    color:
+        var(--color-success);
 }
 
-.reward-modal-card h2 {
-    margin-top: 7px;
 
-    font-size: 2rem;
+/* title */
+
+.reward-modal-card h2 {
+    margin-top: 5px;
+
+    font-size:
+        clamp(
+            1.4rem,
+            2.6vh,
+            1.9rem
+        );
+
     font-weight: 900;
+
     letter-spacing: -0.04em;
 }
 
 .reward-description {
-    margin: 8px auto 0;
+    margin:
+        6px
+        auto
+        0;
 
-    color: var(--color-text-muted);
+    color:
+        var(--color-text-muted);
 
-    font-size: 0.86rem;
+    font-size:
+        clamp(
+            0.72rem,
+            1.4vh,
+            0.84rem
+        );
+
     font-style: italic;
 }
 
+
+/* value */
+
 .reward-value {
     display: grid;
-    gap: 3px;
 
-    margin-top: 19px;
+    gap: 2px;
+
+    margin-top:
+        clamp(
+            8px,
+            1.5vh,
+            15px
+        );
 }
 
 .reward-value span {
-    color: var(--color-text-muted);
-    font-size: 0.7rem;
+    color:
+        var(--color-text-muted);
+
+    font-size: 0.68rem;
 }
 
 .reward-value strong {
-    font-size: 1.15rem;
+    font-size: 1.05rem;
 }
+
+
+/* odds */
 
 .reward-odds {
     display: grid;
-    grid-template-columns: 1fr 1fr;
 
-    gap: 9px;
-    margin-top: 14px;
+    grid-template-columns:
+        1fr
+        1fr;
+
+    gap: 8px;
+
+    margin-top:
+        clamp(
+            8px,
+            1.4vh,
+            13px
+        );
 }
 
 .reward-odds > div {
     display: grid;
-    gap: 4px;
 
-    padding: 12px;
+    gap: 3px;
+
+    padding:
+        10px
+        12px;
 
     background: #10161e;
 
-    border: 1px solid var(--color-border);
+    border:
+        1px solid
+        var(--color-border);
+
     border-radius: 11px;
 }
 
 .reward-odds span {
-    color: var(--color-text-muted);
-    font-size: 0.67rem;
+    color:
+        var(--color-text-muted);
+
+    font-size: 0.65rem;
 }
 
 .reward-odds strong {
-    font-size: 0.86rem;
+    font-size: 0.83rem;
 }
+
+
+/* buttons */
 
 .reward-actions {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+
+    grid-template-columns:
+        1fr
+        1fr;
 
     gap: 9px;
-    margin-top: 20px;
-}
 
-/* rarity modal glows */
-
-.reward-modal.reward-mythic .reward-modal-card {
-    box-shadow:
-        0 42px 100px rgb(0 0 0 / 55%),
-        0 0 70px rgb(239 68 68 / 25%);
-}
-
-.reward-modal.reward-legendary .reward-modal-card {
-    box-shadow:
-        0 42px 100px rgb(0 0 0 / 55%),
-        0 0 75px rgb(250 204 21 / 28%);
-}
-
-.reward-modal.reward-ultra-legendary .reward-modal-card {
-    box-shadow:
-        0 42px 100px rgb(0 0 0 / 55%),
-        0 0 90px rgb(103 232 249 / 34%);
-}
-
-.reward-modal.reward-anomaly .reward-modal-card {
-    background:
-        linear-gradient(
-            145deg,
-            #101010,
-            #000
+    margin-top:
+        clamp(
+            10px,
+            1.7vh,
+            17px
         );
+}
+
+
+/* =========================================================
+   rarity effects
+   ========================================================= */
+
+.reward-modal.reward-mythic
+.reward-modal-card {
+    box-shadow:
+        0 42px 100px
+        rgb(0 0 0 / 55%),
+
+        0 0 70px
+        rgb(239 68 68 / 25%);
+}
+
+.reward-modal.reward-legendary
+.reward-modal-card {
+    box-shadow:
+        0 42px 100px
+        rgb(0 0 0 / 55%),
+
+        0 0 75px
+        rgb(250 204 21 / 28%);
+}
+
+.reward-modal.reward-ultra-legendary
+.reward-modal-card {
+    box-shadow:
+        0 42px 100px
+        rgb(0 0 0 / 55%),
+
+        0 0 90px
+        rgb(103 232 249 / 34%);
+}
+
+
+/* anomaly */
+
+.reward-modal.reward-anomaly
+.reward-modal-card {
+    background:
+        #050505;
 
     color: white;
 
-    border-color: rgb(255 255 255 / 20%);
+    border-color:
+        rgb(255 255 255 / 22%);
 
     box-shadow:
-        0 42px 100px rgb(0 0 0 / 80%),
-        0 0 90px rgb(255 255 255 / 8%);
+        0 42px 120px
+        rgb(0 0 0 / 85%),
+
+        0 0 90px
+        rgb(255 255 255 / 8%);
 }
 
-/* cutscene */
+
+/* =========================================================
+   cutscenes
+   ========================================================= */
 
 body.cutscene-active {
     overflow: hidden;
+
     cursor: none;
 }
 
 .soggy-cutscene {
     position: fixed;
+
     inset: 0;
+
     z-index: 1000;
 
     display: grid;
+
     place-items: center;
 
     overflow: hidden;
@@ -813,25 +1199,30 @@ body.cutscene-active {
     background: #05070b;
 
     opacity: 0;
+
     pointer-events: none;
 
-    transition: opacity 250ms ease;
+    transition:
+        opacity
+        220ms ease;
 }
 
 .soggy-cutscene.is-active {
     opacity: 1;
+
     pointer-events: auto;
 }
 
 .soggy-cutscene::before {
     position: absolute;
-    inset: -20%;
+
+    inset: -30%;
 
     background:
         radial-gradient(
             circle,
             currentColor 0,
-            transparent 50%
+            transparent 52%
         );
 
     opacity: 0.08;
@@ -839,51 +1230,62 @@ body.cutscene-active {
     content: "";
 
     animation:
-        cutscene-background-pulse
-        1s ease-in-out
+        cutscene-background
+        1.15s
+        ease-in-out
         infinite alternate;
 }
 
 .soggy-cutscene-center {
     position: relative;
+
     z-index: 3;
 
     display: grid;
+
     place-items: center;
 
     text-align: center;
 }
 
 .soggy-cutscene-star {
-    font-size: clamp(5rem, 14vw, 11rem);
+    font-size:
+        clamp(
+            5rem,
+            14vw,
+            11rem
+        );
 
     filter:
         drop-shadow(
-            0 0 24px
+            0 0 28px
             currentColor
         );
 
     animation:
         cutscene-star
-        1.15s ease-in-out
+        1.05s
+        ease-in-out
         infinite alternate;
 }
 
 .soggy-cutscene-rarity {
-    margin-top: 25px;
+    margin-top: 22px;
 
     font-size:
         clamp(
-            1.7rem,
+            1.6rem,
             4vw,
             3rem
         );
 
     font-weight: 900;
-    letter-spacing: 0.12em;
 
-    text-transform: lowercase;
+    letter-spacing: 0.12em;
 }
+
+
+/* colors */
 
 .rarity-mythic {
     color: #ef4444;
@@ -897,27 +1299,27 @@ body.cutscene-active {
     color: #67e8f9;
 }
 
+
+/* anomaly */
+
 .rarity-anomaly {
     color: white;
-    background: black;
-}
 
-.rarity-anomaly .soggy-cutscene-center {
-    animation:
-        anomaly-shake
-        90ms steps(2)
-        infinite;
+    background: #000;
 }
 
 .soggy-cutscene-noise {
     position: absolute;
+
     inset: 0;
 
     opacity: 0;
+
     pointer-events: none;
 }
 
-.rarity-anomaly .soggy-cutscene-noise {
+.rarity-anomaly
+.soggy-cutscene-noise {
     opacity: 0.34;
 
     background-image:
@@ -932,155 +1334,204 @@ body.cutscene-active {
 
     animation:
         anomaly-noise
-        110ms steps(2)
+        100ms
+        steps(2)
         infinite;
 }
 
-.rarity-anomaly::after {
-    position: absolute;
-    inset: 0;
-
-    background:
-        repeating-linear-gradient(
-            90deg,
-            transparent 0 40px,
-            rgb(255 255 255 / 3%) 41px 42px
-        );
-
-    content: "";
-
+.rarity-anomaly
+.soggy-cutscene-center {
     animation:
-        anomaly-horizontal
-        140ms steps(2)
+        anomaly-shake
+        85ms
+        steps(2)
         infinite;
 }
+
+
+/* animations */
 
 @keyframes cutscene-star {
     from {
         opacity: 0.35;
 
         transform:
-            rotate(-20deg)
-            scale(0.8);
+            rotate(-18deg)
+            scale(0.75);
     }
 
     to {
         opacity: 1;
 
         transform:
-            rotate(20deg)
-            scale(1.15);
+            rotate(22deg)
+            scale(1.18);
     }
 }
 
-@keyframes cutscene-background-pulse {
+@keyframes cutscene-background {
     from {
-        transform: scale(0.8);
+        transform:
+            scale(0.8);
     }
 
     to {
-        transform: scale(1.15);
+        transform:
+            scale(1.2);
     }
 }
 
 @keyframes anomaly-shake {
     0% {
         transform:
-            translate(-3px, 2px)
-            skewX(-2deg);
+            translate(-4px, 2px)
+            skewX(-3deg);
     }
 
     50% {
         transform:
-            translate(4px, -2px)
-            skewX(3deg);
+            translate(5px, -3px)
+            skewX(4deg);
     }
 
     100% {
         transform:
-            translate(-2px, -3px)
-            skewX(-1deg);
+            translate(-3px, -2px)
+            skewX(-2deg);
     }
 }
 
 @keyframes anomaly-noise {
     50% {
         transform:
-            translateY(8px);
+            translateY(9px);
     }
 }
 
-@keyframes anomaly-horizontal {
-    50% {
-        transform:
-            translateX(18px);
-    }
-}
 
-/* responsive */
+/* =========================================================
+   smaller desktop / laptop
+   ========================================================= */
 
 @media (max-width: 1150px) {
+
     .wheel-game {
         grid-template-columns: 1fr;
     }
 
     .wheel-stage {
-        min-height: 620px;
+        min-height: 570px;
 
         border-right: 0;
-        border-bottom: 1px solid var(--color-border);
-    }
 
-    .wheel-pointer {
-        top: 48px;
+        border-bottom:
+            1px solid
+            var(--color-border);
     }
 
     .wheel-history {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-columns:
+            repeat(
+                3,
+                minmax(0, 1fr)
+            );
     }
 }
 
+
+/* short screens */
+
+@media (max-height: 760px) {
+
+    .reward-modal-card {
+        width:
+            min(
+                410px,
+                calc(100vw - 20px)
+            );
+    }
+
+    .reward-image-shell {
+        height: 175px;
+    }
+
+    .reward-kicker {
+        margin-top: 5px;
+    }
+
+    .reward-discovery {
+        margin-top: 7px;
+    }
+
+    .reward-modal-card h2 {
+        font-size: 1.4rem;
+    }
+
+    .reward-actions {
+        margin-top: 10px;
+    }
+}
+
+
+/* mobile */
+
 @media (max-width: 680px) {
+
     .wheel-page-header {
         align-items: flex-start;
+
         flex-direction: column;
     }
 
     .wheel-stage {
-        min-height: 450px;
+        min-height: 440px;
     }
 
     .wheel {
-        width: min(340px, calc(100% - 45px));
+        width:
+            min(
+                335px,
+                calc(100% - 45px)
+            );
     }
 
     .wheel-pointer {
-        top: 31px;
+        top: 25px;
+
+        font-size: 2.5rem;
     }
 
     .wheel-center {
-        width: 78px;
-        height: 78px;
+        width: 76px;
+        height: 76px;
     }
 
     .wheel-panel {
-        padding: 26px;
+        padding: 25px;
     }
 
     .wheel-history {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns:
+            repeat(
+                2,
+                minmax(0, 1fr)
+            );
     }
 }
 
+
 @media (max-width: 450px) {
+
     .wheel-type-tabs,
     .wager-buttons,
     .spin-summary,
     .reward-actions {
-        grid-template-columns: 1fr;
+        grid-template-columns:
+            1fr;
     }
 
     .wheel-history {
-        grid-template-columns: 1fr;
+        grid-template-columns:
+            1fr;
     }
 }

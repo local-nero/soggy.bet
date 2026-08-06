@@ -1,65 +1,97 @@
+const PUBLIC_PATHS = new Set([
+    "/unlock",
+    "/unlock/",
+    "/unlock.html"
+]);
+
+const PUBLIC_PREFIXES = [
+    "/css/",
+    "/assets/branding/"
+];
+
+function isPublicPath(pathname) {
+    if (PUBLIC_PATHS.has(pathname)) {
+        return true;
+    }
+
+    return PUBLIC_PREFIXES.some(
+        (prefix) => pathname.startsWith(prefix)
+    );
+}
+
+function getCookie(request, name) {
+    const cookieHeader =
+        request.headers.get("Cookie") ?? "";
+
+    const cookies =
+        cookieHeader.split(";");
+
+    for (const cookie of cookies) {
+        const [key, ...valueParts] =
+            cookie.trim().split("=");
+
+        if (key === name) {
+            return decodeURIComponent(
+                valueParts.join("=")
+            );
+        }
+    }
+
+    return null;
+}
+
 export async function onRequest(context) {
-    const { request, next, env } = context;
+    const {
+        request,
+        next,
+        env
+    } = context;
 
-    const authorization = request.headers.get("Authorization");
+    const url =
+        new URL(request.url);
 
-    const expectedUser = env.SITE_USER;
-    const expectedPass = env.SITE_PASSWORD;
+    if (isPublicPath(url.pathname)) {
+        return next();
+    }
 
-    if (!expectedUser || !expectedPass) {
+    const expectedToken =
+        env.SITE_ACCESS_TOKEN;
+
+    if (!expectedToken) {
         return new Response(
-            "site password is not configured.",
+            "soggybet access is not configured.",
             {
-                status: 500
+                status: 500,
+                headers: {
+                    "Cache-Control": "no-store"
+                }
             }
         );
     }
 
-    if (authorization) {
-        const [scheme, encoded] = authorization.split(" ");
+    const currentToken =
+        getCookie(
+            request,
+            "soggybet_access"
+        );
 
-        if (
-            scheme === "Basic" &&
-            encoded
-        ) {
-            try {
-                const decoded = atob(encoded);
-
-                const separatorIndex = decoded.indexOf(":");
-
-                const username = decoded.slice(
-                    0,
-                    separatorIndex
-                );
-
-                const password = decoded.slice(
-                    separatorIndex + 1
-                );
-
-                if (
-                    username === expectedUser &&
-                    password === expectedPass
-                ) {
-                    return next();
-                }
-            } catch {
-                // invalid authorization header
-            }
-        }
+    if (currentToken === expectedToken) {
+        return next();
     }
 
-    return new Response(
-        "soggybet is currently private.",
-        {
-            status: 401,
+    const redirect =
+        new URL(
+            "/unlock",
+            request.url
+        );
 
-            headers: {
-                "WWW-Authenticate":
-                    'Basic realm="soggybet", charset="UTF-8"',
+    redirect.searchParams.set(
+        "next",
+        url.pathname + url.search
+    );
 
-                "Cache-Control":
-                    "no-store"
-            }
-        }
+    return Response.redirect(
+        redirect.toString(),
+        302
     );
 }

@@ -1,106 +1,261 @@
-// creates, loads, updates, resets, and saves player data in localStorage *completely local for now*
-
 const STORAGE_KEY = "soggybet_player";
 
 const DEFAULT_PLAYER = {
-    username: "Guest",
+    version: 2,
+
+    username: "guest",
+
     balance: 10000,
+
     inventory: [],
+
+    discovered: [],
+
+    wheelHistory: [],
+
     statistics: {
         totalWagered: 0,
         totalWon: 0,
         wheelSpins: 0,
-        catsCollected: 0,
-        catsSold: 0
+        soggiesCollected: 0,
+        soggiesSold: 0,
+        dailyPuddlesClaimed: 0
     },
+
     settings: {
         sound: true,
         animations: true,
-        reducedMotion: false
+        reducedMotion: false,
+
+        cutscenes: "full",
+
+        confirmSelling: true,
+
+        touchGrassEnabled: true
     },
+
+    dailyReward: {
+        lastClaimed: 0
+    },
+
     touchGrass: {
+        startedAt: Date.now(),
         lastTouched: null
     }
 };
 
-function cloneDefaultPlayer() {
-    return JSON.parse(JSON.stringify(DEFAULT_PLAYER));
+
+function clone(value) {
+    return JSON.parse(
+        JSON.stringify(value)
+    );
 }
 
-function mergePlayerData(savedPlayer) {
-    const defaults = cloneDefaultPlayer();
 
-    return {
-        ...defaults,
-        ...savedPlayer,
+function mergePlayer(saved = {}) {
+    const player = {
+        ...clone(DEFAULT_PLAYER),
+        ...saved,
 
         statistics: {
-            ...defaults.statistics,
-            ...(savedPlayer?.statistics ?? {})
+            ...clone(
+                DEFAULT_PLAYER.statistics
+            ),
+
+            ...(saved.statistics ?? {})
         },
 
         settings: {
-            ...defaults.settings,
-            ...(savedPlayer?.settings ?? {})
+            ...clone(
+                DEFAULT_PLAYER.settings
+            ),
+
+            ...(saved.settings ?? {})
+        },
+
+        dailyReward: {
+            ...clone(
+                DEFAULT_PLAYER.dailyReward
+            ),
+
+            ...(saved.dailyReward ?? {})
         },
 
         touchGrass: {
-            ...defaults.touchGrass,
-            ...(savedPlayer?.touchGrass ?? {})
-        },
+            ...clone(
+                DEFAULT_PLAYER.touchGrass
+            ),
 
-        inventory: Array.isArray(savedPlayer?.inventory)
-            ? savedPlayer.inventory
-            : []
+            ...(saved.touchGrass ?? {})
+        }
     };
-}
 
-export function getPlayer() {
-    const rawPlayer = localStorage.getItem(STORAGE_KEY);
 
-    if (!rawPlayer) {
-        const newPlayer = cloneDefaultPlayer();
-        savePlayer(newPlayer);
-        return newPlayer;
+    if (!Array.isArray(player.inventory)) {
+        player.inventory = [];
     }
 
-    try {
-        return mergePlayerData(JSON.parse(rawPlayer));
-    } catch (error) {
-        console.error("Failed to read SoggyBet player data:", error);
 
-        const recoveredPlayer = cloneDefaultPlayer();
-        savePlayer(recoveredPlayer);
-
-        return recoveredPlayer;
+    if (!Array.isArray(player.discovered)) {
+        player.discovered = [];
     }
-}
 
-export function savePlayer(player) {
-    localStorage.setItem(
-        STORAGE_KEY,
-        JSON.stringify(mergePlayerData(player))
-    );
 
-    window.dispatchEvent(
-        new CustomEvent("soggybet:player-updated", {
-            detail: player
-        })
-    );
-}
+    if (!Array.isArray(player.wheelHistory)) {
+        player.wheelHistory = [];
+    }
 
-export function updatePlayer(updater) {
-    const player = getPlayer();
-    const updatedPlayer = updater(player) ?? player;
 
-    savePlayer(updatedPlayer);
+    if (
+        typeof player.username !==
+        "string"
+    ) {
+        player.username =
+            "guest";
+    }
 
-    return updatedPlayer;
-}
 
-export function resetPlayer() {
-    const player = cloneDefaultPlayer();
-    savePlayer(player);
+    if (
+        !Number.isFinite(
+            Number(player.balance)
+        )
+    ) {
+        player.balance =
+            DEFAULT_PLAYER.balance;
+    }
+
+
+    player.version =
+        DEFAULT_PLAYER.version;
+
 
     return player;
+}
+
+
+export function getPlayer() {
+    const raw =
+        localStorage.getItem(
+            STORAGE_KEY
+        );
+
+
+    if (!raw) {
+        const player =
+            clone(DEFAULT_PLAYER);
+
+        savePlayer(player);
+
+        return player;
+    }
+
+
+    try {
+        const parsed =
+            JSON.parse(raw);
+
+        const normalized =
+            mergePlayer(parsed);
+
+        /*
+            silently migrate old saves
+        */
+
+        savePlayer(
+            normalized
+        );
+
+        return normalized;
+    }
+
+    catch (error) {
+        console.error(
+            "[soggybet] failed to load save:",
+            error
+        );
+
+        const player =
+            clone(DEFAULT_PLAYER);
+
+        savePlayer(player);
+
+        return player;
+    }
+}
+
+
+export function savePlayer(player) {
+    const normalized =
+        mergePlayer(player);
+
+
+    localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(
+            normalized
+        )
+    );
+
+
+    window.dispatchEvent(
+        new CustomEvent(
+            "soggybet:player-updated",
+            {
+                detail: {
+                    player:
+                        normalized
+                }
+            }
+        )
+    );
+
+
+    return normalized;
+}
+
+
+export function updatePlayer(callback) {
+    const player =
+        getPlayer();
+
+
+    const result =
+        callback(player);
+
+
+    return savePlayer(
+        result ?? player
+    );
+}
+
+
+export function resetPlayer() {
+    const player =
+        clone(DEFAULT_PLAYER);
+
+
+    savePlayer(player);
+
+
+    return player;
+}
+
+
+export function exportPlayerSave() {
+    return JSON.stringify(
+        getPlayer(),
+        null,
+        2
+    );
+}
+
+
+export function importPlayerSave(json) {
+    const parsed =
+        JSON.parse(json);
+
+
+    return savePlayer(
+        parsed
+    );
 }

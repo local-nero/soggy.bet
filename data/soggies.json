@@ -1,0 +1,1279 @@
+[
+  {
+    "dex": 1,
+    "id": "soggy",
+    "name": "soggy",
+    "rarity": "common",
+    "image": "/assets/cats/Soggy.png",
+    "value": 250,
+    "description": "the sog that started it all.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 2,
+    "id": "non_soggy",
+    "name": "non-soggy",
+    "rarity": "common",
+    "image": "/assets/cats/Non-soggy.png",
+    "value": 250,
+    "description": "suspiciously lacking in moisture.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 3,
+    "id": "evil_soggy",
+    "name": "evil soggy",
+    "rarity": "common",
+    "image": "/assets/cats/EvilSoggy.png",
+    "value": 250,
+    "description": "up to absolutely no good.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 4,
+    "id": "locked_in_soggy",
+    "name": "locked in soggy",
+    "rarity": "common",
+    "image": "/assets/cats/LockedInSoggy.png",
+    "value": 250,
+    "description": "focus level: dangerously damp.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 5,
+    "id": "birthday_soggy",
+    "name": "birthday soggy",
+    "rarity": "common",
+    "image": "/assets/cats/BirthdaySoggy.png",
+    "value": 250,
+    "description": "another year older. still sogged.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 6,
+    "id": "box_dweller_soggy",
+    "name": "box dweller soggy",
+    "rarity": "common",
+    "image": "/assets/cats/BoxDwellerSoggy.png",
+    "value": 250,
+    "description": "the box was dry before this.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 7,
+    "id": "mat_soggy",
+    "name": "mat soggy",
+    "rarity": "common",
+    "image": "/assets/cats/MatSoggy.png",
+    "value": 250,
+    "description": "has chosen the mat. refuses to elaborate.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 8,
+    "id": "benched_soggy",
+    "name": "benched soggy",
+    "rarity": "common",
+    "image": "/assets/cats/BenchedSoggy.png",
+    "value": 250,
+    "description": "temporarily removed from active sog duty.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 9,
+    "id": "blind_soggy",
+    "name": "blind soggy",
+    "rarity": "common",
+    "image": "/assets/cats/BlindSoggy.png",
+    "value": 250,
+    "description": "cannot see the puddle. enters anyway.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 10,
+    "id": "blep_soggy",
+    "name": "blep soggy",
+    "rarity": "common",
+    "image": "/assets/cats/BlepSoggy.png",
+    "value": 250,
+    "description": "blep.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 11,
+    "id": "it_s_just_a_looking_soggy",
+    "name": "it's just a looking soggy",
+    "rarity": "common",
+    "image": "/assets/cats/ItsJustALookingSoggy.png",
+    "value": 250,
+    "description": "it's just a looking soggy.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 12,
+    "id": "10_000_sog_stare",
+    "name": "10,000 sog stare",
+    "rarity": "uncommon",
+    "image": "/assets/cats/10000sogstare.png",
+    "value": 650,
+    "description": "ten thousand units of uninterrupted eye contact.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 13,
+    "id": "suspiciously_dry_soggy",
+    "name": "suspiciously dry soggy",
+    "rarity": "uncommon",
+    "image": "/assets/cats/SuspiciouslyDrySoggy.png",
+    "value": 650,
+    "description": "something is deeply wrong here.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 14,
+    "id": "sleeping_soggy",
+    "name": "sleeping soggy",
+    "rarity": "uncommon",
+    "image": "/assets/cats/SleepingSoggy.png",
+    "value": 650,
+    "description": "dreaming of larger puddles.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 15,
+    "id": "cheesy_soggy",
+    "name": "cheesy soggy",
+    "rarity": "uncommon",
+    "image": "/assets/cats/CheesySoggy.png",
+    "value": 650,
+    "description": "the moisture has become dairy-adjacent.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 16,
+    "id": "floor_lurker_soggy",
+    "name": "floor lurker soggy",
+    "rarity": "uncommon",
+    "image": "/assets/cats/FloorLurkerSoggy.png",
+    "value": 650,
+    "description": "the floor has been claimed.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 17,
+    "id": "high_alert_soggy",
+    "name": "high alert soggy",
+    "rarity": "uncommon",
+    "image": "/assets/cats/HighAlertSoggy.png",
+    "value": 650,
+    "description": "every droplet is a potential threat.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 18,
+    "id": "stare_soggy",
+    "name": ":stare: soggy",
+    "rarity": "uncommon",
+    "image": "/assets/cats/stareSoggy.png",
+    "value": 650,
+    "description": ":stare:",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 19,
+    "id": "side_eye_soggy",
+    "name": "side-eye soggy",
+    "rarity": "uncommon",
+    "image": "/assets/cats/SideEyeSoggy.png",
+    "value": 650,
+    "description": "judging your spin history.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 20,
+    "id": "zoink_soggy",
+    "name": "zoink soggy",
+    "rarity": "uncommon",
+    "image": "/assets/cats/ZoinkSoggy.png",
+    "value": 650,
+    "description": "zoink.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 21,
+    "id": "fighter_soggy",
+    "name": "fighter soggy",
+    "rarity": "uncommon",
+    "image": "/assets/cats/FighterSoggy.png",
+    "value": 650,
+    "description": "prepared to defend the puddle.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 22,
+    "id": "wide_eyes_soggy",
+    "name": "wide eyes soggy",
+    "rarity": "uncommon",
+    "image": "/assets/cats/WideEyesSoggy.png",
+    "value": 650,
+    "description": "has witnessed the odds.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 23,
+    "id": "blep_soggy_ii",
+    "name": "blep soggy ii",
+    "rarity": "uncommon",
+    "image": "/assets/cats/BlepSoggyII.png",
+    "value": 650,
+    "description": "the sequel nobody was emotionally prepared for.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 24,
+    "id": "soog",
+    "name": "soog...",
+    "rarity": "rare",
+    "image": "/assets/cats/Soog.png",
+    "value": 1800,
+    "description": "soog...",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 25,
+    "id": "crazy_soog",
+    "name": "crazy soog...",
+    "rarity": "rare",
+    "image": "/assets/cats/CrazySoog.png",
+    "value": 1800,
+    "description": "the sog has become unstable.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 26,
+    "id": "crazy_soog_ii",
+    "name": "crazy soog ii",
+    "rarity": "rare",
+    "image": "/assets/cats/CrazySoogII.png",
+    "value": 1800,
+    "description": "somehow, the instability got a sequel.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 27,
+    "id": "levi_soggy",
+    "name": "levi soggy",
+    "rarity": "rare",
+    "image": "/assets/cats/LeviSoggy.png",
+    "value": 1800,
+    "description": "built different. sogged the same.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 28,
+    "id": "floor_lurker_but_mouth_opened_haha_yes_soggy",
+    "name": "floor lurker but mouth opened haha yes soggy",
+    "rarity": "rare",
+    "image": "/assets/cats/FloorLurkerButMouthOpenedHahaYesSoggy.png",
+    "value": 1800,
+    "description": "floor lurker, now with advanced mouth technology.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 29,
+    "id": "hand_soggy_ii",
+    "name": "hand soggy ii",
+    "rarity": "rare",
+    "image": "/assets/cats/HandSoggyII.png",
+    "value": 1800,
+    "description": "the hand returned.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 30,
+    "id": "acrobat_soggy",
+    "name": "acrobat soggy",
+    "rarity": "rare",
+    "image": "/assets/cats/AcrobatSoggy.png",
+    "value": 1800,
+    "description": "gravity is merely a suggestion.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 31,
+    "id": "cloaker_soggy",
+    "name": "cloaker soggy",
+    "rarity": "rare",
+    "image": "/assets/cats/CloakerSoggy.png",
+    "value": 1800,
+    "description": "you did not see this sog approaching.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 32,
+    "id": "comically_happy_and_joyful_soggy",
+    "name": "comically happy and joyful soggy",
+    "rarity": "rare",
+    "image": "/assets/cats/ComicallyHappyAndJoyfulSoggy.png",
+    "value": 1800,
+    "description": "objectively having a wonderful time.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 33,
+    "id": "soggy_cat_the_second",
+    "name": "soggy cat the second",
+    "rarity": "super-rare",
+    "image": "/assets/cats/SoggyCatTheSecond.png",
+    "value": 5000,
+    "description": "there was a second.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 34,
+    "id": "soggy_cat_the_third",
+    "name": "soggy cat the third",
+    "rarity": "super-rare",
+    "image": "/assets/cats/SoggyCatTheThird.png",
+    "value": 5000,
+    "description": "there was also a third.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 35,
+    "id": "angry_soggy",
+    "name": "angry soggy",
+    "rarity": "super-rare",
+    "image": "/assets/cats/AngrySoggy.png",
+    "value": 5000,
+    "description": "the towel incident will not be forgotten.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 36,
+    "id": "n_o_s_e_soggy",
+    "name": "n o s e soggy",
+    "rarity": "super-rare",
+    "image": "/assets/cats/noseSoggy.png",
+    "value": 5000,
+    "description": "n o s e.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 37,
+    "id": "soggy_soggy",
+    "name": "soggy soggy",
+    "rarity": "super-rare",
+    "image": "/assets/cats/SoggySoggy.png",
+    "value": 5000,
+    "description": "sog squared.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 38,
+    "id": "1945_soggy",
+    "name": "1945 soggy",
+    "rarity": "super-rare",
+    "image": "/assets/cats/1945Soggy.png",
+    "value": 5000,
+    "description": "an archival-grade sog.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 39,
+    "id": "towel_soggy",
+    "name": "towel soggy",
+    "rarity": "super-rare",
+    "image": "/assets/cats/TowelSoggy.png",
+    "value": 5000,
+    "description": "standing dangerously close to its natural enemy.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 40,
+    "id": "hand_soggy",
+    "name": "hand soggy",
+    "rarity": "super-rare",
+    "image": "/assets/cats/HandSoggy.png",
+    "value": 5000,
+    "description": "hand.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 41,
+    "id": "snoot_soggy",
+    "name": "snoot soggy",
+    "rarity": "super-rare",
+    "image": "/assets/cats/SnootSoggy.png",
+    "value": 5000,
+    "description": "premium snoot geometry.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 42,
+    "id": "smirk_soggy",
+    "name": "smirk soggy",
+    "rarity": "super-rare",
+    "image": "/assets/cats/SmirkSoggy.png",
+    "value": 5000,
+    "description": "knows something about the next spin.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 43,
+    "id": "half_soggy",
+    "name": "half soggy",
+    "rarity": "epic",
+    "image": "/assets/cats/HalfSoggy.png",
+    "value": 14000,
+    "description": "fifty percent sog. one hundred percent committed.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 44,
+    "id": "insert_name_soggy",
+    "name": "insert name soggy",
+    "rarity": "epic",
+    "image": "/assets/cats/InsertNameSoggy.png",
+    "value": 14000,
+    "description": "name pending. sog complete.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 45,
+    "id": "10_000_sog_stare_ii",
+    "name": "10,000 sog stare ii",
+    "rarity": "epic",
+    "image": "/assets/cats/10000sogstareII.png",
+    "value": 14000,
+    "description": "the stare has been upgraded.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 46,
+    "id": "burrito_soggy",
+    "name": "burrito soggy",
+    "rarity": "epic",
+    "image": "/assets/cats/BurritoSoggy.png",
+    "value": 14000,
+    "description": "wrapped for moisture retention.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 47,
+    "id": "touched_grass_soggy",
+    "name": "touched grass soggy",
+    "rarity": "epic",
+    "image": "/assets/cats/TouchedGrassSoggy.png",
+    "value": 14000,
+    "description": "documented proof that outside exists.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": false,
+      "achievement": true,
+      "anomaly": false,
+      "achievementId": "touch_grass"
+    }
+  },
+  {
+    "dex": 48,
+    "id": "cobblestone_loaf_soggy",
+    "name": "cobblestone loaf soggy",
+    "rarity": "epic",
+    "image": "/assets/cats/CobblestoneLoafSoggy.png",
+    "value": 14000,
+    "description": "outdoor loaf technology.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": false,
+      "achievement": true,
+      "anomaly": false,
+      "achievementId": "outside_loaf"
+    }
+  },
+  {
+    "dex": 49,
+    "id": "sleepy_guardian_soggy",
+    "name": "sleepy guardian soggy",
+    "rarity": "epic",
+    "image": "/assets/cats/SleepingGuardianSoggy.png",
+    "value": 14000,
+    "description": "protecting the puddle while unconscious.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 50,
+    "id": "tile_loaf_soggy",
+    "name": "tile loaf soggy",
+    "rarity": "epic",
+    "image": "/assets/cats/TileLoafSoggy.png",
+    "value": 14000,
+    "description": "perfectly aligned with the grout.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 51,
+    "id": "malefic_soggy",
+    "name": "malefic soggy",
+    "rarity": "epic",
+    "image": "/assets/cats/MaleficSoggy.png",
+    "value": 14000,
+    "description": "the moisture has become ominous.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 52,
+    "id": "stylish_soggy",
+    "name": "stylish soggy",
+    "rarity": "mythic",
+    "image": "/assets/cats/StylishSoggy.png",
+    "value": 40000,
+    "description": "fashionably saturated.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 53,
+    "id": "collar_soggy",
+    "name": "collar soggy",
+    "rarity": "mythic",
+    "image": "/assets/cats/CollarSoggy.png",
+    "value": 40000,
+    "description": "formal attire for informal puddles.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 54,
+    "id": "mewing_soggy",
+    "name": "mewing soggy",
+    "rarity": "mythic",
+    "image": "/assets/cats/MewingSoggy.png",
+    "value": 40000,
+    "description": "jawline optimized for maximum sog.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 55,
+    "id": "simba_soggy",
+    "name": "simba soggy",
+    "rarity": "mythic",
+    "image": "/assets/cats/SimbaSoggy.png",
+    "value": 40000,
+    "description": "held aloft for ceremonial dampness.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 56,
+    "id": "sacked_soggy",
+    "name": "sacked soggy",
+    "rarity": "mythic",
+    "image": "/assets/cats/SackedSoggy.png",
+    "value": 40000,
+    "description": "contained. allegedly.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 57,
+    "id": "scp_506_soggy_cat_picture_506",
+    "name": "scp-506 - soggy cat picture 506",
+    "rarity": "mythic",
+    "image": "/assets/cats/SCP506-SoggyCatPicture506Soggy.png",
+    "value": 40000,
+    "description": "secure. contain. puddle.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 58,
+    "id": "screaming_soggy",
+    "name": "screaming soggy",
+    "rarity": "mythic",
+    "image": "/assets/cats/ScreamingSoggy.png",
+    "value": 40000,
+    "description": "AAAAAAAAAAAAAAAA.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 59,
+    "id": "pupil_soggy",
+    "name": "pupil soggy",
+    "rarity": "mythic",
+    "image": "/assets/cats/PupilSoggy.png",
+    "value": 40000,
+    "description": "the eyes have become the entire situation.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 60,
+    "id": "mad_paws_soggy",
+    "name": "mad paws soggy",
+    "rarity": "mythic",
+    "image": "/assets/cats/MadPawsSoggy.png",
+    "value": 40000,
+    "description": "the paws demand compensation.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 61,
+    "id": "zoomer_soggy",
+    "name": "zoomer soggy",
+    "rarity": "mythic",
+    "image": "/assets/cats/ZoomerSoggy.png",
+    "value": 40000,
+    "description": "approaching at unsafe sog velocity.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 62,
+    "id": "n_o_s_e_soggy_ii",
+    "name": "n o s e soggy ii",
+    "rarity": "legendary",
+    "image": "/assets/cats/noseSoggyII.png",
+    "value": 120000,
+    "description": "n o s e, again.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 63,
+    "id": "couch_soggy",
+    "name": "couch soggy",
+    "rarity": "legendary",
+    "image": "/assets/cats/CouchSoggy.png",
+    "value": 120000,
+    "description": "the upholstery will never recover.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 64,
+    "id": "sunsog",
+    "name": "sunsog",
+    "rarity": "legendary",
+    "image": "/assets/cats/Sunsog.png",
+    "value": 120000,
+    "description": "even sunlight cannot dry it.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 65,
+    "id": "moonsog",
+    "name": "moonsog",
+    "rarity": "legendary",
+    "image": "/assets/cats/Moonsog.png",
+    "value": 120000,
+    "description": "lunar moisture event.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 66,
+    "id": "tub_soggy",
+    "name": "tub soggy",
+    "rarity": "legendary",
+    "image": "/assets/cats/TubSoggy.png",
+    "value": 120000,
+    "description": "finally returned to its natural habitat.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 67,
+    "id": "hearing_soggy",
+    "name": "hearing soggy",
+    "rarity": "legendary",
+    "image": "/assets/cats/HearingSoggy.png",
+    "value": 120000,
+    "description": "can hear the wheel before it spins.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 68,
+    "id": "half_sog_soggy",
+    "name": "half-sog soggy",
+    "rarity": "legendary",
+    "image": "/assets/cats/HalfsogSoggy.png",
+    "value": 120000,
+    "description": "mathematically questionable dampness.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 69,
+    "id": "paw_soggy",
+    "name": "paw soggy",
+    "rarity": "legendary",
+    "image": "/assets/cats/PawSoggy.png",
+    "value": 120000,
+    "description": "one paw. infinite influence.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 70,
+    "id": "eyes_soggy",
+    "name": ":eyes: soggy",
+    "rarity": "legendary",
+    "image": "/assets/cats/eyesSoggy.png",
+    "value": 120000,
+    "description": ":eyes:",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 71,
+    "id": "ballpit_soggy",
+    "name": "ballpit soggy",
+    "rarity": "ultra-legendary",
+    "image": "/assets/cats/BallpitSoggy.png",
+    "value": 400000,
+    "description": "the ballpit has been declared a flood zone.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 72,
+    "id": "soul_stare_soggy",
+    "name": "soul stare soggy",
+    "rarity": "ultra-legendary",
+    "image": "/assets/cats/SoulStareSoggy.png",
+    "value": 400000,
+    "description": "the stare bypasses the monitor.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 73,
+    "id": "b_e_d_soggy",
+    "name": "b e d soggy",
+    "rarity": "ultra-legendary",
+    "image": "/assets/cats/bedSoggy.png",
+    "value": 400000,
+    "description": "b e d.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 74,
+    "id": "goog_soggy",
+    "name": "goog... soggy",
+    "rarity": "ultra-legendary",
+    "image": "/assets/cats/GoogSoggy.png",
+    "value": 400000,
+    "description": "goog...",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 75,
+    "id": "highly_sogged_soggy",
+    "name": "highly sogged soggy",
+    "rarity": "ultra-legendary",
+    "image": "/assets/cats/HighlySoggedSoggy.png",
+    "value": 400000,
+    "description": "maximum moisture achieved.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 76,
+    "id": "serene_soggy",
+    "name": "serene soggy",
+    "rarity": "ultra-legendary",
+    "image": "/assets/cats/SereneSoggy.png",
+    "value": 400000,
+    "description": "at peace with the puddle.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 77,
+    "id": "soggy",
+    "name": "спящий колибри - космос soggy",
+    "rarity": "ultra-legendary",
+    "image": "/assets/cats/Спящий Колибри - Космос Soggy.png",
+    "value": 400000,
+    "description": "cosmic sog detected.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 78,
+    "id": "soggy_prime",
+    "name": "soggy prime",
+    "rarity": "ultra-legendary",
+    "image": "/assets/cats/SoggyPRIME.png",
+    "value": 400000,
+    "description": "the optimized form of sog.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": 79,
+    "id": "stargazer_soggy",
+    "name": "stargazer soggy",
+    "rarity": "ultra-legendary",
+    "image": "/assets/cats/StargazerSoggy.png",
+    "value": 400000,
+    "description": "looking beyond the known puddle.",
+    "hidden": false,
+    "obtainable": {
+      "wheel": true,
+      "achievement": false,
+      "anomaly": false
+    }
+  },
+  {
+    "dex": null,
+    "id": "terminator_soggy",
+    "name": "terminator soggy",
+    "rarity": "anomaly",
+    "image": "/assets/cats/TerminatorSoggy.png",
+    "value": null,
+    "description": "the timeline has developed moisture.",
+    "hidden": true,
+    "obtainable": {
+      "wheel": false,
+      "achievement": false,
+      "anomaly": true
+    }
+  },
+  {
+    "dex": null,
+    "id": "soggy_3x",
+    "name": "soggy in a soggy in a soggy...",
+    "rarity": "anomaly",
+    "image": "/assets/cats/Soggy3x.png",
+    "value": null,
+    "description": "recursive sog detected.",
+    "hidden": true,
+    "obtainable": {
+      "wheel": false,
+      "achievement": false,
+      "anomaly": true
+    }
+  },
+  {
+    "dex": null,
+    "id": "ok_soggy",
+    "name": "ok soggy",
+    "rarity": "anomaly",
+    "image": "/assets/cats/oksog.png",
+    "value": null,
+    "description": "ok.",
+    "hidden": true,
+    "obtainable": {
+      "wheel": false,
+      "achievement": false,
+      "anomaly": true
+    }
+  },
+  {
+    "dex": null,
+    "id": "unpleasantly_wide_soggy",
+    "name": "unpleasantly wide soggy cat picture",
+    "rarity": "anomaly",
+    "image": "/assets/cats/widesoggy.png",
+    "value": null,
+    "description": "aspect ratio integrity failure.",
+    "hidden": true,
+    "obtainable": {
+      "wheel": false,
+      "achievement": false,
+      "anomaly": true
+    }
+  },
+  {
+    "dex": null,
+    "id": "3293_soggy",
+    "name": "$32.93 soggy",
+    "rarity": "anomaly",
+    "image": "/assets/cats/3293Soggy.png",
+    "value": null,
+    "description": "valued with disturbing precision.",
+    "hidden": true,
+    "obtainable": {
+      "wheel": false,
+      "achievement": false,
+      "anomaly": true
+    }
+  },
+  {
+    "dex": null,
+    "id": "seggy",
+    "name": "very very rare exclusive soggy cat egg",
+    "rarity": "anomaly",
+    "image": "/assets/cats/seggy.png",
+    "value": null,
+    "description": "the shell is not supposed to be damp.",
+    "hidden": true,
+    "obtainable": {
+      "wheel": false,
+      "achievement": false,
+      "anomaly": true
+    }
+  }
+]

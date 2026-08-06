@@ -1,4 +1,4 @@
-/* changed a little */
+/* made the sogs work again */
 
 .sidebar-link svg {
     width: 19px;
@@ -224,7 +224,9 @@
 }
 
 
-/* center */
+/* =========================================================
+   center hub
+   ========================================================= */
 
 .wheel-center {
     position: absolute;
@@ -258,10 +260,8 @@
     border-radius: 50%;
 
     box-shadow:
-        0 20px 32px
-        rgb(0 0 0 / 40%),
-        inset 0 1px
-        rgb(255 255 255 / 8%);
+        0 20px 32px rgb(0 0 0 / 40%),
+        inset 0 1px rgb(255 255 255 / 8%);
 
     transform:
         translate(-50%, -50%);
@@ -294,11 +294,6 @@
 
 .wheel-pointer {
     position: absolute;
-
-    /*
-        positioned independently from the wheel.
-        therefore it never rotates.
-    */
 
     top: 38px;
     left: 50%;
@@ -392,7 +387,9 @@
 }
 
 
-/* control sections */
+/* =========================================================
+   control sections
+   ========================================================= */
 
 .wheel-control-section {
     margin-top: 29px;
@@ -832,7 +829,9 @@
 }
 
 
-/* actual reward card */
+/* =========================================================
+   reward card
+   ========================================================= */
 
 .reward-modal-card {
     position: relative;
@@ -841,7 +840,7 @@
 
     width:
         min(
-            450px,
+            480px,
             calc(100vw - 24px)
         );
 
@@ -905,36 +904,42 @@
 }
 
 
-/* reward image */
+/* =========================================================
+   adaptive soggy artwork
+   ========================================================= */
 
 .reward-image-shell {
     position: relative;
 
-    display: grid;
+    display: flex;
+
+    width: 100%;
 
     height:
-        clamp(
-            170px,
-            32vh,
-            275px
+        min(
+            38vh,
+            330px
         );
 
-    place-items: center;
+    min-height: 160px;
+
+    align-items: center;
+    justify-content: center;
 
     overflow: hidden;
 
     margin-top:
         clamp(
-            9px,
-            1.5vh,
-            15px
+            8px,
+            1.4vh,
+            14px
         );
 
     background:
         radial-gradient(
-            circle,
-            rgb(74 196 240 / 16%),
-            transparent 62%
+            circle at 50% 50%,
+            rgb(74 196 240 / 14%),
+            transparent 65%
         ),
         #101820;
 
@@ -946,21 +951,63 @@
 }
 
 .reward-image-shell img {
-    width: 100%;
+    display: block;
 
-    height: 100%;
+    width: auto;
+    height: auto;
+
+    max-width: 100%;
+    max-height: 100%;
 
     object-fit: contain;
+    object-position: center;
+
+    user-select: none;
+}
+
+.reward-image-shell.is-landscape img {
+    width: 100%;
+    height: auto;
+}
+
+.reward-image-shell.is-portrait img {
+    width: auto;
+    height: 100%;
+}
+
+.reward-image-shell.is-square img {
+    width: auto;
+    height: 100%;
+}
+
+.reward-image-shell.is-ultrawide {
+    height:
+        min(
+            30vh,
+            250px
+        );
+}
+
+.reward-image-shell.is-ultrawide img {
+    width: 100%;
+    height: auto;
 }
 
 .reward-image-fallback {
     position: absolute;
 
-    font-size: 6rem;
+    font-size:
+        clamp(
+            4rem,
+            12vh,
+            7rem
+        );
 }
 
 
-/* discovery */
+/* =========================================================
+   discovery
+   ========================================================= */
 
 .reward-discovery {
     margin-top:
@@ -984,7 +1031,9 @@
 }
 
 
-/* title */
+/* =========================================================
+   reward title
+   ========================================================= */
 
 .reward-modal-card h2 {
     margin-top: 5px;
@@ -1021,7 +1070,9 @@
 }
 
 
-/* value */
+/* =========================================================
+   value
+   ========================================================= */
 
 .reward-value {
     display: grid;
@@ -1048,7 +1099,9 @@
 }
 
 
-/* odds */
+/* =========================================================
+   odds
+   ========================================================= */
 
 .reward-odds {
     display: grid;
@@ -1097,7 +1150,9 @@
 }
 
 
-/* buttons */
+/* =========================================================
+   reward buttons
+   ========================================================= */
 
 .reward-actions {
     display: grid;
@@ -1150,9 +1205,6 @@
         0 0 90px
         rgb(103 232 249 / 34%);
 }
-
-
-/* anomaly */
 
 .reward-modal.reward-anomaly
 .reward-modal-card {
@@ -1285,7 +1337,7 @@ body.cutscene-active {
 }
 
 
-/* colors */
+/* rarity cutscene colors */
 
 .rarity-mythic {
     color: #ef4444;
@@ -1349,7 +1401,9 @@ body.cutscene-active {
 }
 
 
-/* animations */
+/* =========================================================
+   animations
+   ========================================================= */
 
 @keyframes cutscene-star {
     from {
@@ -1416,7 +1470,8 @@ body.cutscene-active {
 @media (max-width: 1150px) {
 
     .wheel-game {
-        grid-template-columns: 1fr;
+        grid-template-columns:
+            1fr;
     }
 
     .wheel-stage {
@@ -1439,41 +1494,73 @@ body.cutscene-active {
 }
 
 
-/* short screens */
+/* =========================================================
+   short screens
+   ========================================================= */
 
-@media (max-height: 760px) {
+@media (max-height: 800px) {
 
     .reward-modal-card {
         width:
             min(
-                410px,
+                440px,
                 calc(100vw - 20px)
             );
     }
 
     .reward-image-shell {
-        height: 175px;
-    }
+        height:
+            min(
+                31vh,
+                230px
+            );
 
-    .reward-kicker {
-        margin-top: 5px;
-    }
-
-    .reward-discovery {
-        margin-top: 7px;
-    }
-
-    .reward-modal-card h2 {
-        font-size: 1.4rem;
-    }
-
-    .reward-actions {
-        margin-top: 10px;
+        min-height: 130px;
     }
 }
 
 
-/* mobile */
+@media (max-height: 650px) {
+
+    .reward-modal-card {
+        padding: 12px;
+    }
+
+    .reward-image-shell {
+        height:
+            min(
+                25vh,
+                175px
+            );
+
+        min-height: 100px;
+    }
+
+    .reward-kicker {
+        margin-top: 4px;
+    }
+
+    .reward-discovery {
+        margin-top: 6px;
+    }
+
+    .reward-modal-card h2 {
+        font-size: 1.25rem;
+    }
+
+    .reward-description {
+        font-size: 0.7rem;
+    }
+
+    .reward-actions {
+        margin-top: 8px;
+    }
+}
+
+
+/* =========================================================
+   mobile
+   ========================================================= */
 
 @media (max-width: 680px) {
 
@@ -1517,6 +1604,14 @@ body.cutscene-active {
                 minmax(0, 1fr)
             );
     }
+
+    .reward-image-shell {
+        height:
+            min(
+                34vh,
+                260px
+            );
+    }
 }
 
 
@@ -1533,5 +1628,12 @@ body.cutscene-active {
     .wheel-history {
         grid-template-columns:
             1fr;
+    }
+
+    .reward-modal-card {
+        width:
+            calc(100vw - 14px);
+
+        padding: 12px;
     }
 }

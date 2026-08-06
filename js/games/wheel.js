@@ -26,7 +26,6 @@ import {
     anomalyConfig,
     formatChance,
     formatOdds,
-    getAllWheelTypes,
     getAnomalyChance,
     getIndividualSoggyChance,
     getSpinCost,
@@ -34,8 +33,7 @@ import {
     rollAnomaly,
     rollCoinReward,
     rollRarity,
-    rollRewardType,
-    wagerOptions
+    rollRewardType
 } from "/data/wheel-rewards.js";
 
 import {
@@ -47,88 +45,80 @@ import {
    dom
    ========================================================= */
 
-const wheel = document.querySelector("#wheel");
+const wheel =
+    document.querySelector("#wheel");
 
-const spinButton = document.querySelector(
-    "#spin-button"
-);
+const spinButton =
+    document.querySelector("#spin-button");
 
-const wheelStatus = document.querySelector(
-    "#wheel-status"
-);
+const wheelStatus =
+    document.querySelector("#wheel-status");
 
-const wheelHistory = document.querySelector(
-    "#wheel-history"
-);
+const wheelHistory =
+    document.querySelector("#wheel-history");
 
-const spinCostText = document.querySelector(
-    "#spin-cost"
-);
+const spinCostValue =
+    document.querySelector("#spin-cost-value");
 
-const spinCostValue = document.querySelector(
-    "#spin-cost-value"
-);
+const wheelStageName =
+    document.querySelector("#wheel-stage-name");
 
-const wheelStageName = document.querySelector(
-    "#wheel-stage-name"
-);
-
-const rewardModal = document.querySelector(
-    "#reward-modal"
-);
-
-const rewardRarity = document.querySelector(
-    "#reward-rarity"
-);
-
-const rewardTitle = document.querySelector(
-    "#reward-title"
-);
-
-const rewardDescription = document.querySelector(
-    "#reward-description"
-);
-
-const rewardValue = document.querySelector(
-    "#reward-value"
-);
-
-const rewardImage = document.querySelector(
-    "#reward-image"
-);
-
-const rewardImageFallback = document.querySelector(
-    "#reward-image-fallback"
-);
-
-const keepRewardButton = document.querySelector(
-    "#keep-reward-button"
-);
-
-const sellRewardButton = document.querySelector(
-    "#sell-reward-button"
-);
-
-const wheelTypeButtons = document.querySelectorAll(
-    "[data-wheel-type]"
-);
-
-const wagerButtons = document.querySelectorAll(
-    "[data-wager]"
-);
-
-const wagerInput = document.querySelector(
-    "#wager-input"
-);
-
-const selectedWheelName = document.querySelector(
-    "#selected-wheel-name"
-);
+const selectedWheelName =
+    document.querySelector("#selected-wheel-name");
 
 const selectedWheelDescription =
-    document.querySelector(
-        "#selected-wheel-description"
-    );
+    document.querySelector("#selected-wheel-description");
+
+const wheelTypeButtons =
+    document.querySelectorAll("[data-wheel-type]");
+
+const wagerButtons =
+    document.querySelectorAll("[data-wager]");
+
+const wagerInput =
+    document.querySelector("#wager-input");
+
+
+/* modal */
+
+const rewardModal =
+    document.querySelector("#reward-modal");
+
+const rewardRarity =
+    document.querySelector("#reward-rarity");
+
+const rewardImage =
+    document.querySelector("#reward-image");
+
+const rewardImageFallback =
+    document.querySelector("#reward-image-fallback");
+
+const rewardDiscovery =
+    document.querySelector("#reward-discovery");
+
+const rewardTitle =
+    document.querySelector("#reward-title");
+
+const rewardDescription =
+    document.querySelector("#reward-description");
+
+const rewardValue =
+    document.querySelector("#reward-value");
+
+const rewardChance =
+    document.querySelector("#reward-chance");
+
+const rewardOddsValue =
+    document.querySelector("#reward-odds-value");
+
+const rewardOdds =
+    document.querySelector("#reward-odds");
+
+const keepButton =
+    document.querySelector("#keep-reward-button");
+
+const sellButton =
+    document.querySelector("#sell-reward-button");
 
 
 /* =========================================================
@@ -151,8 +141,7 @@ const RARITY_COLORS = {
     epic: "#f97316",
     mythic: "#ef4444",
     legendary: "#facc15",
-    "ultra-legendary": "#67e8f9",
-    anomaly: "#ffffff"
+    "ultra-legendary": "#67e8f9"
 };
 
 
@@ -160,21 +149,31 @@ const RARITY_COLORS = {
    state
    ========================================================= */
 
-let currentWheelId = "balanced";
-let currentWager = 500;
+let currentWheelId =
+    "balanced";
 
-let currentRotation = 0;
-let spinning = false;
+let currentWager =
+    500;
 
-let pendingReward = null;
-let rewardResolved = true;
+let currentRotation =
+    0;
+
+let spinning =
+    false;
+
+let pendingReward =
+    null;
+
+let rewardResolved =
+    true;
 
 
 /* =========================================================
-   player helpers
+   player structure
    ========================================================= */
 
 function ensurePlayerShape(player) {
+
     if (!Array.isArray(player.inventory)) {
         player.inventory = [];
     }
@@ -191,15 +190,15 @@ function ensurePlayerShape(player) {
         player.statistics = {};
     }
 
+    if (!player.settings) {
+        player.settings = {};
+    }
+
     player.statistics.totalWagered ??= 0;
     player.statistics.totalWon ??= 0;
     player.statistics.wheelSpins ??= 0;
     player.statistics.soggiesCollected ??= 0;
     player.statistics.soggiesSold ??= 0;
-
-    if (!player.settings) {
-        player.settings = {};
-    }
 
     player.settings.cutscenes ??= "full";
 
@@ -207,298 +206,143 @@ function ensurePlayerShape(player) {
 }
 
 
-function hasDiscoveredSoggy(soggyId) {
-    const player = ensurePlayerShape(
-        getPlayer()
-    );
-
-    return player.discovered.includes(
-        soggyId
-    );
-}
-
-
-function markDiscovered(soggyId) {
-    let newDiscovery = false;
-
-    updatePlayer((player) => {
-        ensurePlayerShape(player);
-
-        if (
-            !player.discovered.includes(
-                soggyId
-            )
-        ) {
-            player.discovered.push(
-                soggyId
-            );
-
-            newDiscovery = true;
-        }
-
-        return player;
-    });
-
-    return newDiscovery;
-}
-
-
-function addSoggyToInventory(
-    soggy,
-    sourceData
-) {
-    updatePlayer((player) => {
-        ensurePlayerShape(player);
-
-        player.inventory.push({
-            instanceId:
-                crypto.randomUUID(),
-
-            soggyId:
-                soggy.id,
-
-            obtainedAt:
-                Date.now(),
-
-            source:
-                "wheel",
-
-            wheel:
-                sourceData.wheelId,
-
-            wager:
-                sourceData.wager,
-
-            chance:
-                sourceData.chance
-        });
-
-        player.statistics.soggiesCollected += 1;
-
-        return player;
-    });
-}
-
-
-function recordSpin(result) {
-    updatePlayer((player) => {
-        ensurePlayerShape(player);
-
-        const spinCost =
-            getSpinCost(
-                currentWheelId,
-                currentWager
-            );
-
-        player.statistics.totalWagered +=
-            spinCost;
-
-        player.statistics.wheelSpins += 1;
-
-        player.wheelHistory.unshift({
-            id:
-                crypto.randomUUID(),
-
-            createdAt:
-                Date.now(),
-
-            wheelId:
-                currentWheelId,
-
-            wager:
-                currentWager,
-
-            spinCost,
-
-            type:
-                result.type,
-
-            soggyId:
-                result.soggy?.id ?? null,
-
-            rarity:
-                result.soggy?.rarity ?? null,
-
-            amount:
-                result.amount ?? null,
-
-            multiplier:
-                result.multiplier ?? null,
-
-            chance:
-                result.chance ?? null,
-
-            anomaly:
-                result.anomaly === true
-        });
-
-        player.wheelHistory =
-            player.wheelHistory.slice(
-                0,
-                20
-            );
-
-        return player;
-    });
-}
-
-
 /* =========================================================
-   wheel + wager ui
+   wheel selection
    ========================================================= */
 
-function setWheelType(wheelId) {
-    const wheelType =
-        getWheelType(
-            wheelId
-        );
+function selectWheel(wheelId) {
+
+    const config =
+        getWheelType(wheelId);
 
     currentWheelId =
-        wheelType.id;
+        config.id;
 
-    if (wheelStageName) {
-        wheelStageName.textContent =
-            wheelType.name;
-    }
+    wheelTypeButtons.forEach((button) => {
 
-    wheelTypeButtons.forEach(
-        (button) => {
-            button.classList.toggle(
-                "is-active",
-                button.dataset.wheelType ===
-                    currentWheelId
-            );
-        }
-    );
+        button.classList.toggle(
+            "is-active",
+            button.dataset.wheelType === currentWheelId
+        );
+
+    });
 
     if (selectedWheelName) {
         selectedWheelName.textContent =
-            wheelType.name;
+            config.name;
     }
 
     if (selectedWheelDescription) {
         selectedWheelDescription.textContent =
-            wheelType.description;
+            config.description;
     }
 
-    updateSpinCost();
-    renderWheelVisual();
+    if (wheelStageName) {
+        wheelStageName.textContent =
+            config.name;
+    }
+
+    renderWheel();
+    updateCost();
 }
 
 
-function setWager(value) {
-    const wager =
+/* =========================================================
+   wager
+   ========================================================= */
+
+function selectWager(value) {
+
+    const amount =
         Number(value);
 
     if (
-        !Number.isFinite(wager) ||
-        wager <= 0
+        !Number.isFinite(amount) ||
+        amount <= 0
     ) {
         return;
     }
 
     currentWager =
-        Math.round(
-            wager
+        Math.round(amount);
+
+    wagerButtons.forEach((button) => {
+
+        button.classList.toggle(
+            "is-active",
+            Number(button.dataset.wager) === currentWager
         );
 
-    wagerButtons.forEach(
-        (button) => {
-            button.classList.toggle(
-                "is-active",
-                Number(
-                    button.dataset.wager
-                ) === currentWager
-            );
-        }
-    );
+    });
 
     if (wagerInput) {
         wagerInput.value =
             currentWager;
     }
 
-    updateSpinCost();
+    updateCost();
 }
 
 
-function updateSpinCost() {
+function updateCost() {
+
     const cost =
         getSpinCost(
             currentWheelId,
             currentWager
         );
 
-    if (spinCostText) {
-        spinCostText.textContent =
-            `${formatSoggyCoins(
-                cost
-            )} sc`;
-    }
-
     if (spinCostValue) {
+
         spinCostValue.textContent =
-            formatSoggyCoins(
-                cost
-            );
+            formatSoggyCoins(cost);
+
     }
 }
 
 
 /* =========================================================
-   visual wheel
+   wheel rendering
    ========================================================= */
 
-function renderWheelVisual() {
+function renderWheel() {
+
     if (!wheel) {
         return;
     }
 
     const config =
-        getWheelType(
-            currentWheelId
-        );
+        getWheelType(currentWheelId);
 
-    const segments =
-        Object.entries(
-            config.rarityChances
-        );
+    const stops = [];
 
-    const colors = [];
-
-    let currentAngle = 0;
+    let angle = 0;
 
     for (
-        const [rarityId, chance]
-        of segments
+        const [rarity, chance]
+        of Object.entries(config.rarityChances)
     ) {
-        const segmentSize =
-            (
-                chance /
-                100
-            ) *
-            360;
 
-        const nextAngle =
-            currentAngle +
-            segmentSize;
+        const size =
+            chance / 100 * 360;
+
+        const end =
+            angle + size;
 
         const color =
-            RARITY_COLORS[
-                rarityId
-            ] ??
+            RARITY_COLORS[rarity] ??
             "#64748b";
 
-        colors.push(
-            `${color} ${currentAngle}deg ${nextAngle}deg`
+        stops.push(
+            `${color} ${angle}deg ${end}deg`
         );
 
-        currentAngle =
-            nextAngle;
+        angle =
+            end;
     }
 
     wheel.style.background =
-        `conic-gradient(${colors.join(",")})`;
+        `conic-gradient(${stops.join(",")})`;
 }
 
 
@@ -506,9 +350,8 @@ function renderWheelVisual() {
    odds
    ========================================================= */
 
-async function calculateFullSpinChance(
-    soggy
-) {
+async function getFullSpinChance(soggy) {
+
     if (
         !soggy ||
         soggy.rarity === "anomaly"
@@ -517,9 +360,7 @@ async function calculateFullSpinChance(
     }
 
     const config =
-        getWheelType(
-            currentWheelId
-        );
+        getWheelType(currentWheelId);
 
     const pool =
         await getWheelSoggiesByRarity(
@@ -537,56 +378,60 @@ async function calculateFullSpinChance(
             pool.length
         );
 
-    if (
-        !Number.isFinite(
-            conditionalChance
-        )
-    ) {
+    if (!Number.isFinite(conditionalChance)) {
         return null;
     }
 
-    const soggyRewardFactor =
-        config.soggyChance /
-        100;
+    /*
+        rarity odds are conditional on
+        first rolling a soggy reward.
+    */
 
     return (
         conditionalChance *
-        soggyRewardFactor
+        (config.soggyChance / 100)
     );
 }
 
 
 /* =========================================================
-   result rolling
+   result generation
    ========================================================= */
 
-async function rollSpinResult() {
+async function generateResult() {
+
+    /* hidden anomaly check */
+
     if (
         anomalyConfig.enabled &&
-        rollAnomaly(
-            currentWheelId
-        )
+        rollAnomaly(currentWheelId)
     ) {
+
         const anomaly =
             await getRandomAnomaly();
 
         if (anomaly) {
+
             return {
                 type: "soggy",
                 soggy: anomaly,
                 anomaly: true,
                 chance: null
             };
+
         }
     }
 
-    const rewardType =
-        rollRewardType(
-            currentWheelId
-        );
 
-    if (rewardType === "coins") {
-        const coinReward =
+    const type =
+        rollRewardType(currentWheelId);
+
+
+    /* soggycoins */
+
+    if (type === "coins") {
+
+        const coins =
             rollCoinReward(
                 currentWheelId,
                 currentWager
@@ -594,21 +439,17 @@ async function rollSpinResult() {
 
         return {
             type: "coins",
-
-            amount:
-                coinReward.amount,
-
-            multiplier:
-                coinReward.multiplier,
-
+            amount: coins.amount,
+            multiplier: coins.multiplier,
             anomaly: false
         };
     }
 
+
+    /* soggy */
+
     const rarity =
-        rollRarity(
-            currentWheelId
-        );
+        rollRarity(currentWheelId);
 
     const soggy =
         await getRandomWheelSoggy(
@@ -616,13 +457,14 @@ async function rollSpinResult() {
         );
 
     if (!soggy) {
+
         throw new Error(
-            `no wheel soggies found for rarity "${rarity}".`
+            `no wheel soggies available for ${rarity}`
         );
     }
 
     const chance =
-        await calculateFullSpinChance(
+        await getFullSpinChance(
             soggy
         );
 
@@ -636,128 +478,120 @@ async function rollSpinResult() {
 
 
 /* =========================================================
-   spin animation
+   pointer target
    ========================================================= */
 
-function getVisualSegmentCenter(
-    result
-) {
-    if (
-        result.type ===
-        "coins"
-    ) {
-        return (
-            Math.random() *
-            360
-        );
-    }
+function getTargetAngle(result) {
 
     if (
+        result.type === "coins" ||
         result.anomaly
     ) {
-        return (
-            Math.random() *
-            360
-        );
+
+        return Math.random() * 360;
     }
 
     const config =
-        getWheelType(
-            currentWheelId
-        );
+        getWheelType(currentWheelId);
 
-    let startAngle = 0;
+    let start =
+        0;
 
     for (
-        const rarityId
-        of Object.keys(
-            config.rarityChances
-        )
+        const [rarity, chance]
+        of Object.entries(config.rarityChances)
     ) {
-        const chance =
-            config.rarityChances[
-                rarityId
-            ];
 
-        const segmentSize =
-            (
-                chance /
-                100
-            ) *
-            360;
+        const size =
+            chance / 100 * 360;
 
         if (
-            rarityId ===
+            rarity ===
             result.soggy.rarity
         ) {
+
+            /*
+                random position inside segment
+                instead of always dead center
+            */
+
+            const padding =
+                Math.min(
+                    3,
+                    size * 0.15
+                );
+
             return (
-                startAngle +
-                segmentSize /
-                2
+                start +
+                padding +
+                Math.random() *
+                Math.max(
+                    0.001,
+                    size - padding * 2
+                )
             );
         }
 
-        startAngle +=
-            segmentSize;
+        start += size;
     }
 
-    return (
-        Math.random() *
-        360
-    );
+    return Math.random() * 360;
 }
 
 
-function calculateTargetRotation(
-    result
-) {
-    const center =
-        getVisualSegmentCenter(
-            result
-        );
+/* =========================================================
+   animation
+   ========================================================= */
 
-    const pointerTarget =
-        360 -
-        center;
+function calculateRotation(result) {
 
-    const normalizedCurrent =
-        (
-            (
-                currentRotation %
-                360
-            ) +
-            360
-        ) %
-        360;
+    const target =
+        getTargetAngle(result);
+
+    /*
+        pointer is at 0 degrees / top.
+    */
+
+    const desired =
+        360 - target;
+
+    const normalized =
+        ((currentRotation % 360) + 360) % 360;
 
     const adjustment =
         (
-            pointerTarget -
-            normalizedCurrent +
+            desired -
+            normalized +
             360
-        ) %
-        360;
+        ) % 360;
 
-    const rotations =
+    const spins =
         (
             7 +
             Math.floor(
-                Math.random() *
-                3
+                Math.random() * 3
             )
         ) *
         360;
 
     return (
         currentRotation +
-        rotations +
+        spins +
         adjustment
     );
 }
 
 
 function setSpinning(value) {
-    spinning = value;
+
+    spinning =
+        value;
+
+    spinButton.disabled =
+        value;
+
+    wagerInput.disabled =
+        value;
 
     wheelTypeButtons.forEach(
         (button) => {
@@ -773,18 +607,6 @@ function setSpinning(value) {
         }
     );
 
-    if (wagerInput) {
-        wagerInput.disabled =
-            value;
-    }
-
-    if (!spinButton) {
-        return;
-    }
-
-    spinButton.disabled =
-        value;
-
     spinButton.innerHTML =
         value
             ? `
@@ -799,10 +621,300 @@ function setSpinning(value) {
 
 
 /* =========================================================
-   cutscenes
+   discoveries
    ========================================================= */
 
-function ensureCutsceneElement() {
+function isDiscovered(id) {
+
+    const player =
+        ensurePlayerShape(
+            getPlayer()
+        );
+
+    return player.discovered.includes(id);
+}
+
+
+function discover(id) {
+
+    updatePlayer((player) => {
+
+        ensurePlayerShape(player);
+
+        if (!player.discovered.includes(id)) {
+            player.discovered.push(id);
+        }
+
+        return player;
+    });
+}
+
+
+/* =========================================================
+   inventory
+   ========================================================= */
+
+function addToInventory(
+    soggy,
+    chance
+) {
+
+    updatePlayer((player) => {
+
+        ensurePlayerShape(player);
+
+        player.inventory.push({
+
+            instanceId:
+                crypto.randomUUID(),
+
+            soggyId:
+                soggy.id,
+
+            obtainedAt:
+                Date.now(),
+
+            source:
+                "wheel",
+
+            wheel:
+                currentWheelId,
+
+            wager:
+                currentWager,
+
+            chance
+        });
+
+        player.statistics.soggiesCollected +=
+            1;
+
+        return player;
+    });
+}
+
+
+/* =========================================================
+   history
+   ========================================================= */
+
+function saveHistory(result) {
+
+    updatePlayer((player) => {
+
+        ensurePlayerShape(player);
+
+        const cost =
+            getSpinCost(
+                currentWheelId,
+                currentWager
+            );
+
+        player.statistics.totalWagered +=
+            cost;
+
+        player.statistics.wheelSpins +=
+            1;
+
+        player.wheelHistory.unshift({
+
+            id:
+                crypto.randomUUID(),
+
+            createdAt:
+                Date.now(),
+
+            wheelId:
+                currentWheelId,
+
+            wager:
+                currentWager,
+
+            spinCost:
+                cost,
+
+            type:
+                result.type,
+
+            soggyId:
+                result.soggy?.id ??
+                null,
+
+            rarity:
+                result.soggy?.rarity ??
+                null,
+
+            amount:
+                result.amount ??
+                null,
+
+            multiplier:
+                result.multiplier ??
+                null,
+
+            anomaly:
+                Boolean(
+                    result.anomaly
+                )
+        });
+
+        player.wheelHistory =
+            player.wheelHistory.slice(
+                0,
+                20
+            );
+
+        return player;
+    });
+}
+
+
+async function renderHistory() {
+
+    wheelHistory.replaceChildren();
+
+    const player =
+        ensurePlayerShape(
+            getPlayer()
+        );
+
+    if (!player.wheelHistory.length) {
+
+        const empty =
+            document.createElement("div");
+
+        empty.className =
+            "wheel-history-empty";
+
+        empty.textContent =
+            "no spins yet. the wheel remains suspiciously dry.";
+
+        wheelHistory.append(empty);
+
+        return;
+    }
+
+
+    for (
+        const entry
+        of player.wheelHistory.slice(0, 10)
+    ) {
+
+        const card =
+            document.createElement("article");
+
+        card.className =
+            "history-card";
+
+
+        const top =
+            document.createElement("div");
+
+        top.className =
+            "history-card-top";
+
+
+        const icon =
+            document.createElement("span");
+
+        icon.className =
+            "history-card-icon";
+
+
+        const time =
+            document.createElement("time");
+
+        time.textContent =
+            new Intl.DateTimeFormat(
+                "en",
+                {
+                    hour: "2-digit",
+                    minute: "2-digit"
+                }
+            ).format(
+                new Date(
+                    entry.createdAt
+                )
+            );
+
+
+        const title =
+            document.createElement("strong");
+
+
+        const detail =
+            document.createElement("span");
+
+
+        if (entry.type === "coins") {
+
+            icon.textContent =
+                "💧";
+
+            title.textContent =
+                `${formatSoggyCoins(entry.amount)} sc`;
+
+            detail.textContent =
+                `${entry.multiplier}×`;
+        }
+
+        else if (entry.anomaly) {
+
+            icon.textContent =
+                "█";
+
+            title.textContent =
+                "████████";
+
+            detail.textContent =
+                "???";
+        }
+
+        else {
+
+            icon.textContent =
+                "🐈";
+
+            const soggy =
+                await getSoggyById(
+                    entry.soggyId
+                );
+
+            title.textContent =
+                soggy?.name ??
+                "unknown soggy";
+
+            detail.textContent =
+                entry.rarity
+                    ?.replaceAll("-", " ") ??
+                "";
+        }
+
+
+        top.append(
+            icon,
+            time
+        );
+
+        card.append(
+            top,
+            title,
+            detail
+        );
+
+        wheelHistory.append(
+            card
+        );
+    }
+}
+
+
+/* =========================================================
+   cutscene
+   ========================================================= */
+
+function getCutsceneElement() {
+
     let element =
         document.querySelector(
             "#soggy-cutscene"
@@ -811,6 +923,7 @@ function ensureCutsceneElement() {
     if (element) {
         return element;
     }
+
 
     element =
         document.createElement(
@@ -827,27 +940,27 @@ function ensureCutsceneElement() {
         <div class="soggy-cutscene-noise"></div>
 
         <div class="soggy-cutscene-center">
+
             <div class="soggy-cutscene-star">
                 ✦
             </div>
 
             <div class="soggy-cutscene-rarity">
             </div>
+
         </div>
     `;
 
-    document.body.append(
-        element
-    );
+    document.body.append(element);
 
     return element;
 }
 
 
-function getCutsceneDuration(
-    rarity
-) {
+function cutsceneDuration(rarity) {
+
     switch (rarity) {
+
         case "mythic":
             return 2200;
 
@@ -866,98 +979,96 @@ function getCutsceneDuration(
 }
 
 
-async function playCutscene(
-    soggy
-) {
-    if (!soggy) {
-        return;
-    }
+async function playCutscene(soggy) {
 
     const rarity =
         soggy.rarity;
 
-    const shouldPlay =
-        CUTSCENE_RARITIES.has(
-            rarity
-        ) ||
-        rarity ===
-            "anomaly";
-
-    if (!shouldPlay) {
+    if (
+        !CUTSCENE_RARITIES.has(rarity) &&
+        rarity !== "anomaly"
+    ) {
         return;
     }
+
 
     const player =
         ensurePlayerShape(
             getPlayer()
         );
 
-    const setting =
-        player.settings
-            ?.cutscenes ??
-        "full";
+    const mode =
+        player.settings.cutscenes;
 
-    if (
-        setting ===
-        "instant"
-    ) {
+
+    if (mode === "instant") {
         return;
     }
 
-    const cutscene =
-        ensureCutsceneElement();
 
-    const rarityText =
-        cutscene.querySelector(
-            ".soggy-cutscene-rarity"
-        );
+    const scene =
+        getCutsceneElement();
+
 
     const star =
-        cutscene.querySelector(
+        scene.querySelector(
             ".soggy-cutscene-star"
         );
 
-    cutscene.className =
+    const label =
+        scene.querySelector(
+            ".soggy-cutscene-rarity"
+        );
+
+
+    scene.className =
         `soggy-cutscene rarity-${rarity}`;
 
-    rarityText.textContent =
-        rarity === "anomaly"
-            ? "████████"
-            : rarity.replace(
-                "-",
-                " "
-            );
 
-    star.textContent =
-        rarity === "anomaly"
-            ? "█"
-            : "✦";
+    if (rarity === "anomaly") {
+
+        star.textContent =
+            "█";
+
+        label.textContent =
+            "████████";
+    }
+
+    else {
+
+        star.textContent =
+            "✦";
+
+        label.textContent =
+            rarity.replaceAll("-", " ");
+    }
+
 
     document.body.classList.add(
         "cutscene-active"
     );
 
-    cutscene.classList.add(
+    scene.classList.add(
         "is-active"
     );
 
+
     const duration =
-        setting === "short"
+        mode === "short"
             ? 1000
-            : getCutsceneDuration(
-                rarity
-            );
+            : cutsceneDuration(rarity);
+
 
     await new Promise(
-        (resolve) => {
-            window.setTimeout(
+        (resolve) =>
+            setTimeout(
                 resolve,
                 duration
-            );
-        }
+            )
     );
 
-    cutscene.classList.remove(
+
+    scene.classList.remove(
         "is-active"
     );
 
@@ -971,16 +1082,10 @@ async function playCutscene(
    reward modal
    ========================================================= */
 
-function resetRewardModal() {
-    if (!rewardModal) {
-        return;
-    }
+function prepareModal() {
 
     rewardModal.className =
         "reward-modal";
-
-    rewardRarity.className =
-        "badge";
 
     rewardImage.hidden =
         true;
@@ -988,27 +1093,29 @@ function resetRewardModal() {
     rewardImageFallback.hidden =
         false;
 
-    sellRewardButton.hidden =
+    rewardOdds.hidden =
         false;
 
-    keepRewardButton.hidden =
+    sellButton.hidden =
+        false;
+
+    keepButton.hidden =
         false;
 }
 
 
-async function showSoggyReward(
-    result
-) {
+async function showSoggy(result) {
+
+    prepareModal();
+
     const soggy =
         result.soggy;
 
-    const alreadyDiscovered =
-        hasDiscoveredSoggy(
+    const newDiscovery =
+        !isDiscovered(
             soggy.id
         );
 
-    const newDiscovery =
-        !alreadyDiscovered;
 
     pendingReward = {
         ...result,
@@ -1018,20 +1125,48 @@ async function showSoggyReward(
     rewardResolved =
         false;
 
-    resetRewardModal();
 
     rewardTitle.textContent =
         soggy.name;
+
 
     rewardDescription.textContent =
         soggy.description
             ? `"${soggy.description}"`
             : "████████████";
 
-    if (
-        soggy.rarity ===
-        "anomaly"
-    ) {
+
+    rewardImage.src =
+        soggy.image;
+
+    rewardImage.alt =
+        soggy.name;
+
+
+    rewardImage.onload =
+        () => {
+
+            rewardImage.hidden =
+                false;
+
+            rewardImageFallback.hidden =
+                true;
+        };
+
+
+    rewardImage.onerror =
+        () => {
+
+            rewardImage.hidden =
+                true;
+
+            rewardImageFallback.hidden =
+                false;
+        };
+
+
+    if (result.anomaly) {
+
         rewardRarity.textContent =
             "████████";
 
@@ -1041,165 +1176,98 @@ async function showSoggyReward(
         rewardValue.textContent =
             "???";
 
+        rewardChance.textContent =
+            "???";
+
+        rewardOddsValue.textContent =
+            "???";
+
         rewardModal.classList.add(
             "reward-anomaly"
         );
-    } else {
+    }
+
+    else {
+
         const rarity =
             getRarity(
                 soggy.rarity
             );
 
+
         rewardRarity.textContent =
             rarity?.name ??
             soggy.rarity;
 
+
         rewardRarity.className =
             `badge ${soggy.rarity}`;
+
 
         rewardValue.textContent =
             `${formatSoggyCoins(
                 soggy.value
             )} sc`;
 
+
+        rewardChance.textContent =
+            formatChance(
+                result.chance
+            );
+
+
+        rewardOddsValue.textContent =
+            formatOdds(
+                result.chance
+            );
+
+
         rewardModal.classList.add(
             `reward-${soggy.rarity}`
         );
     }
 
-    rewardImage.src =
-        soggy.image;
-
-    rewardImage.alt =
-        soggy.name;
-
-    rewardImageFallback.textContent =
-        "🐈";
-
-    rewardImage.onload =
-        () => {
-            rewardImage.hidden =
-                false;
-
-            rewardImageFallback.hidden =
-                true;
-        };
-
-    rewardImage.onerror =
-        () => {
-            rewardImage.hidden =
-                true;
-
-            rewardImageFallback.hidden =
-                false;
-        };
-
-    let oddsBox =
-        rewardModal.querySelector(
-            ".reward-odds"
-        );
-
-    if (!oddsBox) {
-        oddsBox =
-            document.createElement(
-                "div"
-            );
-
-        oddsBox.className =
-            "reward-odds";
-
-        rewardValue
-            .closest(
-                ".reward-value"
-            )
-            ?.after(
-                oddsBox
-            );
-    }
-
-    if (
-        result.anomaly
-    ) {
-        oddsBox.innerHTML = `
-            <div>
-                <span>chance</span>
-                <strong>???</strong>
-            </div>
-
-            <div>
-                <span>odds</span>
-                <strong>???</strong>
-            </div>
-        `;
-    } else {
-        oddsBox.innerHTML = `
-            <div>
-                <span>chance</span>
-                <strong>
-                    ${formatChance(
-                        result.chance
-                    )}
-                </strong>
-            </div>
-
-            <div>
-                <span>odds</span>
-                <strong>
-                    ${formatOdds(
-                        result.chance
-                    )}
-                </strong>
-            </div>
-        `;
-    }
-
-    let discovery =
-        rewardModal.querySelector(
-            ".reward-discovery"
-        );
-
-    if (!discovery) {
-        discovery =
-            document.createElement(
-                "div"
-            );
-
-        discovery.className =
-            "reward-discovery";
-
-        rewardTitle.before(
-            discovery
-        );
-    }
 
     if (newDiscovery) {
-        discovery.textContent =
+
+        rewardDiscovery.textContent =
             "✨ new variant discovered!";
 
-        discovery.classList.add(
+        rewardDiscovery.classList.add(
             "is-new"
         );
 
-        sellRewardButton.hidden =
-            true;
-
-        keepRewardButton.textContent =
+        keepButton.textContent =
             "keep";
-    } else {
-        discovery.textContent =
+
+        /*
+            first copy cannot be sold
+        */
+
+        sellButton.hidden =
+            true;
+    }
+
+    else {
+
+        rewardDiscovery.textContent =
             "already rescued.";
 
-        discovery.classList.remove(
+        rewardDiscovery.classList.remove(
             "is-new"
         );
 
-        sellRewardButton.hidden =
-            soggy.rarity ===
-            "anomaly";
-
-        keepRewardButton.textContent =
+        keepButton.textContent =
             "keep another";
+
+        /*
+            anomalies never sell
+        */
+
+        sellButton.hidden =
+            result.anomaly;
     }
+
 
     rewardModal.classList.add(
         "is-open"
@@ -1212,16 +1280,17 @@ async function showSoggyReward(
 }
 
 
-function showCoinReward(
-    result
-) {
+function showCoins(result) {
+
+    prepareModal();
+
+
     pendingReward =
         result;
 
     rewardResolved =
         false;
 
-    resetRewardModal();
 
     rewardRarity.textContent =
         "soggycoins";
@@ -1229,56 +1298,46 @@ function showCoinReward(
     rewardRarity.className =
         "badge original";
 
-    rewardImage.hidden =
-        true;
-
-    rewardImageFallback.hidden =
-        false;
 
     rewardImageFallback.textContent =
         "💧";
+
 
     rewardTitle.textContent =
         `${formatSoggyCoins(
             result.amount
         )} soggycoins`;
 
+
     rewardDescription.textContent =
-        result.amount === 0
-            ? "the wheel has chosen dryness."
-            : "the puddle grows.";
+        result.amount > 0
+            ? "the puddle grows."
+            : "the wheel has chosen dryness.";
+
 
     rewardValue.textContent =
         `${formatSoggyCoins(
             result.amount
         )} sc`;
 
-    keepRewardButton.textContent =
+
+    rewardDiscovery.textContent =
+        "";
+
+
+    rewardOdds.hidden =
+        true;
+
+
+    sellButton.hidden =
+        true;
+
+
+    keepButton.textContent =
         result.amount > 0
             ? "claim"
             : "accept fate";
 
-    sellRewardButton.hidden =
-        true;
-
-    const discovery =
-        rewardModal.querySelector(
-            ".reward-discovery"
-        );
-
-    if (discovery) {
-        discovery.textContent =
-            "";
-    }
-
-    const oddsBox =
-        rewardModal.querySelector(
-            ".reward-odds"
-        );
-
-    if (oddsBox) {
-        oddsBox.remove();
-    }
 
     rewardModal.classList.add(
         "is-open"
@@ -1292,10 +1351,11 @@ function showCoinReward(
 
 
 /* =========================================================
-   reward resolution
+   reward actions
    ========================================================= */
 
-function keepPendingReward() {
+function keepReward() {
+
     if (
         !pendingReward ||
         rewardResolved
@@ -1303,23 +1363,28 @@ function keepPendingReward() {
         return;
     }
 
+
+    /* coins */
+
     if (
         pendingReward.type ===
         "coins"
     ) {
+
         if (
             pendingReward.amount >
             0
         ) {
+
             addBalance(
                 pendingReward.amount
             );
 
+
             updatePlayer(
                 (player) => {
-                    ensurePlayerShape(
-                        player
-                    );
+
+                    ensurePlayerShape(player);
 
                     player.statistics.totalWon +=
                         pendingReward.amount;
@@ -1329,34 +1394,32 @@ function keepPendingReward() {
             );
         }
 
+
         rewardResolved =
             true;
 
-        closeRewardModal();
+        closeModal();
 
         return;
     }
 
+
+    /* soggy */
+
     const soggy =
         pendingReward.soggy;
 
-    addSoggyToInventory(
+
+    addToInventory(
         soggy,
-        {
-            wheelId:
-                currentWheelId,
-
-            wager:
-                currentWager,
-
-            chance:
-                pendingReward.chance
-        }
+        pendingReward.chance
     );
 
-    markDiscovered(
+
+    discover(
         soggy.id
     );
+
 
     showToast(
         pendingReward.newDiscovery
@@ -1365,48 +1428,46 @@ function keepPendingReward() {
         "success"
     );
 
+
     rewardResolved =
         true;
 
-    closeRewardModal();
+    closeModal();
 }
 
 
-function sellPendingReward() {
+function sellReward() {
+
     if (
         !pendingReward ||
         rewardResolved ||
-        pendingReward.type !==
-            "soggy"
+        pendingReward.type !== "soggy"
     ) {
         return;
     }
+
+
+    if (
+        pendingReward.newDiscovery ||
+        pendingReward.anomaly
+    ) {
+        return;
+    }
+
 
     const soggy =
         pendingReward.soggy;
 
-    if (
-        pendingReward.newDiscovery
-    ) {
-        return;
-    }
-
-    if (
-        soggy.rarity ===
-        "anomaly"
-    ) {
-        return;
-    }
 
     addBalance(
         soggy.value
     );
 
+
     updatePlayer(
         (player) => {
-            ensurePlayerShape(
-                player
-            );
+
+            ensurePlayerShape(player);
 
             player.statistics.totalWon +=
                 soggy.value;
@@ -1418,6 +1479,7 @@ function sellPendingReward() {
         }
     );
 
+
     showToast(
         `${soggy.name} was released for ${formatSoggyCoins(
             soggy.value
@@ -1425,215 +1487,59 @@ function sellPendingReward() {
         "success"
     );
 
+
     rewardResolved =
         true;
 
-    closeRewardModal();
+    closeModal();
 }
 
 
-function closeRewardModal() {
+function closeModal() {
+
+    /*
+        never discard unresolved rewards
+    */
+
     if (!rewardResolved) {
         return;
     }
 
-    rewardModal?.classList.remove(
+
+    rewardModal.classList.remove(
         "is-open"
     );
 
-    rewardModal?.setAttribute(
+
+    rewardModal.setAttribute(
         "aria-hidden",
         "true"
     );
 
+
     pendingReward =
         null;
+
 
     renderHistory();
 }
 
 
 /* =========================================================
-   history
+   spin
    ========================================================= */
 
-function formatHistoryTime(
-    timestamp
-) {
-    return new Intl.DateTimeFormat(
-        "en",
-        {
-            hour: "2-digit",
-            minute: "2-digit"
-        }
-    ).format(
-        new Date(timestamp)
-    );
-}
-
-
-async function renderHistory() {
-    if (!wheelHistory) {
-        return;
-    }
-
-    const player =
-        ensurePlayerShape(
-            getPlayer()
-        );
-
-    const history =
-        player.wheelHistory;
-
-    wheelHistory.replaceChildren();
-
-    if (!history.length) {
-        const empty =
-            document.createElement(
-                "div"
-            );
-
-        empty.className =
-            "wheel-history-empty";
-
-        empty.textContent =
-            "no spins yet. the wheel remains suspiciously dry.";
-
-        wheelHistory.append(
-            empty
-        );
-
-        return;
-    }
-
-    for (
-        const entry
-        of history.slice(0, 10)
-    ) {
-        const card =
-            document.createElement(
-                "article"
-            );
-
-        card.className =
-            "history-card";
-
-        const top =
-            document.createElement(
-                "div"
-            );
-
-        top.className =
-            "history-card-top";
-
-        const icon =
-            document.createElement(
-                "span"
-            );
-
-        icon.className =
-            "history-card-icon";
-
-        icon.textContent =
-            entry.anomaly
-                ? "█"
-                : entry.type ===
-                    "coins"
-                    ? "💧"
-                    : "🐈";
-
-        const time =
-            document.createElement(
-                "time"
-            );
-
-        time.textContent =
-            formatHistoryTime(
-                entry.createdAt
-            );
-
-        top.append(
-            icon,
-            time
-        );
-
-        const title =
-            document.createElement(
-                "strong"
-            );
-
-        const detail =
-            document.createElement(
-                "span"
-            );
-
-        if (
-            entry.type ===
-            "coins"
-        ) {
-            title.textContent =
-                `${formatSoggyCoins(
-                    entry.amount
-                )} sc`;
-
-            detail.textContent =
-                `${entry.multiplier}×`;
-        } else if (
-            entry.anomaly
-        ) {
-            title.textContent =
-                "████████";
-
-            detail.textContent =
-                "???";
-        } else {
-            const soggy =
-                await getSoggyById(
-                    entry.soggyId
-                );
-
-            title.textContent =
-                soggy?.name ??
-                entry.soggyId;
-
-            detail.textContent =
-                entry.rarity
-                    ?.replaceAll(
-                        "-",
-                        " "
-                    ) ??
-                "";
-        }
-
-        card.append(
-            top,
-            title,
-            detail
-        );
-
-        wheelHistory.append(
-            card
-        );
-    }
-}
-
-
-/* =========================================================
-   main spin
-   ========================================================= */
-
-async function spinWheel() {
-    if (spinning) {
-        return;
-    }
+async function spin() {
 
     if (
-        rewardModal?.classList.contains(
+        spinning ||
+        rewardModal.classList.contains(
             "is-open"
         )
     ) {
         return;
     }
+
 
     const cost =
         getSpinCost(
@@ -1641,120 +1547,138 @@ async function spinWheel() {
             currentWager
         );
 
+
     if (
-        !subtractBalance(
-            cost
-        )
+        !subtractBalance(cost)
     ) {
+
+        wheelStatus.textContent =
+            "insufficient moisture funds.";
+
+
         showToast(
             "you do not have enough soggycoins.",
             "error"
         );
 
-        if (wheelStatus) {
-            wheelStatus.textContent =
-                "insufficient moisture funds.";
-        }
-
         return;
     }
 
+
     setSpinning(true);
 
-    if (wheelStatus) {
-        wheelStatus.textContent =
-            "consulting the sog council...";
-    }
+
+    wheelStatus.textContent =
+        "consulting the sog council...";
+
 
     try {
+
         const result =
-            await rollSpinResult();
+            await generateResult();
 
-        recordSpin(
-            result
-        );
 
-        const targetRotation =
-            calculateTargetRotation(
+        saveHistory(result);
+
+
+        const rotation =
+            calculateRotation(
                 result
             );
 
+
         currentRotation =
-            targetRotation;
+            rotation;
+
 
         requestAnimationFrame(
             () => {
-                if (wheel) {
-                    wheel.style.transform =
-                        `rotate(${targetRotation}deg)`;
-                }
+
+                wheel.style.transform =
+                    `rotate(${rotation}deg)`;
             }
         );
 
+
         await new Promise(
-            (resolve) => {
-                window.setTimeout(
+            (resolve) =>
+                setTimeout(
                     resolve,
                     SPIN_DURATION
-                );
-            }
+                )
         );
+
 
         if (
             result.type ===
             "soggy"
         ) {
-            if (wheelStatus) {
-                wheelStatus.textContent =
-                    result.anomaly
-                        ? "..."
-                        : `landed on ${result.soggy.rarity.replaceAll(
-                            "-",
-                            " "
-                        )}.`;
-            }
+
+            wheelStatus.textContent =
+                result.anomaly
+                    ? "..."
+                    : `landed on ${result.soggy.rarity.replaceAll(
+                        "-",
+                        " "
+                    )}.`;
+
 
             await playCutscene(
                 result.soggy
             );
 
-            await showSoggyReward(
-                result
-            );
-        } else {
-            if (wheelStatus) {
-                wheelStatus.textContent =
-                    result.amount > 0
-                        ? `won ${formatSoggyCoins(
-                            result.amount
-                        )} sc.`
-                        : "the wheel chose dryness.";
-            }
 
-            showCoinReward(
+            await showSoggy(
                 result
             );
         }
-    } catch (error) {
+
+        else {
+
+            wheelStatus.textContent =
+                result.amount > 0
+                    ? `won ${formatSoggyCoins(
+                        result.amount
+                    )} sc.`
+                    : "the wheel chose dryness.";
+
+
+            showCoins(
+                result
+            );
+        }
+
+    }
+
+    catch (error) {
+
         console.error(
             "wheel spin failed:",
             error
         );
 
+
+        /*
+            refund failures
+        */
+
         addBalance(
             cost
         );
+
+
+        wheelStatus.textContent =
+            "reality has been restored.";
+
 
         showToast(
             "the wheel broke reality. your spin was refunded.",
             "error"
         );
+    }
 
-        if (wheelStatus) {
-            wheelStatus.textContent =
-                "reality has been restored.";
-        }
-    } finally {
+    finally {
+
         setSpinning(false);
 
         await renderHistory();
@@ -1766,82 +1690,109 @@ async function spinWheel() {
    events
    ========================================================= */
 
-spinButton?.addEventListener(
+spinButton.addEventListener(
     "click",
-    spinWheel
+    spin
 );
 
-keepRewardButton?.addEventListener(
+
+keepButton.addEventListener(
     "click",
-    keepPendingReward
+    keepReward
 );
 
-sellRewardButton?.addEventListener(
+
+sellButton.addEventListener(
     "click",
-    sellPendingReward
+    sellReward
 );
+
 
 wheelTypeButtons.forEach(
     (button) => {
+
         button.addEventListener(
             "click",
             () => {
+
                 if (spinning) {
                     return;
                 }
 
-                setWheelType(
+                selectWheel(
                     button.dataset.wheelType
                 );
             }
         );
+
     }
 );
 
+
 wagerButtons.forEach(
     (button) => {
+
         button.addEventListener(
             "click",
             () => {
+
                 if (spinning) {
                     return;
                 }
 
-                setWager(
+                selectWager(
                     button.dataset.wager
                 );
             }
         );
+
     }
 );
 
-wagerInput?.addEventListener(
+
+wagerInput.addEventListener(
     "change",
     () => {
+
         if (spinning) {
             return;
         }
 
-        setWager(
+        selectWager(
             wagerInput.value
         );
     }
 );
 
+
+/*
+    spacebar = spin
+*/
+
 document.addEventListener(
     "keydown",
     (event) => {
+
         if (
-            event.code === "Space" &&
-            !event.repeat &&
-            !rewardModal?.classList.contains(
-                "is-open"
+            event.code !== "Space" ||
+            event.repeat
+        ) {
+            return;
+        }
+
+
+        if (
+            event.target.matches(
+                "input, textarea, button"
             )
         ) {
-            event.preventDefault();
-
-            spinWheel();
+            return;
         }
+
+
+        event.preventDefault();
+
+        spin();
     }
 );
 
@@ -1850,35 +1801,26 @@ document.addEventListener(
    init
    ========================================================= */
 
-async function initializeWheel() {
-    setWheelType(
-        currentWheelId
+async function init() {
+
+    selectWheel(
+        "balanced"
     );
 
-    setWager(
-        currentWager
+    selectWager(
+        500
     );
 
     await renderHistory();
 
-    if (wheelStatus) {
-        wheelStatus.textContent =
-            "the wheel is suspiciously dry.";
-    }
+
+    wheelStatus.textContent =
+        "the wheel is suspiciously dry.";
+
 
     console.log(
-        "[soggybet] wheel ready",
+        "[soggybet] wheel loaded",
         {
-            wheels:
-                getAllWheelTypes()
-                    .map(
-                        (entry) =>
-                            entry.id
-                    ),
-
-            wagers:
-                wagerOptions,
-
             anomalyChance:
                 getAnomalyChance(
                     currentWheelId
@@ -1888,12 +1830,14 @@ async function initializeWheel() {
 }
 
 
-initializeWheel().catch(
+init().catch(
     (error) => {
+
         console.error(
             "failed to initialize wheel:",
             error
         );
+
 
         showToast(
             "the sogs failed to initialize.",

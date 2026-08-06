@@ -1,25 +1,495 @@
 <!-- Nothing here but us soggies -->
+<!-- Settings started right before mamytema sponsor offer -->
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>settings • soggybet</title>
 
-    <link rel="icon" href="/assets/branding/favicon.ico">
-    <link rel="stylesheet" href="/css/style.css">
+    <link
+        rel="stylesheet"
+        href="/css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="/css/pages/settings.css"
+    >
 </head>
 
 <body>
 
-    <h1>⚙️ settings</h1>
+<div class="app-shell">
 
-    <script type="module" src="/js/app.js"></script>
-    <script type="module" src="/js/settings.js"></script>
+    <aside class="sidebar">
+
+        <a
+            class="sidebar-logo"
+            href="/"
+        >
+            <span class="sidebar-logo-mark">
+                💧
+            </span>
+
+            <span>soggybet</span>
+        </a>
+
+
+        <nav class="sidebar-nav">
+
+            <a
+                class="sidebar-link"
+                href="/"
+            >
+                🏠
+                <span>home</span>
+            </a>
+
+            <a
+                class="sidebar-link"
+                href="/games/wheel.html"
+            >
+                🎡
+                <span>wheel</span>
+            </a>
+
+            <a
+                class="sidebar-link"
+                href="/inventory.html"
+            >
+                🐈
+                <span>my sogs</span>
+            </a>
+
+            <a
+                class="sidebar-link"
+                href="/soggydex.html"
+            >
+                📖
+                <span>soggydex</span>
+            </a>
+
+            <a
+                class="sidebar-link is-active"
+                href="/settings.html"
+            >
+                ⚙
+                <span>settings</span>
+            </a>
+
+        </nav>
+
+    </aside>
+
+
+    <main class="app-main">
+
+        <header class="topbar">
+
+            <div class="topbar-actions">
+
+                <div class="balance-pill">
+                    💧
+
+                    <strong data-balance>
+                        0
+                    </strong>
+
+                    <span class="text-muted">
+                        sc
+                    </span>
+                </div>
+
+                <div class="button">
+                    <span data-username>
+                        guest
+                    </span>
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <div class="page-content settings-page">
+
+            <header class="settings-header">
+
+                <span class="badge original">
+                    sog control panel
+                </span>
+
+                <h1>settings</h1>
+
+                <p>
+                    configure your identity, cinematics,
+                    moisture preferences, and grass exposure.
+                </p>
+
+            </header>
+
+
+            <div class="settings-grid">
+
+                <!-- profile -->
+
+                <section class="settings-card">
+
+                    <div class="settings-card-heading">
+
+                        <div>
+                            <span class="settings-eyebrow">
+                                profile
+                            </span>
+
+                            <h2>drip profile</h2>
+                        </div>
+
+                        <span class="settings-icon">
+                            👤
+                        </span>
+
+                    </div>
+
+
+                    <div class="setting-field">
+
+                        <label for="username-input">
+                            username
+                        </label>
+
+                        <div class="username-row">
+
+                            <input
+                                class="input"
+                                id="username-input"
+                                maxlength="20"
+                                autocomplete="off"
+                                placeholder="guest"
+                            >
+
+                            <button
+                                class="button primary"
+                                id="save-username"
+                                type="button"
+                            >
+                                save
+                            </button>
+
+                        </div>
+
+                        <span class="setting-help">
+                            2–20 characters. this appears around soggybet.
+                        </span>
+
+                    </div>
+
+                </section>
+
+
+                <!-- cutscene -->
+
+                <section class="settings-card">
+
+                    <div class="settings-card-heading">
+
+                        <div>
+                            <span class="settings-eyebrow">
+                                visuals
+                            </span>
+
+                            <h2>cutscenes</h2>
+                        </div>
+
+                        <span class="settings-icon">
+                            ✦
+                        </span>
+
+                    </div>
+
+
+                    <div
+                        class="setting-options"
+                        id="cutscene-options"
+                    >
+
+                        <button
+                            class="setting-option"
+                            data-cutscene="full"
+                            type="button"
+                        >
+                            <strong>full</strong>
+
+                            <span>
+                                full mythic+ cinematics.
+                            </span>
+                        </button>
+
+
+                        <button
+                            class="setting-option"
+                            data-cutscene="short"
+                            type="button"
+                        >
+                            <strong>short</strong>
+
+                            <span>
+                                quicker reveals.
+                            </span>
+                        </button>
+
+
+                        <button
+                            class="setting-option"
+                            data-cutscene="auto"
+                            type="button"
+                        >
+                            <strong>auto</strong>
+
+                            <span>
+                                full for new sogs, short for duplicates.
+                            </span>
+                        </button>
+
+
+                        <button
+                            class="setting-option"
+                            data-cutscene="instant"
+                            type="button"
+                        >
+                            <strong>instant</strong>
+
+                            <span>
+                                sog. immediately.
+                            </span>
+                        </button>
+
+                    </div>
+
+                </section>
+
+
+                <!-- general -->
+
+                <section class="settings-card">
+
+                    <div class="settings-card-heading">
+
+                        <div>
+                            <span class="settings-eyebrow">
+                                game
+                            </span>
+
+                            <h2>preferences</h2>
+                        </div>
+
+                        <span class="settings-icon">
+                            🎛️
+                        </span>
+
+                    </div>
+
+
+                    <div class="toggle-list">
+
+                        <label class="toggle-row">
+
+                            <div>
+                                <strong>sound</strong>
+
+                                <span>
+                                    wheel ticks, clicks and cutscene audio.
+                                </span>
+                            </div>
+
+                            <input
+                                id="sound-toggle"
+                                type="checkbox"
+                            >
+
+                            <span class="toggle"></span>
+
+                        </label>
+
+
+                        <label class="toggle-row">
+
+                            <div>
+                                <strong>animations</strong>
+
+                                <span>
+                                    general ui motion and effects.
+                                </span>
+                            </div>
+
+                            <input
+                                id="animations-toggle"
+                                type="checkbox"
+                            >
+
+                            <span class="toggle"></span>
+
+                        </label>
+
+
+                        <label class="toggle-row">
+
+                            <div>
+                                <strong>confirm selling</strong>
+
+                                <span>
+                                    ask before releasing a sog.
+                                </span>
+                            </div>
+
+                            <input
+                                id="confirm-selling-toggle"
+                                type="checkbox"
+                            >
+
+                            <span class="toggle"></span>
+
+                        </label>
+
+                    </div>
+
+                </section>
+
+
+                <!-- grass -->
+
+                <section class="settings-card grass-card">
+
+                    <div class="settings-card-heading">
+
+                        <div>
+                            <span class="settings-eyebrow">
+                                wellness allegedly
+                            </span>
+
+                            <h2>touch grass timer</h2>
+                        </div>
+
+                        <span class="settings-icon">
+                            🌱
+                        </span>
+
+                    </div>
+
+
+                    <div class="grass-timer">
+
+                        <span>
+                            time since grass was touched
+                        </span>
+
+                        <strong id="grass-time">
+                            0s
+                        </strong>
+
+                    </div>
+
+
+                    <button
+                        class="button grass-button"
+                        id="touch-grass-button"
+                        type="button"
+                    >
+                        i touched grass
+                    </button>
+
+
+                    <p class="setting-help">
+                        this deeply concerning action resets the timer.
+                    </p>
+
+                </section>
+
+
+                <!-- save -->
+
+                <section class="settings-card">
+
+                    <div class="settings-card-heading">
+
+                        <div>
+                            <span class="settings-eyebrow">
+                                dangerous machinery
+                            </span>
+
+                            <h2>save data</h2>
+                        </div>
+
+                        <span class="settings-icon">
+                            💾
+                        </span>
+
+                    </div>
+
+
+                    <div class="save-actions">
+
+                        <button
+                            class="button"
+                            id="export-save"
+                            type="button"
+                        >
+                            export save
+                        </button>
+
+
+                        <label class="button import-save-button">
+
+                            import save
+
+                            <input
+                                id="import-save"
+                                type="file"
+                                accept=".json,application/json"
+                                hidden
+                            >
+
+                        </label>
+
+
+                        <button
+                            class="button danger"
+                            id="reset-save"
+                            type="button"
+                        >
+                            evaporate save
+                        </button>
+
+                    </div>
+
+                </section>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<script
+    type="module"
+    src="/js/app.js"
+></script>
+
+<script
+    type="module"
+    src="/js/settings.js"
+></script>
 
 </body>
-
 </html>

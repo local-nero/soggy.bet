@@ -1,27 +1,473 @@
-<!-- Nothing here but us soggies -->
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="spin the soggybet wheel for soggycoins and collectible soggies."
+    >
 
     <title>wheel • soggybet</title>
 
-    <link rel="icon" href="/assets/branding/favicon.ico">
+    <link
+        rel="icon"
+        href="/assets/branding/favicon.ico"
+    >
 
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/games/wheel.css">
+    <link
+        rel="stylesheet"
+        href="/css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="/css/games/wheel.css"
+    >
 </head>
 
 <body>
+    <div class="app-shell">
 
-    <h1>🎡 wheel</h1>
+        <aside class="sidebar">
+            <a
+                class="sidebar-logo"
+                href="/"
+                aria-label="soggybet homepage"
+            >
+                <span class="sidebar-logo-mark">💧</span>
+                <span>soggybet</span>
+            </a>
 
-    <script type="module" src="/js/app.js"></script>
-    <script type="module" src="/js/games/wheel.js"></script>
+            <nav
+                class="sidebar-nav"
+                aria-label="main navigation"
+            >
+                <a
+                    class="sidebar-link"
+                    href="/"
+                    data-nav-link
+                >
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="m3 11 9-8 9 8"></path>
+                        <path d="M5 10v10h14V10"></path>
+                        <path d="M9 20v-6h6v6"></path>
+                    </svg>
 
+                    <span>home</span>
+                </a>
+
+                <a
+                    class="sidebar-link"
+                    href="/games/wheel.html"
+                    data-nav-link
+                >
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <circle cx="12" cy="12" r="9"></circle>
+                        <circle cx="12" cy="12" r="2"></circle>
+                        <path d="M12 3v7"></path>
+                        <path d="m19.8 7.5-6.1 3.5"></path>
+                        <path d="m19.8 16.5-6.1-3.5"></path>
+                        <path d="M12 21v-7"></path>
+                        <path d="m4.2 16.5 6.1-3.5"></path>
+                        <path d="m4.2 7.5 6.1 3.5"></path>
+                    </svg>
+
+                    <span>wheel</span>
+                </a>
+
+                <a
+                    class="sidebar-link"
+                    href="/inventory.html"
+                    data-nav-link
+                >
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M4 7h16v13H4z"></path>
+                        <path d="m6 3 2 4"></path>
+                        <path d="m18 3-2 4"></path>
+                        <path d="M9 11h6"></path>
+                    </svg>
+
+                    <span>my sogs</span>
+                </a>
+
+                <a
+                    class="sidebar-link"
+                    href="/settings.html"
+                    data-nav-link
+                >
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <circle cx="12" cy="12" r="3"></circle>
+
+                        <path
+                            d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-2.8 2.8-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6v.2h-4V21a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1L4.2 17l.1-.1a1.7 1.7 0 0 0 .3-1.9A1.7 1.7 0 0 0 3 14H2.8v-4H3a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9l-.1-.1L7 4.2l.1.1a1.7 1.7 0 0 0 1.9.3A1.7 1.7 0 0 0 10 3v-.2h4V3a1.7 1.7 0 0 0 1 1.6 1.7 1.7 0 0 0 1.9-.3l.1-.1L19.8 7l-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.6 1h.2v4H21a1.7 1.7 0 0 0-1.6 1Z"
+                        ></path>
+                    </svg>
+
+                    <span>settings</span>
+                </a>
+            </nav>
+        </aside>
+
+        <main class="app-main">
+
+            <header class="topbar">
+                <div class="topbar-actions">
+                    <div class="balance-pill">
+                        <span>💧</span>
+                        <strong data-balance>0</strong>
+                        <span class="text-muted">sc</span>
+                    </div>
+
+                    <button
+                        class="button profile-button"
+                        type="button"
+                    >
+                        <span>guest</span>
+                    </button>
+                </div>
+            </header>
+
+            <div class="page-content">
+
+                <header class="wheel-page-header">
+                    <div>
+                        <span class="badge original">
+                            soggy original
+                        </span>
+
+                        <h1>wheel</h1>
+
+                        <p>
+                            choose your wheel, choose your wager,
+                            and test your sog.
+                        </p>
+                    </div>
+
+                    <a
+                        class="button"
+                        href="/inventory.html"
+                    >
+                        my sogs
+                    </a>
+                </header>
+
+                <section class="wheel-selection-panel">
+
+                    <div class="wheel-type-group">
+                        <span class="wheel-setting-label">
+                            wheel type
+                        </span>
+
+                        <div class="wheel-type-tabs">
+                            <button
+                                class="wheel-type-button is-active"
+                                type="button"
+                                data-wheel-type="balanced"
+                            >
+                                balanced
+                            </button>
+
+                            <button
+                                class="wheel-type-button"
+                                type="button"
+                                data-wheel-type="collector"
+                            >
+                                collector
+                            </button>
+
+                            <button
+                                class="wheel-type-button"
+                                type="button"
+                                data-wheel-type="risky"
+                            >
+                                risky
+                            </button>
+
+                            <button
+                                class="wheel-type-button"
+                                type="button"
+                                data-wheel-type="jackpot"
+                            >
+                                jackpot
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="wheel-selected-info">
+                        <strong id="selected-wheel-name">
+                            balanced
+                        </strong>
+
+                        <span id="selected-wheel-description">
+                            reasonable odds. questionable decisions.
+                        </span>
+                    </div>
+
+                    <div class="wager-group">
+                        <span class="wheel-setting-label">
+                            wager
+                        </span>
+
+                        <div class="wager-buttons">
+                            <button
+                                class="wager-button"
+                                type="button"
+                                data-wager="100"
+                            >
+                                100
+                            </button>
+
+                            <button
+                                class="wager-button is-active"
+                                type="button"
+                                data-wager="500"
+                            >
+                                500
+                            </button>
+
+                            <button
+                                class="wager-button"
+                                type="button"
+                                data-wager="1000"
+                            >
+                                1,000
+                            </button>
+
+                            <button
+                                class="wager-button"
+                                type="button"
+                                data-wager="2500"
+                            >
+                                2,500
+                            </button>
+
+                            <button
+                                class="wager-button"
+                                type="button"
+                                data-wager="5000"
+                            >
+                                5,000
+                            </button>
+
+                            <button
+                                class="wager-button"
+                                type="button"
+                                data-wager="10000"
+                            >
+                                10,000
+                            </button>
+                        </div>
+
+                        <label class="custom-wager">
+                            <span>custom</span>
+
+                            <input
+                                class="input"
+                                id="wager-input"
+                                type="number"
+                                min="1"
+                                step="1"
+                                value="500"
+                            >
+                        </label>
+                    </div>
+
+                </section>
+
+                <section class="wheel-game-shell">
+
+                    <div class="wheel-stage">
+                        <div class="wheel-glow"></div>
+
+                        <div class="wheel-pointer"></div>
+
+                        <div
+                            class="wheel"
+                            id="wheel"
+                            aria-label="reward wheel"
+                        >
+                            <div class="wheel-center">
+                                <span>💧</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <aside class="wheel-controls">
+                        <span class="badge original">
+                            spin controls
+                        </span>
+
+                        <h2>test your sog</h2>
+
+                        <p>
+                            this spin costs
+                            <strong id="spin-cost">500 sc</strong>.
+                        </p>
+
+                        <div class="wheel-cost-card">
+                            <span>spin cost</span>
+
+                            <strong>
+                                💧
+                                <span id="spin-cost-value">500</span>
+                                sc
+                            </strong>
+                        </div>
+
+                        <button
+                            class="button primary wheel-spin-button"
+                            id="spin-button"
+                            type="button"
+                        >
+                            spin wheel
+                        </button>
+
+                        <p
+                            class="wheel-status"
+                            id="wheel-status"
+                            aria-live="polite"
+                        >
+                            the wheel is suspiciously dry.
+                        </p>
+
+                        <div class="wheel-chances">
+                            <div>
+                                <span>mythic+</span>
+                                <strong>cutscene</strong>
+                            </div>
+
+                            <div>
+                                <span>anomalies</span>
+                                <strong>???</strong>
+                            </div>
+                        </div>
+                    </aside>
+
+                </section>
+
+                <section class="section wheel-history-section">
+                    <div class="section-header">
+                        <div>
+                            <h2 class="section-title">
+                                recent spins
+                            </h2>
+
+                            <p class="text-muted">
+                                your latest questionable decisions.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div
+                        class="wheel-history"
+                        id="wheel-history"
+                    >
+                        <div class="wheel-history-empty">
+                            no spins yet. the wheel remains suspiciously dry.
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </main>
+    </div>
+
+    <div
+        class="reward-modal"
+        id="reward-modal"
+        aria-hidden="true"
+    >
+        <div class="reward-modal-backdrop"></div>
+
+        <section
+            class="reward-modal-card"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="reward-title"
+        >
+            <span
+                class="badge"
+                id="reward-rarity"
+            >
+                reward
+            </span>
+
+            <p class="reward-kicker">
+                you found
+            </p>
+
+            <div class="reward-image-shell">
+                <img
+                    id="reward-image"
+                    src=""
+                    alt=""
+                    hidden
+                >
+
+                <span
+                    class="reward-image-fallback"
+                    id="reward-image-fallback"
+                >
+                    🐈
+                </span>
+            </div>
+
+            <div class="reward-discovery">
+                discovered
+            </div>
+
+            <h2 id="reward-title">
+                soggy
+            </h2>
+
+            <p
+                class="reward-description"
+                id="reward-description"
+            >
+            </p>
+
+            <div class="reward-value">
+                <span>value</span>
+
+                <strong id="reward-value">
+                    0 sc
+                </strong>
+            </div>
+
+            <div class="reward-actions">
+                <button
+                    class="button primary"
+                    id="keep-reward-button"
+                    type="button"
+                >
+                    keep
+                </button>
+
+                <button
+                    class="button"
+                    id="sell-reward-button"
+                    type="button"
+                >
+                    sell
+                </button>
+            </div>
+        </section>
+    </div>
+
+    <script
+        type="module"
+        src="/js/app.js"
+    ></script>
+
+    <script
+        type="module"
+        src="/js/games/wheel.js"
+    ></script>
 </body>
-
 </html>

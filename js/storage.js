@@ -1,5 +1,6 @@
 const STORAGE_KEY = "soggybet_player";
 
+
 const DEFAULT_PLAYER = {
     version: 2,
 
@@ -26,11 +27,8 @@ const DEFAULT_PLAYER = {
         sound: true,
         animations: true,
         reducedMotion: false,
-
         cutscenes: "full",
-
         confirmSelling: true,
-
         touchGrassEnabled: true
     },
 
@@ -45,6 +43,10 @@ const DEFAULT_PLAYER = {
 };
 
 
+/* =========================================================
+   helpers
+   ========================================================= */
+
 function clone(value) {
     return JSON.parse(
         JSON.stringify(value)
@@ -52,7 +54,7 @@ function clone(value) {
 }
 
 
-function mergePlayer(saved = {}) {
+function normalizePlayer(saved = {}) {
     const player = {
         ...clone(DEFAULT_PLAYER),
         ...saved,
@@ -110,19 +112,18 @@ function mergePlayer(saved = {}) {
         typeof player.username !==
         "string"
     ) {
-        player.username =
-            "guest";
+        player.username = "guest";
     }
 
 
-    if (
-        !Number.isFinite(
-            Number(player.balance)
-        )
-    ) {
-        player.balance =
-            DEFAULT_PLAYER.balance;
-    }
+    const balance =
+        Number(player.balance);
+
+
+    player.balance =
+        Number.isFinite(balance)
+            ? balance
+            : DEFAULT_PLAYER.balance;
 
 
     player.version =
@@ -133,6 +134,10 @@ function mergePlayer(saved = {}) {
 }
 
 
+/* =========================================================
+   read
+   ========================================================= */
+
 export function getPlayer() {
     const raw =
         localStorage.getItem(
@@ -140,11 +145,29 @@ export function getPlayer() {
         );
 
 
+    /*
+        first visit
+    */
+
     if (!raw) {
         const player =
             clone(DEFAULT_PLAYER);
 
-        savePlayer(player);
+
+        /*
+            save directly.
+
+            IMPORTANT:
+            do not call savePlayer() here,
+            because reading player data should
+            not trigger player-updated events.
+        */
+
+        localStorage.setItem(
+            STORAGE_KEY,
+            JSON.stringify(player)
+        );
+
 
         return player;
     }
@@ -154,39 +177,43 @@ export function getPlayer() {
         const parsed =
             JSON.parse(raw);
 
-        const normalized =
-            mergePlayer(parsed);
 
-        /*
-            silently migrate old saves
-        */
-
-        savePlayer(
-            normalized
+        return normalizePlayer(
+            parsed
         );
-
-        return normalized;
     }
 
     catch (error) {
         console.error(
-            "[soggybet] failed to load save:",
+            "[soggybet] failed to load player save:",
             error
         );
+
 
         const player =
             clone(DEFAULT_PLAYER);
 
-        savePlayer(player);
+
+        localStorage.setItem(
+            STORAGE_KEY,
+            JSON.stringify(player)
+        );
+
 
         return player;
     }
 }
 
 
+/* =========================================================
+   write
+   ========================================================= */
+
 export function savePlayer(player) {
     const normalized =
-        mergePlayer(player);
+        normalizePlayer(
+            player
+        );
 
 
     localStorage.setItem(
@@ -197,13 +224,18 @@ export function savePlayer(player) {
     );
 
 
+    /*
+        only WRITING triggers this event.
+
+        getPlayer() never does.
+    */
+
     window.dispatchEvent(
         new CustomEvent(
             "soggybet:player-updated",
             {
                 detail: {
-                    player:
-                        normalized
+                    player: normalized
                 }
             }
         )
@@ -213,6 +245,10 @@ export function savePlayer(player) {
     return normalized;
 }
 
+
+/* =========================================================
+   update
+   ========================================================= */
 
 export function updatePlayer(callback) {
     const player =
@@ -229,17 +265,24 @@ export function updatePlayer(callback) {
 }
 
 
+/* =========================================================
+   reset
+   ========================================================= */
+
 export function resetPlayer() {
     const player =
         clone(DEFAULT_PLAYER);
 
 
-    savePlayer(player);
-
-
-    return player;
+    return savePlayer(
+        player
+    );
 }
 
+
+/* =========================================================
+   export
+   ========================================================= */
 
 export function exportPlayerSave() {
     return JSON.stringify(
@@ -249,6 +292,10 @@ export function exportPlayerSave() {
     );
 }
 
+
+/* =========================================================
+   import
+   ========================================================= */
 
 export function importPlayerSave(json) {
     const parsed =

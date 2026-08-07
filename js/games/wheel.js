@@ -1185,7 +1185,7 @@ void star.offsetWidth;
     case "legendary":
 
         playSound(
-            "legendary.mp3"
+            "legendary"
         );
 
         break;
@@ -1193,7 +1193,7 @@ void star.offsetWidth;
     case "mythic":
 
         playSound(
-            "mythic.mp3"
+            "mythic"
         );
 
         break;
@@ -1201,7 +1201,7 @@ void star.offsetWidth;
     case "ultra-legendary":
 
         playSound(
-            "ultra.mp3"
+            "ultra"
         );
 
         break;
@@ -1209,7 +1209,7 @@ void star.offsetWidth;
     case "anomaly":
 
         playSound(
-            "anomaly.mp3"
+            "anomaly"
         );
 
         break;
@@ -1778,12 +1778,9 @@ playSound(
             result.soggy
         );
 
-        playSound(
-    "cardReveal"
-);
-
         
         await showSoggy(
+            playSound("cardReveal");
             result
         );
 

@@ -1179,6 +1179,42 @@ void star.offsetWidth;
         "is-active"
     );
 
+    switch (rarity) {
+
+    case "legendary":
+
+        playSound(
+            "legendary.mp3"
+        );
+
+        break;
+
+    case "mythic":
+
+        playSound(
+            "mythic.mp3"
+        );
+
+        break;
+
+    case "ultra-legendary":
+
+        playSound(
+            "ultra.mp3"
+        );
+
+        break;
+
+    case "anomaly":
+
+        playSound(
+            "anomaly.mp3"
+        );
+
+        break;
+
+}
+
 
     const duration =
         mode === "short"
@@ -1738,6 +1774,11 @@ playSound(
             result.soggy
         );
 
+        playSound(
+    "reveal.mp3"
+);
+
+        
         await showSoggy(
             result
         );

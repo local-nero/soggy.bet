@@ -43,6 +43,11 @@ import {
     getRarity
 } from "/data/rarities.js";
 
+import {
+    playSound,
+    stopSound
+} from "/js/sound.js";
+
 
 /* =========================================================
    dom
@@ -1662,6 +1667,14 @@ async function spin() {
 
     setSpinning(true);
 
+    playSound(
+    "wheel-spin.mp3",
+    {
+        loop: true,
+        volume: 0.45
+    }
+);
+
 
     wheelStatus.textContent =
         "consulting the sog council...";
@@ -1712,6 +1725,15 @@ async function spin() {
                     " "
                 )}.`;
 
+stopSound("wheel-spin.mp3");
+
+playSound(
+    "wheel-stop.mp3",
+    {
+        volume: .7
+    }
+);
+        
         await playCutscene(
             result.soggy
         );

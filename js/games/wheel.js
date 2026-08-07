@@ -1783,7 +1783,7 @@ await showSoggy(
     result
 );
 
-    catch (error) {
+    }    catch (error) {
 
         console.error(
             "wheel spin failed:",

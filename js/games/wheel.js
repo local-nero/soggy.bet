@@ -423,6 +423,12 @@ async function generateResult() {
     const rarity =
         rollRarity(currentWheelId);
 
+    console.log(
+    "[soggybet] rarity rolled:",
+    rarity,
+    getWheelType(currentWheelId).rarityChances
+);
+
     const soggy =
         await getRandomWheelSoggy(
             rarity

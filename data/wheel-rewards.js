@@ -1,7 +1,6 @@
 // soggybet wheel configuration
 // every visible wheel segment is a soggy rarity.
 // no direct coin rewards here — the soggy itself is the reward.
-// fully reworked now though
 
 import {
     publicRarityOrder
@@ -120,15 +119,13 @@ export const wagerOptions = [
    anomalies
    ========================================================= */
 
-/*
-    anomalies are completely separate from the visible wheel.
-
-    0.002 = 0.002%
-    approximately 1 in 50,000.
-*/
-
 export const anomalyConfig = {
     enabled: true,
+
+    /*
+        0.002%
+        ≈ 1 in 50,000
+    */
 
     baseChance: 0.002,
 
@@ -347,13 +344,6 @@ export function rollAnomaly(
 /* =========================================================
    individual soggy odds
    ========================================================= */
-
-/*
-    if mythic is 2%
-    and there are 10 mythics:
-
-    each mythic = 0.2%
-*/
 
 export function getIndividualSoggyChance(
     wheelId,

@@ -45,7 +45,8 @@ import {
 
 import {
     playSound,
-    stopSound
+    stopSound,
+    fadeOutSound
 } from "/js/sound.js";
 
 
@@ -1704,7 +1705,7 @@ async function spin() {
     setSpinning(true);
 
     playSound(
-    "wheel-spin.mp3",
+    "wheelSpin",
     {
         loop: true,
         volume: 0.45
@@ -1761,12 +1762,15 @@ async function spin() {
                     " "
                 )}.`;
 
-stopSound("wheel-spin.mp3");
+fadeOutSound(
+    "wheelSpin",
+    180
+);
 
 playSound(
-    "wheel-stop.mp3",
+    "wheelStop",
     {
-        volume: .7
+        volume: 0.75
     }
 );
         
@@ -1775,7 +1779,7 @@ playSound(
         );
 
         playSound(
-    "reveal.mp3"
+    "cardReveal"
 );
 
         

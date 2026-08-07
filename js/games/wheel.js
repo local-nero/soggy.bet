@@ -398,11 +398,13 @@ async function getFullSpinChance(soggy) {
    result generation
    ========================================================= */
 
+async function generateResult() {
+
     const forced =
         consumeDevSpinOverride();
 
 
-    /* specific soggy */
+    /* force specific soggy */
 
     if (
         forced?.type ===
@@ -422,19 +424,22 @@ async function getFullSpinChance(soggy) {
         return {
             type: "soggy",
             soggy,
+
             anomaly:
                 soggy.rarity ===
                 "anomaly",
 
             chance:
-                await getFullSpinChance(
-                    soggy
-                )
+                soggy.rarity === "anomaly"
+                    ? null
+                    : await getFullSpinChance(
+                        soggy
+                    )
         };
     }
 
 
-    /* forced rarity */
+    /* force rarity */
 
     if (
         forced?.type ===
@@ -464,7 +469,7 @@ async function getFullSpinChance(soggy) {
     }
 
 
-    /* forced secret */
+    /* force anomaly */
 
     if (
         forced?.type ===
@@ -488,7 +493,7 @@ async function getFullSpinChance(soggy) {
     }
 
 
-    /* normal hidden anomaly */
+    /* normal hidden anomaly roll */
 
     if (
         anomalyConfig.enabled &&
@@ -510,7 +515,7 @@ async function getFullSpinChance(soggy) {
     }
 
 
-    /* normal wheel */
+    /* normal wheel roll */
 
     const rarity =
         rollRarity(
@@ -539,7 +544,6 @@ async function getFullSpinChance(soggy) {
             )
     };
 }
-
 
 /* =========================================================
    pointer target

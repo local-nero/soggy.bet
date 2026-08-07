@@ -1754,13 +1754,10 @@ async function spin() {
         );
 
 
-        wheelStatus.textContent =
-            result.anomaly
-                ? "..."
-                : `landed on ${result.soggy.rarity.replaceAll(
-                    "-",
-                    " "
-                )}.`;
+wheelStatus.textContent =
+    result.anomaly
+        ? "..."
+        : `landed on ${result.soggy.rarity.replaceAll("-", " ")}.`;
 
 fadeOutSound(
     "wheelSpin",
@@ -1773,7 +1770,7 @@ playSound(
         volume: 0.75
     }
 );
-        
+
 await playCutscene(
     result.soggy
 );

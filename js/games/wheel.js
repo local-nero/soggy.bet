@@ -31,9 +31,7 @@ import {
     getSpinCost,
     getWheelType,
     rollAnomaly,
-    rollCoinReward,
-    rollRarity,
-    rollRewardType
+    rollRarity
 } from "/data/wheel-rewards.js";
 
 import {

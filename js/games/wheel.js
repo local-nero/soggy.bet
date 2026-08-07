@@ -1225,22 +1225,32 @@ void star.offsetWidth;
             );
 
 
-    await new Promise(
-        (resolve) =>
-            setTimeout(
-                resolve,
-                duration
-            )
-    );
+   await new Promise(
+    (resolve) =>
+        setTimeout(
+            resolve,
+            duration
+        )
+);
 
+/*
+    impact / flash
+*/
 
-    /*
-        fade cutscene out
-    */
+playSound(
+    "flash",
+    {
+        volume: 1
+    }
+);
 
-    scene.classList.remove(
-        "is-active"
-    );
+/*
+    fade cutscene out
+*/
+
+scene.classList.remove(
+    "is-active"
+);
 
 
     await new Promise(

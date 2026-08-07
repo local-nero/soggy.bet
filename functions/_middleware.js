@@ -1,7 +1,8 @@
 const PUBLIC_PATHS = new Set([
     "/unlock",
     "/unlock/",
-    "/unlock.html"
+    "/unlock.html",
+    "/api/unlock"
 ]);
 
 const PUBLIC_PREFIXES = [
@@ -23,10 +24,7 @@ function getCookie(request, name) {
     const cookieHeader =
         request.headers.get("Cookie") ?? "";
 
-    const cookies =
-        cookieHeader.split(";");
-
-    for (const cookie of cookies) {
+    for (const cookie of cookieHeader.split(";")) {
         const [key, ...valueParts] =
             cookie.trim().split("=");
 
@@ -54,10 +52,7 @@ export async function onRequest(context) {
         return next();
     }
 
-    const expectedToken =
-        env.SITE_ACCESS_TOKEN;
-
-    if (!expectedToken) {
+    if (!env.SITE_ACCESS_TOKEN) {
         return new Response(
             "soggybet access is not configured.",
             {
@@ -69,13 +64,16 @@ export async function onRequest(context) {
         );
     }
 
-    const currentToken =
+    const accessToken =
         getCookie(
             request,
             "soggybet_access"
         );
 
-    if (currentToken === expectedToken) {
+    if (
+        accessToken ===
+        env.SITE_ACCESS_TOKEN
+    ) {
         return next();
     }
 

@@ -1,6 +1,11 @@
 // Nothing here but us soggies
 
 import {
+    consumeDevSpinOverride,
+    devFreeSpinsEnabled
+} from "/js/mod-panel.js";
+
+import {
     addBalance,
     formatSoggyCoins,
     subtractBalance
@@ -393,41 +398,124 @@ async function getFullSpinChance(soggy) {
    result generation
    ========================================================= */
 
-async function generateResult() {
+    const forced =
+        consumeDevSpinOverride();
 
-    /* hidden anomaly check */
+
+    /* specific soggy */
+
+    if (
+        forced?.type ===
+        "soggy"
+    ) {
+        const soggy =
+            await getSoggyById(
+                forced.soggyId
+            );
+
+        if (!soggy) {
+            throw new Error(
+                `forced soggy does not exist: ${forced.soggyId}`
+            );
+        }
+
+        return {
+            type: "soggy",
+            soggy,
+            anomaly:
+                soggy.rarity ===
+                "anomaly",
+
+            chance:
+                await getFullSpinChance(
+                    soggy
+                )
+        };
+    }
+
+
+    /* forced rarity */
+
+    if (
+        forced?.type ===
+        "rarity"
+    ) {
+        const soggy =
+            await getRandomWheelSoggy(
+                forced.rarity
+            );
+
+        if (!soggy) {
+            throw new Error(
+                `no soggies available for forced rarity ${forced.rarity}`
+            );
+        }
+
+        return {
+            type: "soggy",
+            soggy,
+            anomaly: false,
+
+            chance:
+                await getFullSpinChance(
+                    soggy
+                )
+        };
+    }
+
+
+    /* forced secret */
+
+    if (
+        forced?.type ===
+        "anomaly"
+    ) {
+        const anomaly =
+            await getRandomAnomaly();
+
+        if (!anomaly) {
+            throw new Error(
+                "no anomalies available"
+            );
+        }
+
+        return {
+            type: "soggy",
+            soggy: anomaly,
+            anomaly: true,
+            chance: null
+        };
+    }
+
+
+    /* normal hidden anomaly */
 
     if (
         anomalyConfig.enabled &&
-        rollAnomaly(currentWheelId)
+        rollAnomaly(
+            currentWheelId
+        )
     ) {
-
         const anomaly =
             await getRandomAnomaly();
 
         if (anomaly) {
-
             return {
                 type: "soggy",
                 soggy: anomaly,
                 anomaly: true,
                 chance: null
             };
-
         }
     }
 
-    
-    /* soggy */
+
+    /* normal wheel */
 
     const rarity =
-        rollRarity(currentWheelId);
-
-    console.log(
-    "[soggybet] rarity rolled:",
-    rarity,
-    getWheelType(currentWheelId).rarityChances
-);
+        rollRarity(
+            currentWheelId
+        );
 
     const soggy =
         await getRandomWheelSoggy(
@@ -435,22 +523,20 @@ async function generateResult() {
         );
 
     if (!soggy) {
-
         throw new Error(
             `no wheel soggies available for ${rarity}`
         );
     }
 
-    const chance =
-        await getFullSpinChance(
-            soggy
-        );
-
     return {
         type: "soggy",
         soggy,
         anomaly: false,
-        chance
+
+        chance:
+            await getFullSpinChance(
+                soggy
+            )
     };
 }
 
@@ -1536,6 +1622,7 @@ async function spin() {
 
 
     if (
+        !devFreeSpinsEnabled() &&
         !subtractBalance(cost)
     ) {
 
@@ -1626,10 +1713,13 @@ async function spin() {
             refund failures
         */
 
-        addBalance(
-            cost
-        );
-
+if (
+    !devFreeSpinsEnabled()
+) {
+    addBalance(
+        cost
+    );
+}
 
         wheelStatus.textContent =
             "reality has been restored.";

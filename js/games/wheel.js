@@ -420,30 +420,7 @@ async function generateResult() {
         }
     }
 
-
-    const type =
-        rollRewardType(currentWheelId);
-
-
-    /* soggycoins */
-
-    if (type === "coins") {
-
-        const coins =
-            rollCoinReward(
-                currentWheelId,
-                currentWager
-            );
-
-        return {
-            type: "coins",
-            amount: coins.amount,
-            multiplier: coins.multiplier,
-            anomaly: false
-        };
-    }
-
-
+    
     /* soggy */
 
     const rarity =

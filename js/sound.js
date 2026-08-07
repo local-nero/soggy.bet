@@ -1,45 +1,68 @@
+// !!! | handles every sound effect in soggybet
+
 import {
     getPlayer
 } from "/js/storage.js";
 
+const soundPaths = {
 
-const sounds = {
     wheelSpin:
-        new Audio(
-            "/assets/audio/wheel-spin.mp3"
-        ),
+        "/assets/audio/wheel-spin.mp3",
 
     wheelStop:
-        new Audio(
-            "/assets/audio/wheel-stop.mp3"
-        ),
-
-    reveal:
-        new Audio(
-            "/assets/audio/reveal.mp3"
-        ),
-
-    mythic:
-        new Audio(
-            "/assets/audio/mythic.mp3"
-        ),
+        "/assets/audio/wheel-stop.mp3",
 
     legendary:
-        new Audio(
-            "/assets/audio/legendary.mp3"
-        ),
+        "/assets/audio/legendary.mp3",
+
+    mythic:
+        "/assets/audio/mythic.mp3",
 
     ultra:
-        new Audio(
-            "/assets/audio/ultra.mp3"
-        ),
+        "/assets/audio/ultra.mp3",
 
     anomaly:
-        new Audio(
-            "/assets/audio/anomaly.mp3"
-        )
+        "/assets/audio/anomaly.mp3",
+
+    flash:
+        "/assets/audio/flash.mp3",
+
+    cardReveal:
+        "/assets/audio/card-reveal.mp3"
+
 };
 
+
+/*
+    master cache
+
+    used for looping sounds
+    (wheel spin)
+*/
+
+const cache = {};
+
+
+/* =========================================================
+   helpers
+   ========================================================= */
+
+function soundsEnabled() {
+
+    const player =
+        getPlayer();
+
+    return (
+        player.settings?.sound !==
+        false
+    );
+
+}
+
+
+/* =========================================================
+   playback
+   ========================================================= */
 
 export function playSound(
     name,
@@ -48,56 +71,159 @@ export function playSound(
         loop = false
     } = {}
 ) {
-    const player =
-        getPlayer();
 
-    if (
-        player.settings?.sound ===
-        false
-    ) {
+    if (!soundsEnabled()) {
         return;
     }
 
-    const sound =
-        sounds[name];
+    const path =
+        soundPaths[name];
 
-    if (!sound) {
+    if (!path) {
         return;
     }
 
-    sound.pause();
 
-    sound.currentTime = 0;
+    /*
+        looping sounds
+        reuse one instance
+    */
 
-    sound.volume =
-        Math.max(
-            0,
-            Math.min(
-                1,
-                volume
-            )
+    if (loop) {
+
+        let audio =
+            cache[name];
+
+        if (!audio) {
+
+            audio =
+                new Audio(path);
+
+            cache[name] =
+                audio;
+
+        }
+
+        audio.pause();
+
+        audio.currentTime =
+            0;
+
+        audio.volume =
+            volume;
+
+        audio.loop =
+            true;
+
+        audio.play().catch(
+            () => {}
         );
 
-    sound.loop =
-        loop;
+        return;
 
-    sound.play().catch(
+    }
+
+
+    /*
+        one-shot sounds
+
+        clone so multiple
+        can overlap
+    */
+
+    const audio =
+        new Audio(path);
+
+    audio.volume =
+        volume;
+
+    audio.play().catch(
         () => {}
     );
+
 }
 
+
+/* =========================================================
+   stop
+   ========================================================= */
 
 export function stopSound(
     name
 ) {
-    const sound =
-        sounds[name];
 
-    if (!sound) {
+    const audio =
+        cache[name];
+
+    if (!audio) {
         return;
     }
 
-    sound.pause();
+    audio.pause();
 
-    sound.currentTime = 0;
+    audio.currentTime =
+        0;
+
+}
+
+
+/* =========================================================
+   fade out
+   ========================================================= */
+
+export function fadeOutSound(
+    name,
+    duration = 200
+) {
+
+    const audio =
+        cache[name];
+
+    if (!audio) {
+        return;
+    }
+
+    const startVolume =
+        audio.volume;
+
+    const start =
+        performance.now();
+
+    function tick(now) {
+
+        const progress =
+            Math.min(
+                1,
+                (now - start) /
+                duration
+            );
+
+        audio.volume =
+            startVolume *
+            (1 - progress);
+
+        if (progress < 1) {
+
+            requestAnimationFrame(
+                tick
+            );
+
+            return;
+
+        }
+
+        audio.pause();
+
+        audio.currentTime =
+            0;
+
+        audio.volume =
+            startVolume;
+
+    }
+
+    requestAnimationFrame(
+        tick
+    );
+
 }

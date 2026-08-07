@@ -7,7 +7,8 @@ const PUBLIC_PATHS = new Set([
 
 const PUBLIC_PREFIXES = [
     "/css/",
-    "/assets/branding/"
+    "/assets/branding/",
+    "/assets/fonts/"
 ];
 
 function isPublicPath(pathname) {

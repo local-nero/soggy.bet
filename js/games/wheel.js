@@ -1774,17 +1774,17 @@ playSound(
     }
 );
         
-        await playCutscene(
-            result.soggy
-        );
+await playCutscene(
+    result.soggy
+);
 
-        
-        await showSoggy(
-            playSound("cardReveal");
-            result
-        );
+playSound(
+    "cardReveal"
+);
 
-    }
+await showSoggy(
+    result
+);
 
     catch (error) {
 

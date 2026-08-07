@@ -1081,15 +1081,32 @@ async function playCutscene(soggy) {
         );
 
 
-    /*
-        reset animation so it can replay
-        even if the player gets another
-        high-rarity sog immediately after.
-    */
+/*
+    reset animation so it can replay
+    even if the player gets another
+    high-rarity sog immediately after.
+*/
 
-    scene.classList.remove(
-        "is-active"
-    );
+scene.classList.remove(
+    "is-active"
+);
+
+/*
+    cancel any previous animations
+*/
+
+star.getAnimations().forEach(
+    (animation) => {
+        animation.cancel();
+    }
+);
+
+/*
+    force a reflow so the next
+    animation starts from frame 0
+*/
+
+void star.offsetWidth;
 
     void scene.offsetWidth;
 

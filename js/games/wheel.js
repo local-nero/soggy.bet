@@ -932,20 +932,18 @@ function getCutsceneElement() {
 
 
 function cutsceneDuration(rarity) {
-
     switch (rarity) {
+        case "legendary":
+            return 2600;
 
         case "mythic":
-            return 2200;
-
-        case "legendary":
-            return 3000;
+            return 3600;
 
         case "ultra-legendary":
             return 4200;
 
         case "anomaly":
-            return 5000;
+            return 5200;
 
         default:
             return 0;
@@ -954,7 +952,6 @@ function cutsceneDuration(rarity) {
 
 
 async function playCutscene(soggy) {
-
     const rarity =
         soggy.rarity;
 
@@ -983,7 +980,6 @@ async function playCutscene(soggy) {
     const scene =
         getCutsceneElement();
 
-
     const star =
         scene.querySelector(
             ".soggy-cutscene-star"
@@ -995,12 +991,24 @@ async function playCutscene(soggy) {
         );
 
 
+    /*
+        reset animation so it can replay
+        even if the player gets another
+        high-rarity sog immediately after.
+    */
+
+    scene.classList.remove(
+        "is-active"
+    );
+
+    void scene.offsetWidth;
+
+
     scene.className =
         `soggy-cutscene rarity-${rarity}`;
 
 
     if (rarity === "anomaly") {
-
         star.textContent =
             "█";
 
@@ -1009,12 +1017,45 @@ async function playCutscene(soggy) {
     }
 
     else {
-
         star.textContent =
             "✦";
 
         label.textContent =
-            rarity.replaceAll("-", " ");
+            rarity.replaceAll(
+                "-",
+                " "
+            );
+    }
+
+
+    /*
+        rarity-specific animation timing
+    */
+
+    switch (rarity) {
+        case "legendary":
+            star.style.animationDuration =
+                "2.6s, 180ms";
+            break;
+
+        case "mythic":
+            star.style.animationDuration =
+                "3.6s, 130ms";
+            break;
+
+        case "ultra-legendary":
+            star.style.animationDuration =
+                "4.2s, 90ms";
+            break;
+
+        case "anomaly":
+            star.style.animationDuration =
+                "5.2s, 55ms";
+            break;
+
+        default:
+            star.style.animationDuration =
+                "3.6s, 130ms";
     }
 
 
@@ -1029,8 +1070,10 @@ async function playCutscene(soggy) {
 
     const duration =
         mode === "short"
-            ? 1000
-            : cutsceneDuration(rarity);
+            ? 1200
+            : cutsceneDuration(
+                rarity
+            );
 
 
     await new Promise(
@@ -1042,15 +1085,37 @@ async function playCutscene(soggy) {
     );
 
 
+    /*
+        fade cutscene out
+    */
+
     scene.classList.remove(
         "is-active"
     );
 
+
+    await new Promise(
+        (resolve) =>
+            setTimeout(
+                resolve,
+                180
+            )
+    );
+
+
     document.body.classList.remove(
         "cutscene-active"
     );
-}
 
+
+    /*
+        clean inline animation timing
+        for the next cutscene
+    */
+
+    star.style.animationDuration =
+        "";
+}
 
 /* =========================================================
    reward modal

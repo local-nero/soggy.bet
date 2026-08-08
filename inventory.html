@@ -1,25 +1,478 @@
-<!-- Nothing here but us soggies -->
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>inventory • soggybet</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-    <link rel="icon" type="image/png" href="/assets/branding/supersog.png">
-    <link rel="apple-touch-icon" href="/assets/branding/supersog.png">
-    <link rel="stylesheet" href="/css/style.css">
+    <meta
+        name="description"
+        content="Manage your soggy cat collection on Soggybet."
+    >
+
+    <title>my sogs • soggybet</title>
+
+    <link
+        rel="icon"
+        type="image/png"
+        href="/assets/branding/supersog.png"
+    >
+
+    <link
+        rel="stylesheet"
+        href="/css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="/css/layout.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="/css/inventory.css"
+    >
 </head>
 
 <body>
 
-    <h1>🐈 inventory</h1>
+    <div class="app-shell">
 
-    <script type="module" src="/js/app.js"></script>
-    <script type="module" src="/js/inventory.js"></script>
+        <aside class="sidebar">
+
+            <a
+                class="sidebar-logo"
+                href="/"
+            >
+                <img
+                    class="sidebar-logo-image"
+                    src="/assets/branding/supersog.png"
+                    alt=""
+                >
+
+                <span>
+                    soggybet
+                </span>
+            </a>
+
+            <nav class="sidebar-nav">
+
+                <a
+                    class="sidebar-link"
+                    href="/"
+                    data-nav-link
+                >
+                    <span>⌂</span>
+                    <span>home</span>
+                </a>
+
+                <a
+                    class="sidebar-link"
+                    href="/games/wheel/"
+                    data-nav-link
+                >
+                    <span>◉</span>
+                    <span>wheel</span>
+                </a>
+
+                <a
+                    class="sidebar-link"
+                    href="/inventory/"
+                    data-nav-link
+                >
+                    <span>🐈</span>
+                    <span>my sogs</span>
+                </a>
+
+                <a
+                    class="sidebar-link"
+                    href="/dex/"
+                    data-nav-link
+                >
+                    <span>▦</span>
+                    <span>soggydex</span>
+                </a>
+
+                <a
+                    class="sidebar-link"
+                    href="/settings/"
+                    data-nav-link
+                >
+                    <span>⚙</span>
+                    <span>settings</span>
+                </a>
+
+            </nav>
+
+        </aside>
+
+
+        <main class="app-main">
+
+            <header class="topbar">
+
+                <div class="topbar-actions">
+
+                    <div
+                        class="balance-display"
+                        data-balance
+                    >
+                        0 sc
+                    </div>
+
+                </div>
+
+            </header>
+
+
+            <div class="page-content">
+
+                <section class="inventory-header">
+
+                    <div>
+
+                        <span class="inventory-kicker">
+                            collection
+                        </span>
+
+                        <h1>
+                            my sogs
+                        </h1>
+
+                        <p>
+                            every soggy you've rescued, collected, and probably overpaid for.
+                        </p>
+
+                    </div>
+
+                </section>
+
+
+                <section class="inventory-stats">
+
+                    <article class="inventory-stat">
+
+                        <span>
+                            total owned
+                        </span>
+
+                        <strong id="inventory-total-owned">
+                            0
+                        </strong>
+
+                    </article>
+
+
+                    <article class="inventory-stat">
+
+                        <span>
+                            unique soggies
+                        </span>
+
+                        <strong id="inventory-unique">
+                            0
+                        </strong>
+
+                    </article>
+
+
+                    <article class="inventory-stat">
+
+                        <span>
+                            total value
+                        </span>
+
+                        <strong id="inventory-total-value">
+                            0 sc
+                        </strong>
+
+                    </article>
+
+
+                    <article class="inventory-stat">
+
+                        <span>
+                            favorites
+                        </span>
+
+                        <strong id="inventory-favorites">
+                            0
+                        </strong>
+
+                    </article>
+
+                </section>
+
+
+                <section class="inventory-toolbar">
+
+                    <div class="inventory-search">
+
+                        <span>
+                            ⌕
+                        </span>
+
+                        <input
+                            id="inventory-search"
+                            type="search"
+                            placeholder="search soggies..."
+                            autocomplete="off"
+                        >
+
+                    </div>
+
+
+                    <select
+                        id="inventory-sort"
+                        class="inventory-select"
+                    >
+                        <option value="newest">
+                            newest
+                        </option>
+
+                        <option value="oldest">
+                            oldest
+                        </option>
+
+                        <option value="value-high">
+                            value: high to low
+                        </option>
+
+                        <option value="value-low">
+                            value: low to high
+                        </option>
+
+                        <option value="name">
+                            alphabetical
+                        </option>
+
+                        <option value="copies">
+                            most copies
+                        </option>
+                    </select>
+
+                </section>
+
+
+                <section class="inventory-filters">
+
+                    <button
+                        class="inventory-filter is-active"
+                        data-rarity-filter="all"
+                        type="button"
+                    >
+                        all
+                    </button>
+
+                    <button
+                        class="inventory-filter"
+                        data-rarity-filter="favorites"
+                        type="button"
+                    >
+                        ★ favorites
+                    </button>
+
+                    <button
+                        class="inventory-filter"
+                        data-rarity-filter="common"
+                        type="button"
+                    >
+                        common
+                    </button>
+
+                    <button
+                        class="inventory-filter"
+                        data-rarity-filter="uncommon"
+                        type="button"
+                    >
+                        uncommon
+                    </button>
+
+                    <button
+                        class="inventory-filter"
+                        data-rarity-filter="rare"
+                        type="button"
+                    >
+                        rare
+                    </button>
+
+                    <button
+                        class="inventory-filter"
+                        data-rarity-filter="super-rare"
+                        type="button"
+                    >
+                        super rare
+                    </button>
+
+                    <button
+                        class="inventory-filter"
+                        data-rarity-filter="epic"
+                        type="button"
+                    >
+                        epic
+                    </button>
+
+                    <button
+                        class="inventory-filter"
+                        data-rarity-filter="legendary"
+                        type="button"
+                    >
+                        legendary
+                    </button>
+
+                    <button
+                        class="inventory-filter"
+                        data-rarity-filter="mythic"
+                        type="button"
+                    >
+                        mythic
+                    </button>
+
+                    <button
+                        class="inventory-filter"
+                        data-rarity-filter="ultra-legendary"
+                        type="button"
+                    >
+                        ultra
+                    </button>
+
+                    <button
+                        class="inventory-filter"
+                        data-rarity-filter="anomaly"
+                        type="button"
+                    >
+                        ████████
+                    </button>
+
+                </section>
+
+
+                <div
+                    class="inventory-empty"
+                    id="inventory-empty"
+                    hidden
+                >
+                    <span>
+                        🐈
+                    </span>
+
+                    <strong>
+                        no soggies found
+                    </strong>
+
+                    <p>
+                        the collection is suspiciously dry.
+                    </p>
+                </div>
+
+
+                <section
+                    class="inventory-grid"
+                    id="inventory-grid"
+                >
+                </section>
+
+            </div>
+
+        </main>
+
+    </div>
+
+
+    <dialog
+        class="inventory-inspect"
+        id="inventory-inspect"
+    >
+
+        <button
+            class="inventory-inspect-close"
+            id="inventory-inspect-close"
+            type="button"
+        >
+            ×
+        </button>
+
+        <div class="inventory-inspect-image-shell">
+
+            <img
+                id="inventory-inspect-image"
+                alt=""
+            >
+
+        </div>
+
+        <span
+            class="inventory-inspect-rarity"
+            id="inventory-inspect-rarity"
+        >
+        </span>
+
+        <h2 id="inventory-inspect-name">
+        </h2>
+
+        <p id="inventory-inspect-description">
+        </p>
+
+        <div class="inventory-inspect-stats">
+
+            <div>
+                <span>
+                    copies
+                </span>
+
+                <strong id="inventory-inspect-copies">
+                    0
+                </strong>
+            </div>
+
+            <div>
+                <span>
+                    each
+                </span>
+
+                <strong id="inventory-inspect-value">
+                    0 sc
+                </strong>
+            </div>
+
+            <div>
+                <span>
+                    collection value
+                </span>
+
+                <strong id="inventory-inspect-total">
+                    0 sc
+                </strong>
+            </div>
+
+            <div>
+                <span>
+                    first obtained
+                </span>
+
+                <strong id="inventory-inspect-date">
+                    —
+                </strong>
+            </div>
+
+        </div>
+
+    </dialog>
+
+
+    <script
+        type="module"
+        src="/js/app.js"
+    ></script>
+
+    <script
+        type="module"
+        src="/js/inventory.js"
+    ></script>
 
 </body>
 

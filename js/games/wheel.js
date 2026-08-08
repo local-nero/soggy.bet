@@ -597,9 +597,13 @@ return {
 
 function getTargetAngle(result) {
 
-    if (result.anomaly) {
+    if (
+        result.type === "nothing" ||
+        result.anomaly
+    ) {
         return Math.random() * 360;
     }
+
 
     const config =
         getWheelType(currentWheelId);

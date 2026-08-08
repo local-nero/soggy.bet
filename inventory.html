@@ -125,20 +125,52 @@
 
         <main class="app-main">
 
-            <header class="topbar">
+<header class="topbar">
 
-                <div class="topbar-actions">
+    <div class="topbar-actions">
 
-                    <div
-                        class="balance-display"
-                        data-balance
-                    >
-                        0 sc
-                    </div>
+        <div
+            class="balance-pill"
+            aria-label="current soggycoin balance"
+        >
+            <span class="balance-icon">💧</span>
 
-                </div>
+            <strong data-balance>
+                0
+            </strong>
 
-            </header>
+            <span class="text-muted">
+                SC
+            </span>
+        </div>
+
+        <button
+            class="button profile-button"
+            type="button"
+        >
+            <svg
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+            >
+                <circle
+                    cx="12"
+                    cy="8"
+                    r="4"
+                ></circle>
+
+                <path
+                    d="M4 21a8 8 0 0 1 16 0"
+                ></path>
+            </svg>
+
+            <span>
+                guest
+            </span>
+        </button>
+
+    </div>
+
+</header>
 
 
             <div class="page-content">

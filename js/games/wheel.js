@@ -1807,7 +1807,7 @@ console.log(
     "[soggybet] pull announced successfully"
 );
         
-    catch (error) {
+    } catch (error) {
 
         console.error(
             "[soggybet] announcement failed:",

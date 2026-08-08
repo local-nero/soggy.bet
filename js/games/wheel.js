@@ -1591,25 +1591,21 @@ async function showSoggy(result) {
     }
 
 
-    if (newDiscovery) {
+if (newDiscovery) {
 
-        rewardDiscovery.textContent =
-            "✨ new variant discovered!";
+    rewardDiscovery.textContent =
+        "✨ new variant discovered!";
 
-        rewardDiscovery.classList.add(
-            "is-new"
-        );
+    rewardDiscovery.classList.add(
+        "is-new"
+    );
 
-        keepButton.textContent =
-            "keep";
+    keepButton.textContent =
+        "keep";
 
-        /*
-            first copy cannot be sold
-        */
-
-        sellButton.hidden =
-            true;
-    }
+    sellButton.hidden =
+        result.anomaly;
+}
 
     else {
 
@@ -1700,17 +1696,25 @@ function sellReward() {
     }
 
 
-    if (
-        pendingReward.newDiscovery ||
-        pendingReward.anomaly
-    ) {
-        return;
-    }
+if (
+    pendingReward.anomaly
+) {
+    return;
+}
 
 
     const soggy =
         pendingReward.soggy;
 
+    if (
+    pendingReward.newDiscovery
+) {
+
+    discover(
+        soggy.id
+    );
+
+}
 
     addBalance(
         soggy.value

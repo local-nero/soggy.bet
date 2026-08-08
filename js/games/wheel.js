@@ -683,8 +683,8 @@ function setSpinning(value) {
     spinButton.innerHTML =
         value
             ? `
-                <span>spinning...</span>
-                <span class="spin-arrow">↻</span>
+                <span>skip spin</span>
+                <span class="spin-arrow">→</span>
             `
             : `
                 <span>spin wheel</span>
@@ -2062,14 +2062,13 @@ function skipCurrentSpin() {
     }
 
     /*
-        instantly finish the CSS wheel transition
+        instantly finish the current spin wait
     */
 
     wheel.style.transition =
         "none";
 
     finishSpinWait();
-
 
     requestAnimationFrame(
         () => {

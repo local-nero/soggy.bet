@@ -30,15 +30,16 @@ import {
 } from "/js/soggies.js";
 
 import {
-    anomalyConfig,
-    formatChance,
-    formatOdds,
-    getAnomalyChance,
-    getIndividualSoggyChance,
-    getSpinCost,
-    getWheelType,
-    rollAnomaly,
-    rollRarity
+getAnomalyChance,
+getIndividualSoggyChance,
+getSpinCost,
+getWheelType,
+getMinimumWager,
+isValidWager,
+rollNothing,
+getNothingChance,
+rollAnomaly,
+rollRarity
 } from "/data/wheel-rewards.js";
 
 import {
@@ -400,11 +401,12 @@ async function getFullSpinChance(soggy) {
         return null;
     }
 
-    return getIndividualSoggyChance(
-        currentWheelId,
-        soggy.rarity,
-        pool.length
-    );
+return getIndividualSoggyChance(
+    currentWheelId,
+    soggy.rarity,
+    pool.length,
+    currentWager
+);
 }
 
 
@@ -516,53 +518,77 @@ async function generateResult() {
     }
 
 
-    if (
-        anomalyConfig.enabled &&
-        rollAnomaly(
-            currentWheelId
-        )
-    ) {
-
-        const anomaly =
-            await getRandomAnomaly();
-
-        if (anomaly) {
-            return {
-                type: "soggy",
-                soggy: anomaly,
-                anomaly: true,
-                chance: null
-            };
-        }
-    }
-
-
-    const rarity =
-        rollRarity(
-            currentWheelId
-        );
-
-    const soggy =
-        await getRandomWheelSoggy(
-            rarity
-        );
-
-    if (!soggy) {
-        throw new Error(
-            `no wheel soggies available for ${rarity}`
-        );
-    }
-
+if (
+    rollNothing(
+        currentWheelId
+    )
+) {
     return {
-        type: "soggy",
-        soggy,
-        anomaly: false,
-
+        type: "nothing",
         chance:
-            await getFullSpinChance(
-                soggy
+            getNothingChance(
+                currentWheelId
             )
     };
+}
+
+
+if (
+    currentWheelId === "jackpot" &&
+    anomalyConfig.enabled &&
+    rollAnomaly(
+        currentWheelId
+    )
+) {
+
+    const anomaly =
+        await getRandomAnomaly();
+
+    if (anomaly) {
+        return {
+            type: "soggy",
+            soggy: anomaly,
+            anomaly: true,
+            chance:
+                getAnomalyChance(
+                    currentWheelId
+                )
+        };
+    }
+}
+
+
+const rarity =
+    rollRarity(
+        currentWheelId,
+        currentWager
+    );
+
+
+const soggy =
+    await getRandomWheelSoggy(
+        rarity
+    );
+
+
+if (!soggy) {
+    throw new Error(
+        `no wheel soggies available for ${rarity}`
+    );
+}
+
+
+return {
+    type: "soggy",
+    soggy,
+    anomaly: false,
+
+    chance:
+        await getFullSpinChance(
+            soggy
+        )
+};
+
 }
 
 /* =========================================================

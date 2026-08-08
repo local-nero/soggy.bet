@@ -176,4 +176,12 @@
     .content-grid.four-columns {
         grid-template-columns: 1fr;
     }
+
+    .sidebar-logo-image {
+    width: 38px;
+    height: 38px;
+    flex: 0 0 38px;
+    object-fit: cover;
+    border-radius: 11px;
+   }
 }

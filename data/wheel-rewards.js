@@ -434,45 +434,98 @@ export function getWagerBoost(
             wheelId
         );
 
-
     if (
         !wheel.boostsEnabled
     ) {
         return 0;
     }
 
-
     const numericWager =
         Number(
             wager
         );
 
-
     if (
         !Number.isFinite(
             numericWager
-        ) ||
-        numericWager <= 0
+        )
     ) {
         return 0;
     }
 
-
-    const capped =
-        Math.min(
-            numericWager,
-            MAX_WAGER_BOOST_AT
+    const extra =
+        Math.max(
+            0,
+            numericWager -
+            wheel.minWager
         );
 
+    const maxExtra =
+        Number(
+            wheel.maxBoostExtra ??
+            0
+        );
+
+    if (
+        maxExtra <= 0
+    ) {
+        return 0;
+    }
+
+    const progress =
+        Math.min(
+            1,
+            extra /
+            maxExtra
+        );
 
     return (
-        capped /
-        MAX_WAGER_BOOST_AT
-    ) *
-    MAX_WAGER_BOOST;
-
+        progress *
+        MAX_WAGER_BOOST
+    );
 }
 
+export function getWagerBoostProgress(
+    wheelId,
+    wager
+) {
+
+    const wheel =
+        getWheelType(
+            wheelId
+        );
+
+    const extra =
+        Math.max(
+            0,
+            Number(wager) -
+            wheel.minWager
+        );
+
+    const maxExtra =
+        wheel.maxBoostExtra ??
+        0;
+
+    return {
+
+        extra,
+
+        maxExtra,
+
+        cappedExtra:
+            Math.min(
+                extra,
+                maxExtra
+            ),
+
+        boost:
+            getWagerBoost(
+                wheelId,
+                wager
+            )
+
+    };
+}
 
 /* =========================================================
    boosted rarity table

@@ -1724,4 +1724,28 @@ body.cutscene-active {
 
         padding: 12px;
     }
+
+    .wager-boost-row {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 12px;
+
+    margin-top: 8px;
+
+    color:
+        var(--color-text-muted);
+
+    font-size: 0.75rem;
+}
+
+.wager-boost-row strong {
+    color:
+        var(--color-primary);
+
+    font-weight: 800;
+}
+    
 }

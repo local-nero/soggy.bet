@@ -2,7 +2,7 @@ const STORAGE_KEY =
     "soggybet_player";
 
 const PLAYER_VERSION =
-    3;
+    4;
 
 
 /* =========================================================
@@ -137,12 +137,26 @@ function normalizeUsername(
 }
 
 
+function getLegacyUsername(
+    saved
+) {
+
+    return normalizeUsername(
+        saved?.username ??
+        saved?.profile?.username ??
+        saved?.settings?.username ??
+        "guest"
+    );
+
+}
+
+
 /* =========================================================
    great rebalance migration
    ========================================================= */
 
 function migratePlayer(
-    saved
+    saved = {}
 ) {
 
     const savedVersion =
@@ -165,13 +179,6 @@ function migratePlayer(
     );
 
 
-    /*
-        keep identity + preferences.
-
-        everything economy-related
-        starts fresh.
-    */
-
     const fresh =
         clone(
             DEFAULT_PLAYER
@@ -179,8 +186,8 @@ function migratePlayer(
 
 
     fresh.username =
-        normalizeUsername(
-            saved?.username
+        getLegacyUsername(
+            saved
         );
 
 
@@ -201,6 +208,16 @@ function migratePlayer(
     }
 
 
+    /*
+        remove legacy username copies.
+
+        username now belongs only at:
+        player.username
+    */
+
+    delete fresh.settings.username;
+
+
     fresh.version =
         PLAYER_VERSION;
 
@@ -211,7 +228,7 @@ function migratePlayer(
 
 
 /* =========================================================
-   normalization
+   normalize
    ========================================================= */
 
 function normalizePlayer(
@@ -333,6 +350,17 @@ function normalizePlayer(
         );
 
 
+    if (
+        player.settings &&
+        typeof player.settings ===
+        "object"
+    ) {
+
+        delete player.settings.username;
+
+    }
+
+
     const balance =
         Number(
             player.balance
@@ -368,10 +396,6 @@ export function getPlayer() {
         );
 
 
-    /*
-        first visit
-    */
-
     if (!raw) {
 
         const player =
@@ -401,6 +425,13 @@ export function getPlayer() {
             );
 
 
+        const oldVersion =
+            Number(
+                parsed?.version ??
+                0
+            );
+
+
         const normalized =
             normalizePlayer(
                 parsed
@@ -408,18 +439,11 @@ export function getPlayer() {
 
 
         /*
-            persist migrations automatically.
-
-            this is what applies
-            The Great Rebalance reset
-            to old V2 saves.
+            persist migrations once
         */
 
         if (
-            Number(
-                parsed.version ??
-                0
-            ) !==
+            oldVersion !==
             PLAYER_VERSION
         ) {
 
@@ -575,25 +599,6 @@ export function setUsername(
 
 
 /* =========================================================
-   reset
-   ========================================================= */
-
-export function resetPlayer() {
-
-    const player =
-        clone(
-            DEFAULT_PLAYER
-        );
-
-
-    return savePlayer(
-        player
-    );
-
-}
-
-
-/* =========================================================
    economy reset
    ========================================================= */
 
@@ -608,11 +613,6 @@ export function resetEconomy() {
             DEFAULT_PLAYER
         );
 
-
-    /*
-        preserve identity
-        and preferences
-    */
 
     fresh.username =
         normalizeUsername(
@@ -629,8 +629,30 @@ export function resetEconomy() {
     };
 
 
+    delete fresh.settings.username;
+
+
     return savePlayer(
         fresh
+    );
+
+}
+
+
+/* =========================================================
+   full reset
+   ========================================================= */
+
+export function resetPlayer() {
+
+    const player =
+        clone(
+            DEFAULT_PLAYER
+        );
+
+
+    return savePlayer(
+        player
     );
 
 }

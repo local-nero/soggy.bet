@@ -375,11 +375,6 @@ function getVisualWheelSegments() {
 
     return segments;
 }
-    
-    renderWheel();
-    updateCost();
-}
-
 
 /* =========================================================
    wager

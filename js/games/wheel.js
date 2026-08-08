@@ -175,6 +175,12 @@ let pendingReward =
 let rewardResolved =
     true;
 
+let skipSpinRequested =
+    false;
+
+let finishSpinWait =
+    null;
+
 
 /* =========================================================
    player structure
@@ -655,9 +661,6 @@ function calculateRotation(result) {
 function setSpinning(value) {
 
     spinning =
-        value;
-
-    spinButton.disabled =
         value;
 
     wagerInput.disabled =
@@ -1675,6 +1678,50 @@ function closeModal() {
    spin
    ========================================================= */
 
+function waitForSpin(duration) {
+
+    return new Promise(
+        (resolve) => {
+
+            let finished =
+                false;
+
+            const finish = () => {
+
+                if (finished) {
+                    return;
+                }
+
+                finished =
+                    true;
+
+                finishSpinWait =
+                    null;
+
+                resolve();
+            };
+
+
+            const timeout =
+                setTimeout(
+                    finish,
+                    duration
+                );
+
+
+            finishSpinWait = () => {
+
+                clearTimeout(
+                    timeout
+                );
+
+                finish();
+            };
+
+        }
+    );
+}
+
 async function spin() {
 
     if (
@@ -1755,13 +1802,9 @@ async function spin() {
         );
 
 
-        await new Promise(
-            (resolve) =>
-                setTimeout(
-                    resolve,
-                    SPIN_DURATION
-                )
-        );
+await waitForSpin(
+    SPIN_DURATION
+);
 
 
 wheelStatus.textContent =
@@ -1838,7 +1881,19 @@ if (
 
 spinButton.addEventListener(
     "click",
-    spin
+    () => {
+
+        if (spinning) {
+
+            skipCurrentSpin();
+
+            return;
+
+        }
+
+        spin();
+
+    }
 );
 
 
@@ -1991,3 +2046,43 @@ init().catch(
         );
     }
 );
+
+
+/* =========================================================
+   skip
+   ========================================================= */
+
+function skipCurrentSpin() {
+
+    if (
+        !spinning ||
+        !finishSpinWait
+    ) {
+        return;
+    }
+
+    /*
+        instantly finish the CSS wheel transition
+    */
+
+    wheel.style.transition =
+        "none";
+
+    finishSpinWait();
+
+
+    requestAnimationFrame(
+        () => {
+
+            requestAnimationFrame(
+                () => {
+
+                    wheel.style.transition =
+                        "";
+
+                }
+            );
+
+        }
+    );
+}

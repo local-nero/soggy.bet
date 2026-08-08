@@ -33,9 +33,15 @@ export const wheelTypes = {
         description:
             "reasonable odds. questionable decisions.",
 
-        minWager:
-            500,
+minWager:
+    500,
 
+maxBoostExtra:
+    10000,
+
+boostsEnabled:
+    true,
+        
         costMultiplier:
             1,
 
@@ -98,8 +104,14 @@ export const wheelTypes = {
         description:
             "the whole soggydex is technically on the table.",
 
-        minWager:
-            5000,
+minWager:
+    5000,
+
+maxBoostExtra:
+    15000,
+
+boostsEnabled:
+    true,
 
         costMultiplier:
             1,
@@ -163,8 +175,14 @@ export const wheelTypes = {
         description:
             "one in four spins achieves absolutely nothing.",
 
-        minWager:
-            25000,
+minWager:
+    25000,
+
+maxBoostExtra:
+    25000,
+
+boostsEnabled:
+    true,
 
         costMultiplier:
             1,
@@ -224,8 +242,14 @@ export const wheelTypes = {
         description:
             "90% financial evaporation. 10% terrible possibilities.",
 
-        minWager:
-            50000,
+minWager:
+    50000,
+
+maxBoostExtra:
+    0,
+
+boostsEnabled:
+    false,
 
         costMultiplier:
             1,

@@ -96,13 +96,13 @@ export async function onRequestPost(context) {
             Number(chance) > 0
         ) {
 
-            odds =
-                `1 in ${Math.round(
-                    1 /
-                    Number(chance)
-                ).toLocaleString(
-                    "en-US"
-                )}`;
+odds =
+    `1 in ${Math.round(
+        100 /
+        Number(chance)
+    ).toLocaleString(
+        "en-US"
+    )}`;
 
         }
 

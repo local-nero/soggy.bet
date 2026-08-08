@@ -508,6 +508,20 @@ async function generateResult() {
     }
 */
 
+    const forcedRaw =
+    localStorage.getItem(
+        "soggybet_dev_spin_override"
+    );
+
+const forced =
+    forcedRaw
+        ? JSON.parse(forcedRaw)
+        : null;
+
+localStorage.removeItem(
+    "soggybet_dev_spin_override"
+);
+
     /* normal hidden anomaly roll */
 
     if (

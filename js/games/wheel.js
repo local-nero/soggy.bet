@@ -30,17 +30,20 @@ import {
 } from "/js/soggies.js";
 
 import {
-getAnomalyChance,
-getIndividualSoggyChance,
-getSpinCost,
-getWheelType,
-getMinimumWager,
-isValidWager,
-rollNothing,
-getNothingChance,
-getWagerBoost,
-rollAnomaly,
-rollRarity
+    anomalyConfig,
+    formatChance,
+    formatOdds,
+    getAnomalyChance,
+    getIndividualSoggyChance,
+    getSpinCost,
+    getWheelType,
+    getMinimumWager,
+    isValidWager,
+    rollNothing,
+    getNothingChance,
+    getWagerBoost,
+    rollAnomaly,
+    rollRarity
 } from "/data/wheel-rewards.js";
 
 import {

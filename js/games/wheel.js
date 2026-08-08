@@ -1,9 +1,11 @@
 // Nothing here but us soggies
 
+/* mod panel
 import {
     consumeDevSpinOverride,
     devFreeSpinsEnabled
 } from "/js/mod-panel.js";
+*/
 
 import {
     addBalance,
@@ -411,12 +413,12 @@ async function getFullSpinChance(soggy) {
    ========================================================= */
 
 async function generateResult() {
-
+/* mod panel
     const forced =
         consumeDevSpinOverride();
+*/
 
-
-    /* force specific soggy */
+    /* force specific soggy
 
     if (
         forced?.type ===
@@ -449,9 +451,10 @@ async function generateResult() {
                     )
         };
     }
+    
+*/
 
-
-    /* force rarity */
+    /* force rarity
 
     if (
         forced?.type ===
@@ -479,9 +482,9 @@ async function generateResult() {
                 )
         };
     }
+*/
 
-
-    /* force anomaly */
+    /* force anomaly
 
     if (
         forced?.type ===
@@ -503,7 +506,7 @@ async function generateResult() {
             chance: null
         };
     }
-
+*/
 
     /* normal hidden anomaly roll */
 

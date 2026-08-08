@@ -1722,6 +1722,90 @@ function waitForSpin(duration) {
     );
 }
 
+async function announceRarePull(
+    result
+) {
+
+    const soggy =
+        result.soggy;
+
+    if (!soggy) {
+        return;
+    }
+
+    const allowedRarities =
+        new Set([
+            "mythic",
+            "ultra-legendary",
+            "anomaly"
+        ]);
+
+    if (
+        !allowedRarities.has(
+            soggy.rarity
+        )
+    ) {
+        return;
+    }
+
+    const player =
+        getPlayer();
+
+    const username =
+        player.username ??
+        player.profile?.username ??
+        "guest";
+
+    const wheelConfig =
+        getWheelType(
+            currentWheelId
+        );
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/announce-pull",
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body:
+                        JSON.stringify({
+                            soggy,
+                            chance:
+                                result.chance,
+                            wheel:
+                                wheelConfig.name,
+                            username
+                        })
+                }
+            );
+
+        if (!response.ok) {
+            console.error(
+                "[soggybet] announcement returned:",
+                response.status
+            );
+        }
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "[soggybet] announcement failed:",
+            error
+        );
+
+    }
+
+}
+
 async function spin() {
 
     if (

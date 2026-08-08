@@ -299,6 +299,11 @@ wagerButtons.forEach(
     }
 );
 
+renderWheel();
+updateCost();
+
+}
+
 function getVisualWheelSegments() {
 
     const config =

@@ -907,5 +907,9 @@
         grid-template-columns:
             1fr;
     }
+   
+   .inventory-empty[hidden] {
+    display: none !important;
+    }
 
 }

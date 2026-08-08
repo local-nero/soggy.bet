@@ -38,6 +38,7 @@ getMinimumWager,
 isValidWager,
 rollNothing,
 getNothingChance,
+getWagerBoost,
 rollAnomaly,
 rollRarity
 } from "/data/wheel-rewards.js";
@@ -292,6 +293,78 @@ wagerButtons.forEach(
 
     }
 );
+
+function getVisualWheelSegments() {
+
+    const config =
+        getWheelType(
+            currentWheelId
+        );
+
+    const nothingChance =
+        getNothingChance(
+            currentWheelId
+        );
+
+    const successMultiplier =
+        (
+            100 -
+            nothingChance
+        ) /
+        100;
+
+    const segments =
+        [];
+
+
+    if (
+        nothingChance >
+        0
+    ) {
+
+        segments.push({
+            type: "nothing",
+            chance:
+                nothingChance
+        });
+
+    }
+
+
+    for (
+        const [
+            rarity,
+            chance
+        ]
+        of Object.entries(
+            config.rarityChances
+        )
+    ) {
+
+        const actualChance =
+            Number(
+                chance
+            ) *
+            successMultiplier;
+
+        if (
+            actualChance <= 0
+        ) {
+            continue;
+        }
+
+        segments.push({
+            type: "rarity",
+            rarity,
+            chance:
+                actualChance
+        });
+
+    }
+
+
+    return segments;
+}
     
     renderWheel();
     updateCost();
@@ -394,54 +467,90 @@ function renderWheel() {
         return;
     }
 
-    const config =
-        getWheelType(currentWheelId);
 
-    const stops = [];
+    const segments =
+        getVisualWheelSegments();
 
-    let angle = 0;
+    const stops =
+        [];
+
+    let angle =
+        0;
+
 
     for (
-        const [rarity, chance]
-        of Object.entries(config.rarityChances)
+        const segment
+        of segments
     ) {
 
         const size =
-            chance / 100 * 360;
+            segment.chance /
+            100 *
+            360;
 
         const end =
-            angle + size;
+            angle +
+            size;
 
-        if (rarity === "ultra-legendary") {
 
-            const quarter =
-                size / 4;
+        if (
+            segment.type ===
+            "nothing"
+        ) {
 
             stops.push(
-                `#55eaff ${angle}deg ${angle + quarter}deg`,
-                `#7798ff ${angle + quarter}deg ${angle + quarter * 2}deg`,
-                `#bd62ff ${angle + quarter * 2}deg ${angle + quarter * 3}deg`,
-                `#ff36ed ${angle + quarter * 3}deg ${end}deg`
+                `#11151b ${angle}deg ${end}deg`
             );
+
+        }
+
+        else if (
+            segment.rarity ===
+            "ultra-legendary"
+        ) {
+
+            const quarter =
+                size /
+                4;
+
+            stops.push(
+
+                `#55eaff ${angle}deg ${angle + quarter}deg`,
+
+                `#7798ff ${angle + quarter}deg ${angle + quarter * 2}deg`,
+
+                `#bd62ff ${angle + quarter * 2}deg ${angle + quarter * 3}deg`,
+
+                `#ff36ed ${angle + quarter * 3}deg ${end}deg`
+
+            );
+
         }
 
         else {
 
             const color =
-                RARITY_COLORS[rarity] ??
+                RARITY_COLORS[
+                    segment.rarity
+                ] ??
                 "#64748b";
 
             stops.push(
                 `${color} ${angle}deg ${end}deg`
             );
+
         }
+
 
         angle =
             end;
+
     }
+
 
     wheel.style.background =
         `conic-gradient(${stops.join(",")})`;
+
 }
 
 
@@ -661,45 +770,62 @@ return {
    pointer target
    ========================================================= */
 
-function getTargetAngle(result) {
+function getTargetAngle(
+    result
+) {
 
     if (
-        result.type === "nothing" ||
         result.anomaly
     ) {
-        return Math.random() * 360;
+        return Math.random() *
+            360;
     }
 
 
-    const config =
-        getWheelType(currentWheelId);
+    const segments =
+        getVisualWheelSegments();
 
     let start =
         0;
 
+
     for (
-        const [rarity, chance]
-        of Object.entries(config.rarityChances)
+        const segment
+        of segments
     ) {
 
         const size =
-            chance / 100 * 360;
+            segment.chance /
+            100 *
+            360;
 
-        if (
-            rarity ===
-            result.soggy.rarity
-        ) {
 
-            /*
-                random position inside segment
-                instead of always dead center
-            */
+        const matches =
+            (
+                result.type ===
+                "nothing" &&
+                segment.type ===
+                "nothing"
+            ) ||
+            (
+                result.type ===
+                "soggy" &&
+                segment.type ===
+                "rarity" &&
+                segment.rarity ===
+                result.soggy?.rarity
+            );
+
+
+        if (matches) {
 
             const padding =
                 Math.min(
                     3,
-                    size * 0.15
+                    size *
+                    0.15
                 );
+
 
             return (
                 start +
@@ -707,15 +833,23 @@ function getTargetAngle(result) {
                 Math.random() *
                 Math.max(
                     0.001,
-                    size - padding * 2
+                    size -
+                    padding *
+                    2
                 )
             );
+
         }
 
-        start += size;
+
+        start +=
+            size;
+
     }
 
-    return Math.random() * 360;
+
+    return Math.random() *
+        360;
 }
 
 

@@ -908,8 +908,9 @@
             1fr;
     }
    
-   .inventory-empty[hidden] {
-    display: none !important;
-    }
+     /* hidden must ALWAYS win */
+     .inventory-empty[hidden] {
+     display: none !important;
+}
 
 }

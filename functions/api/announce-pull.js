@@ -218,10 +218,7 @@ if (
                     body:
                         JSON.stringify({
                             username:
-                                "Soggybet",
-
-                            avatar_url:
-                                "https://soggybet.pages.dev/assets/branding/supersog.png",
+                                "Soggybet - Global Pulls",
 
                             embeds: [
                                 embed

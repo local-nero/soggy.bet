@@ -91,6 +91,11 @@ const wagerButtons =
 const wagerInput =
     document.querySelector("#wager-input");
 
+const wagerBoostValue =
+    document.querySelector(
+        "#wager-boost-value"
+    );
+
 
 /* modal */
 

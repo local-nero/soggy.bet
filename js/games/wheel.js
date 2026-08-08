@@ -235,6 +235,26 @@ function selectWheel(wheelId) {
     currentWheelId =
         config.id;
 
+    const minimumWager =
+    getMinimumWager(
+        currentWheelId
+    );
+
+if (
+    currentWager <
+    minimumWager
+) {
+
+    currentWager =
+        minimumWager;
+
+    if (wagerInput) {
+        wagerInput.value =
+            currentWager;
+    }
+
+}
+
     wheelTypeButtons.forEach((button) => {
 
         button.classList.toggle(
@@ -259,6 +279,20 @@ function selectWheel(wheelId) {
             config.name;
     }
 
+wagerButtons.forEach(
+    (button) => {
+
+        button.classList.toggle(
+            "is-active",
+            Number(
+                button.dataset.wager
+            ) ===
+            currentWager
+        );
+
+    }
+);
+    
     renderWheel();
     updateCost();
 }
@@ -280,8 +314,13 @@ function selectWager(value) {
         return;
     }
 
-    currentWager =
-        Math.round(amount);
+currentWager =
+    Math.max(
+        Math.round(amount),
+        getMinimumWager(
+            currentWheelId
+        )
+    );
 
     wagerButtons.forEach((button) => {
 
@@ -302,6 +341,33 @@ function selectWager(value) {
 
 
 function updateCost() {
+
+    if (
+    !isValidWager(
+        currentWheelId,
+        currentWager
+    )
+) {
+
+    const minimumWager =
+        getMinimumWager(
+            currentWheelId
+        );
+
+    wheelStatus.textContent =
+        `minimum wager is ${formatSoggyCoins(
+            minimumWager
+        )} sc.`;
+
+    showToast(
+        `this wheel requires at least ${formatSoggyCoins(
+            minimumWager
+        )} sc.`,
+        "error"
+    );
+
+    return;
+}
 
     const cost =
         getSpinCost(

@@ -2149,10 +2149,6 @@ function skipCurrentSpin() {
         return;
     }
 
-    /*
-        instantly finish the current spin wait
-    */
-
     wheel.style.transition =
         "none";
 
@@ -2172,4 +2168,5 @@ function skipCurrentSpin() {
 
         }
     );
+
 }

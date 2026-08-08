@@ -413,17 +413,27 @@ async function getFullSpinChance(soggy) {
    ========================================================= */
 
 async function generateResult() {
-/* mod panel
-    const forced =
-        consumeDevSpinOverride();
-*/
 
-    /* force specific soggy
+    const forcedRaw =
+        localStorage.getItem(
+            "soggybet_dev_spin_override"
+        );
+
+    const forced =
+        forcedRaw
+            ? JSON.parse(forcedRaw)
+            : null;
+
+    localStorage.removeItem(
+        "soggybet_dev_spin_override"
+    );
+
 
     if (
         forced?.type ===
         "soggy"
     ) {
+
         const soggy =
             await getSoggyById(
                 forced.soggyId
@@ -444,22 +454,21 @@ async function generateResult() {
                 "anomaly",
 
             chance:
-                soggy.rarity === "anomaly"
+                soggy.rarity ===
+                "anomaly"
                     ? null
                     : await getFullSpinChance(
                         soggy
                     )
         };
     }
-    
-*/
 
-    /* force rarity
 
     if (
         forced?.type ===
         "rarity"
     ) {
+
         const soggy =
             await getRandomWheelSoggy(
                 forced.rarity
@@ -482,14 +491,13 @@ async function generateResult() {
                 )
         };
     }
-*/
 
-    /* force anomaly
 
     if (
         forced?.type ===
         "anomaly"
     ) {
+
         const anomaly =
             await getRandomAnomaly();
 
@@ -506,23 +514,7 @@ async function generateResult() {
             chance: null
         };
     }
-*/
 
-    const forcedRaw =
-    localStorage.getItem(
-        "soggybet_dev_spin_override"
-    );
-
-const forced =
-    forcedRaw
-        ? JSON.parse(forcedRaw)
-        : null;
-
-localStorage.removeItem(
-    "soggybet_dev_spin_override"
-);
-
-    /* normal hidden anomaly roll */
 
     if (
         anomalyConfig.enabled &&
@@ -530,6 +522,7 @@ localStorage.removeItem(
             currentWheelId
         )
     ) {
+
         const anomaly =
             await getRandomAnomaly();
 
@@ -543,8 +536,6 @@ localStorage.removeItem(
         }
     }
 
-
-    /* normal wheel roll */
 
     const rarity =
         rollRarity(

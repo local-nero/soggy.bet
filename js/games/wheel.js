@@ -1789,15 +1789,24 @@ async function announceRarePull(
                 }
             );
 
-        if (!response.ok) {
-            console.error(
-                "[soggybet] announcement returned:",
-                response.status
-            );
-        }
+if (!response.ok) {
 
-    }
+    const errorText =
+        await response.text();
 
+    console.error(
+        "[soggybet] announcement failed:",
+        response.status,
+        errorText
+    );
+
+    return;
+}
+
+console.log(
+    "[soggybet] pull announced successfully"
+);
+        
     catch (error) {
 
         console.error(

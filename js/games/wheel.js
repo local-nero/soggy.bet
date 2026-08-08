@@ -1935,39 +1935,31 @@ await showSoggy(
     result
 );
 
-    }    catch (error) {
+} catch (error) {
 
-        console.error(
-            "wheel spin failed:",
-            error
-        );
-
-
-        /*
-            refund failures
-        */
+    console.error(
+        "wheel spin failed:",
+        error
+    );
 
     addBalance(
         cost
     );
-}
 
-        wheelStatus.textContent =
-            "reality has been restored.";
+    wheelStatus.textContent =
+        "reality has been restored.";
 
+    showToast(
+        "the wheel broke reality. your spin was refunded.",
+        "error"
+    );
 
-        showToast(
-            "the wheel broke reality. your spin was refunded.",
-            "error"
-        );
-    }
+} finally {
 
-    finally {
+    setSpinning(false);
 
-        setSpinning(false);
+    await renderHistory();
 
-        await renderHistory();
-    }
 }
 
 

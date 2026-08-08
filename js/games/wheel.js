@@ -1838,7 +1838,6 @@ async function spin() {
 
 
     if (
-        !devFreeSpinsEnabled() &&
         !subtractBalance(cost)
     ) {
 
@@ -1920,6 +1919,10 @@ playSound(
     }
 );
 
+        announceRarePull(
+    result
+);
+
 await playCutscene(
     result.soggy
 );
@@ -1944,9 +1947,6 @@ await showSoggy(
             refund failures
         */
 
-if (
-    !devFreeSpinsEnabled()
-) {
     addBalance(
         cost
     );

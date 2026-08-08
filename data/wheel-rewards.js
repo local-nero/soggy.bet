@@ -286,10 +286,10 @@ boostsEnabled:
                 0,
 
             mythic:
-                94,
+                80,
 
             "ultra-legendary":
-                6
+                20
 
         }
 

@@ -415,45 +415,63 @@ currentWager =
 
 function updateCost() {
 
-    if (
-    !isValidWager(
-        currentWheelId,
-        currentWager
-    )
-) {
-
-    const minimumWager =
-        getMinimumWager(
-            currentWheelId
-        );
-
-    wheelStatus.textContent =
-        `minimum wager is ${formatSoggyCoins(
-            minimumWager
-        )} sc.`;
-
-    showToast(
-        `this wheel requires at least ${formatSoggyCoins(
-            minimumWager
-        )} sc.`,
-        "error"
-    );
-
-    return;
-}
-
     const cost =
         getSpinCost(
             currentWheelId,
             currentWager
         );
 
-    if (spinCostValue) {
+    const boost =
+        getWagerBoost(
+            currentWheelId,
+            currentWager
+        );
+
+
+    if (
+        spinCostValue
+    ) {
 
         spinCostValue.textContent =
-            formatSoggyCoins(cost);
+            formatSoggyCoins(
+                cost
+            );
 
     }
+
+
+    if (
+        wagerBoostValue
+    ) {
+
+        const config =
+            getWheelType(
+                currentWheelId
+            );
+
+
+        if (
+            !config.boostsEnabled
+        ) {
+
+            wagerBoostValue.textContent =
+                "disabled";
+
+        }
+
+        else {
+
+            wagerBoostValue.textContent =
+                `+${Number(
+                    boost.toFixed(
+                        2
+                    )
+                )}%`;
+
+        }
+
+    }
+
 }
 
 

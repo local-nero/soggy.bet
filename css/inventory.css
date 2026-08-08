@@ -1,479 +1,911 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <meta
-        name="description"
-        content="Manage your soggy cat collection on Soggybet."
-    >
-
-    <title>my sogs • soggybet</title>
-
-    <link
-        rel="icon"
-        type="image/png"
-        href="/assets/branding/supersog.png"
-    >
-
-    <link
-        rel="stylesheet"
-        href="/css/style.css"
-    >
-
-    <link
-        rel="stylesheet"
-        href="/css/layout.css"
-    >
-
-    <link
-        rel="stylesheet"
-        href="/css/inventory.css"
-    >
-</head>
-
-<body>
-
-    <div class="app-shell">
-
-        <aside class="sidebar">
-
-            <a
-                class="sidebar-logo"
-                href="/"
-            >
-                <img
-                    class="sidebar-logo-image"
-                    src="/assets/branding/supersog.png"
-                    alt=""
-                >
+/* =========================================================
+   inventory header
+   ========================================================= */
 
-                <span>
-                    soggybet
-                </span>
-            </a>
+.inventory-header {
+    display: flex;
 
-            <nav class="sidebar-nav">
+    align-items: flex-end;
+    justify-content: space-between;
 
-                <a
-                    class="sidebar-link"
-                    href="/"
-                    data-nav-link
-                >
-                    <span>⌂</span>
-                    <span>home</span>
-                </a>
+    gap: 24px;
 
-                <a
-                    class="sidebar-link"
-                    href="/games/wheel/"
-                    data-nav-link
-                >
-                    <span>◉</span>
-                    <span>wheel</span>
-                </a>
+    margin-bottom: 24px;
+}
 
-                <a
-                    class="sidebar-link"
-                    href="/inventory/"
-                    data-nav-link
-                >
-                    <span>🐈</span>
-                    <span>my sogs</span>
-                </a>
+.inventory-kicker {
+    color:
+        var(--color-primary);
 
-                <a
-                    class="sidebar-link"
-                    href="/dex/"
-                    data-nav-link
-                >
-                    <span>▦</span>
-                    <span>soggydex</span>
-                </a>
+    font-size: 0.72rem;
+    font-weight: 800;
 
-                <a
-                    class="sidebar-link"
-                    href="/settings/"
-                    data-nav-link
-                >
-                    <span>⚙</span>
-                    <span>settings</span>
-                </a>
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
 
-            </nav>
+.inventory-header h1 {
+    margin-top: 8px;
 
-        </aside>
+    font-size:
+        clamp(
+            2.8rem,
+            6vw,
+            5rem
+        );
 
+    font-weight: 900;
 
-        <main class="app-main">
+    letter-spacing: -0.06em;
+    line-height: 0.95;
+}
 
-            <header class="topbar">
+.inventory-header p {
+    max-width: 650px;
 
-                <div class="topbar-actions">
+    margin-top: 12px;
 
-                    <div
-                        class="balance-display"
-                        data-balance
-                    >
-                        0 sc
-                    </div>
+    color:
+        var(--color-text-muted);
 
-                </div>
+    line-height: 1.55;
+}
 
-            </header>
 
+/* =========================================================
+   stats
+   ========================================================= */
 
-            <div class="page-content">
+.inventory-stats {
+    display: grid;
 
-                <section class="inventory-header">
+    grid-template-columns:
+        repeat(
+            4,
+            minmax(0, 1fr)
+        );
 
-                    <div>
+    gap: 12px;
 
-                        <span class="inventory-kicker">
-                            collection
-                        </span>
+    margin-bottom: 20px;
+}
 
-                        <h1>
-                            my sogs
-                        </h1>
+.inventory-stat {
+    display: grid;
 
-                        <p>
-                            every soggy you've rescued, collected, and probably overpaid for.
-                        </p>
+    gap: 6px;
 
-                    </div>
+    padding: 18px;
 
-                </section>
+    background:
+        var(--color-surface);
 
+    border:
+        1px solid
+        var(--color-border);
 
-                <section class="inventory-stats">
+    border-radius: 15px;
+}
 
-                    <article class="inventory-stat">
+.inventory-stat span {
+    color:
+        var(--color-text-muted);
 
-                        <span>
-                            total owned
-                        </span>
+    font-size: 0.7rem;
+}
 
-                        <strong id="inventory-total-owned">
-                            0
-                        </strong>
+.inventory-stat strong {
+    font-size: 1.35rem;
 
-                    </article>
+    letter-spacing: -0.03em;
+}
 
 
-                    <article class="inventory-stat">
+/* =========================================================
+   toolbar
+   ========================================================= */
 
-                        <span>
-                            unique soggies
-                        </span>
+.inventory-toolbar {
+    display: grid;
 
-                        <strong id="inventory-unique">
-                            0
-                        </strong>
+    grid-template-columns:
+        minmax(0, 1fr)
+        220px;
 
-                    </article>
+    gap: 10px;
+}
 
+.inventory-search {
+    display: flex;
 
-                    <article class="inventory-stat">
+    min-height: 48px;
 
-                        <span>
-                            total value
-                        </span>
+    align-items: center;
 
-                        <strong id="inventory-total-value">
-                            0 sc
-                        </strong>
+    gap: 10px;
 
-                    </article>
+    padding:
+        0
+        15px;
 
+    background: #10161e;
 
-                    <article class="inventory-stat">
+    border:
+        1px solid
+        var(--color-border);
 
-                        <span>
-                            favorites
-                        </span>
+    border-radius: 13px;
+}
 
-                        <strong id="inventory-favorites">
-                            0
-                        </strong>
+.inventory-search > span {
+    color:
+        var(--color-text-muted);
 
-                    </article>
+    font-size: 1.15rem;
+}
 
-                </section>
+.inventory-search input {
+    width: 100%;
 
+    background: none;
 
-                <section class="inventory-toolbar">
+    color:
+        var(--color-text);
 
-                    <div class="inventory-search">
+    border: 0;
+    outline: 0;
 
-                        <span>
-                            ⌕
-                        </span>
+    font: inherit;
+}
 
-                        <input
-                            id="inventory-search"
-                            type="search"
-                            placeholder="search soggies..."
-                            autocomplete="off"
-                        >
+.inventory-search input::placeholder {
+    color:
+        var(--color-text-muted);
+}
 
-                    </div>
+.inventory-select {
+    min-height: 48px;
 
+    padding:
+        0
+        14px;
 
-                    <select
-                        id="inventory-sort"
-                        class="inventory-select"
-                    >
-                        <option value="newest">
-                            newest
-                        </option>
+    background: #10161e;
 
-                        <option value="oldest">
-                            oldest
-                        </option>
+    color:
+        var(--color-text);
 
-                        <option value="value-high">
-                            value: high to low
-                        </option>
+    border:
+        1px solid
+        var(--color-border);
 
-                        <option value="value-low">
-                            value: low to high
-                        </option>
+    border-radius: 13px;
 
-                        <option value="name">
-                            alphabetical
-                        </option>
+    font: inherit;
 
-                        <option value="copies">
-                            most copies
-                        </option>
-                    </select>
+    cursor: pointer;
+}
 
-                </section>
 
+/* =========================================================
+   filters
+   ========================================================= */
 
-                <section class="inventory-filters">
+.inventory-filters {
+    display: flex;
 
-                    <button
-                        class="inventory-filter is-active"
-                        data-rarity-filter="all"
-                        type="button"
-                    >
-                        all
-                    </button>
+    gap: 7px;
 
-                    <button
-                        class="inventory-filter"
-                        data-rarity-filter="favorites"
-                        type="button"
-                    >
-                        ★ favorites
-                    </button>
+    overflow-x: auto;
 
-                    <button
-                        class="inventory-filter"
-                        data-rarity-filter="common"
-                        type="button"
-                    >
-                        common
-                    </button>
+    margin-top: 12px;
+    padding-bottom: 4px;
 
-                    <button
-                        class="inventory-filter"
-                        data-rarity-filter="uncommon"
-                        type="button"
-                    >
-                        uncommon
-                    </button>
+    scrollbar-width: thin;
+}
 
-                    <button
-                        class="inventory-filter"
-                        data-rarity-filter="rare"
-                        type="button"
-                    >
-                        rare
-                    </button>
+.inventory-filter {
+    flex: 0 0 auto;
 
-                    <button
-                        class="inventory-filter"
-                        data-rarity-filter="super-rare"
-                        type="button"
-                    >
-                        super rare
-                    </button>
+    min-height: 38px;
 
-                    <button
-                        class="inventory-filter"
-                        data-rarity-filter="epic"
-                        type="button"
-                    >
-                        epic
-                    </button>
+    padding:
+        0
+        13px;
 
-                    <button
-                        class="inventory-filter"
-                        data-rarity-filter="legendary"
-                        type="button"
-                    >
-                        legendary
-                    </button>
+    background:
+        var(--color-surface);
 
-                    <button
-                        class="inventory-filter"
-                        data-rarity-filter="mythic"
-                        type="button"
-                    >
-                        mythic
-                    </button>
+    color:
+        var(--color-text-muted);
 
-                    <button
-                        class="inventory-filter"
-                        data-rarity-filter="ultra-legendary"
-                        type="button"
-                    >
-                        ultra
-                    </button>
+    border:
+        1px solid
+        var(--color-border);
 
-                    <button
-                        class="inventory-filter"
-                        data-rarity-filter="anomaly"
-                        type="button"
-                    >
-                        ████████
-                    </button>
+    border-radius: 10px;
 
-                </section>
+    cursor: pointer;
 
+    font: inherit;
+    font-size: 0.75rem;
+    font-weight: 750;
 
-                <div
-                    class="inventory-empty"
-                    id="inventory-empty"
-                    hidden
-                >
-                    <span>
-                        🐈
-                    </span>
+    transition:
+        background
+        var(--transition-fast),
 
-                    <strong>
-                        no soggies found
-                    </strong>
+        color
+        var(--transition-fast),
 
-                    <p>
-                        the collection is suspiciously dry.
-                    </p>
-                </div>
+        border-color
+        var(--transition-fast);
+}
 
+.inventory-filter:hover {
+    color:
+        var(--color-text);
 
-                <section
-                    class="inventory-grid"
-                    id="inventory-grid"
-                >
-                </section>
+    border-color:
+        var(--color-border-light);
+}
 
-            </div>
+.inventory-filter.is-active {
+    background:
+        rgb(75 185 233 / 12%);
 
-        </main>
+    color:
+        var(--color-primary);
 
-    </div>
+    border-color:
+        rgb(75 185 233 / 35%);
+}
 
 
-    <dialog
-        class="inventory-inspect"
-        id="inventory-inspect"
-    >
+/* =========================================================
+   inventory grid
+   ========================================================= */
 
-        <button
-            class="inventory-inspect-close"
-            id="inventory-inspect-close"
-            type="button"
-        >
-            ×
-        </button>
+.inventory-grid {
+    display: grid;
 
-        <div class="inventory-inspect-image-shell">
+    grid-template-columns:
+        repeat(
+            auto-fill,
+            minmax(220px, 1fr)
+        );
 
-            <img
-                id="inventory-inspect-image"
-                alt=""
-            >
+    gap: 14px;
 
-        </div>
+    margin-top: 20px;
+}
 
-        <span
-            class="inventory-inspect-rarity"
-            id="inventory-inspect-rarity"
-        >
-        </span>
 
-        <h2 id="inventory-inspect-name">
-        </h2>
+/* =========================================================
+   card
+   ========================================================= */
 
-        <p id="inventory-inspect-description">
-        </p>
+.inventory-card {
+    position: relative;
 
-        <div class="inventory-inspect-stats">
+    display: flex;
 
-            <div>
-                <span>
-                    copies
-                </span>
+    min-width: 0;
 
-                <strong id="inventory-inspect-copies">
-                    0
-                </strong>
-            </div>
+    flex-direction: column;
 
-            <div>
-                <span>
-                    each
-                </span>
+    overflow: hidden;
 
-                <strong id="inventory-inspect-value">
-                    0 sc
-                </strong>
-            </div>
+    background:
+        linear-gradient(
+            180deg,
+            rgb(255 255 255 / 2%),
+            transparent 30%
+        ),
+        var(--color-surface);
 
-            <div>
-                <span>
-                    collection value
-                </span>
+    border:
+        1px solid
+        var(--color-border);
 
-                <strong id="inventory-inspect-total">
-                    0 sc
-                </strong>
-            </div>
+    border-radius: 17px;
 
-            <div>
-                <span>
-                    first obtained
-                </span>
+    transition:
+        transform
+        160ms ease,
 
-                <strong id="inventory-inspect-date">
-                    —
-                </strong>
-            </div>
+        border-color
+        160ms ease,
 
-        </div>
+        box-shadow
+        160ms ease;
+}
 
-    </dialog>
+.inventory-card:hover {
+    border-color:
+        var(--color-border-light);
 
+    box-shadow:
+        0 18px 40px
+        rgb(0 0 0 / 22%);
 
-    <script
-        type="module"
-        src="/js/app.js"
-    ></script>
+    transform:
+        translateY(-3px);
+}
 
-    <script
-        type="module"
-        src="/js/inventory.js"
-    ></script>
 
-</body>
+/* =========================================================
+   card image
+   ========================================================= */
 
-</html>
+.inventory-card-image-shell {
+    position: relative;
+
+    display: flex;
+
+    width: 100%;
+
+    height: 190px;
+
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle,
+            rgb(75 185 233 / 12%),
+            transparent 68%
+        ),
+        #10161e;
+}
+
+.inventory-card-image {
+    display: block;
+
+    max-width: 100%;
+    max-height: 100%;
+
+    object-fit: contain;
+
+    user-select: none;
+}
+
+.inventory-card-count {
+    position: absolute;
+
+    right: 10px;
+    bottom: 10px;
+
+    padding:
+        5px
+        8px;
+
+    background:
+        rgb(0 0 0 / 70%);
+
+    color: white;
+
+    border:
+        1px solid
+        rgb(255 255 255 / 12%);
+
+    border-radius: 8px;
+
+    font-size: 0.7rem;
+    font-weight: 800;
+
+    backdrop-filter: blur(8px);
+}
+
+
+/* =========================================================
+   favorite
+   ========================================================= */
+
+.inventory-favorite {
+    position: absolute;
+
+    top: 10px;
+    right: 10px;
+
+    z-index: 4;
+
+    display: grid;
+
+    width: 34px;
+    height: 34px;
+
+    place-items: center;
+
+    background:
+        rgb(5 8 12 / 70%);
+
+    color:
+        var(--color-text-muted);
+
+    border:
+        1px solid
+        rgb(255 255 255 / 12%);
+
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    backdrop-filter: blur(8px);
+
+    transition:
+        color 150ms ease,
+        transform 150ms ease;
+}
+
+.inventory-favorite:hover {
+    transform:
+        scale(1.06);
+}
+
+.inventory-favorite.is-active {
+    color: #facc15;
+}
+
+
+/* =========================================================
+   card body
+   ========================================================= */
+
+.inventory-card-body {
+    display: grid;
+
+    gap: 10px;
+
+    padding: 15px;
+}
+
+.inventory-card-topline {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 10px;
+}
+
+.inventory-card-number {
+    color:
+        var(--color-text-muted);
+
+    font-size: 0.68rem;
+}
+
+.inventory-rarity {
+    padding:
+        4px
+        7px;
+
+    background:
+        rgb(255 255 255 / 4%);
+
+    border:
+        1px solid
+        var(--color-border);
+
+    border-radius: 7px;
+
+    font-size: 0.64rem;
+    font-weight: 800;
+
+    text-transform: uppercase;
+}
+
+.inventory-card h3 {
+    overflow: hidden;
+
+    font-size: 1rem;
+    font-weight: 850;
+
+    letter-spacing: -0.03em;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+}
+
+.inventory-card-meta {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 8px;
+
+    color:
+        var(--color-text-muted);
+
+    font-size: 0.7rem;
+}
+
+.inventory-card-meta strong {
+    color:
+        var(--color-text);
+}
+
+
+/* =========================================================
+   actions
+   ========================================================= */
+
+.inventory-card-actions {
+    display: grid;
+
+    grid-template-columns:
+        1fr
+        1fr;
+
+    gap: 7px;
+}
+
+.inventory-card-button {
+    min-height: 36px;
+
+    padding:
+        0
+        10px;
+
+    background:
+        #1d2531;
+
+    color:
+        var(--color-text);
+
+    border:
+        1px solid
+        var(--color-border);
+
+    border-radius: 9px;
+
+    cursor: pointer;
+
+    font: inherit;
+    font-size: 0.7rem;
+    font-weight: 750;
+}
+
+.inventory-card-button:hover {
+    border-color:
+        var(--color-border-light);
+}
+
+.inventory-card-button.sell {
+    color:
+        var(--color-success);
+}
+
+
+/* =========================================================
+   empty state
+   ========================================================= */
+
+.inventory-empty {
+    display: grid;
+
+    place-items: center;
+
+    gap: 7px;
+
+    min-height: 300px;
+
+    margin-top: 20px;
+
+    padding: 30px;
+
+    background:
+        var(--color-surface);
+
+    color:
+        var(--color-text-muted);
+
+    border:
+        1px dashed
+        var(--color-border);
+
+    border-radius: 18px;
+
+    text-align: center;
+}
+
+.inventory-empty > span {
+    font-size: 3rem;
+}
+
+.inventory-empty strong {
+    color:
+        var(--color-text);
+
+    font-size: 1.1rem;
+}
+
+
+/* =========================================================
+   rarity colors
+   ========================================================= */
+
+.inventory-rarity.common {
+    color: #b6bdc8;
+}
+
+.inventory-rarity.uncommon {
+    color: #22d36b;
+}
+
+.inventory-rarity.rare {
+    color: #3b82f6;
+}
+
+.inventory-rarity.super-rare {
+    color: #5682ff;
+}
+
+.inventory-rarity.epic {
+    color: #c026ff;
+}
+
+.inventory-rarity.legendary {
+    color: #facc15;
+}
+
+.inventory-rarity.mythic {
+    color: #ef4444;
+}
+
+.inventory-rarity.ultra-legendary {
+    color: #67e8f9;
+}
+
+.inventory-rarity.anomaly {
+    color: white;
+
+    background: #000;
+}
+
+
+/* =========================================================
+   inspect dialog
+   ========================================================= */
+
+.inventory-inspect {
+    width:
+        min(
+            500px,
+            calc(100vw - 24px)
+        );
+
+    max-height:
+        calc(100dvh - 24px);
+
+    overflow-y: auto;
+
+    padding: 24px;
+
+    background:
+        #161d26;
+
+    color:
+        var(--color-text);
+
+    border:
+        1px solid
+        var(--color-border);
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 40px 100px
+        rgb(0 0 0 / 60%);
+}
+
+.inventory-inspect::backdrop {
+    background:
+        rgb(3 6 10 / 82%);
+
+    backdrop-filter: blur(12px);
+}
+
+.inventory-inspect-close {
+    position: absolute;
+
+    top: 12px;
+    right: 12px;
+
+    display: grid;
+
+    width: 36px;
+    height: 36px;
+
+    place-items: center;
+
+    background:
+        rgb(255 255 255 / 5%);
+
+    color:
+        var(--color-text);
+
+    border:
+        1px solid
+        var(--color-border);
+
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    font-size: 1.1rem;
+}
+
+.inventory-inspect-image-shell {
+    display: flex;
+
+    width: 100%;
+    height: 300px;
+
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle,
+            rgb(75 185 233 / 13%),
+            transparent 66%
+        ),
+        #10161e;
+
+    border:
+        1px solid
+        var(--color-border);
+
+    border-radius: 15px;
+}
+
+.inventory-inspect-image-shell img {
+    max-width: 100%;
+    max-height: 100%;
+
+    object-fit: contain;
+}
+
+.inventory-inspect-rarity {
+    display: inline-block;
+
+    margin-top: 16px;
+
+    color:
+        var(--color-primary);
+
+    font-size: 0.7rem;
+    font-weight: 800;
+
+    text-transform: uppercase;
+}
+
+.inventory-inspect h2 {
+    margin-top: 5px;
+
+    font-size: 2rem;
+
+    letter-spacing: -0.04em;
+}
+
+.inventory-inspect > p {
+    margin-top: 8px;
+
+    color:
+        var(--color-text-muted);
+
+    line-height: 1.5;
+}
+
+.inventory-inspect-stats {
+    display: grid;
+
+    grid-template-columns:
+        1fr
+        1fr;
+
+    gap: 8px;
+
+    margin-top: 18px;
+}
+
+.inventory-inspect-stats > div {
+    display: grid;
+
+    gap: 4px;
+
+    padding: 12px;
+
+    background: #10161e;
+
+    border:
+        1px solid
+        var(--color-border);
+
+    border-radius: 11px;
+}
+
+.inventory-inspect-stats span {
+    color:
+        var(--color-text-muted);
+
+    font-size: 0.67rem;
+}
+
+.inventory-inspect-stats strong {
+    font-size: 0.82rem;
+}
+
+
+/* =========================================================
+   responsive
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    .inventory-stats {
+        grid-template-columns:
+            repeat(
+                2,
+                minmax(0, 1fr)
+            );
+    }
+
+}
+
+
+@media (max-width: 640px) {
+
+    .inventory-toolbar {
+        grid-template-columns:
+            1fr;
+    }
+
+    .inventory-grid {
+        grid-template-columns:
+            repeat(
+                2,
+                minmax(0, 1fr)
+            );
+
+        gap: 9px;
+    }
+
+    .inventory-card-image-shell {
+        height: 150px;
+    }
+
+}
+
+
+@media (max-width: 430px) {
+
+    .inventory-stats {
+        grid-template-columns:
+            1fr
+            1fr;
+    }
+
+    .inventory-grid {
+        grid-template-columns:
+            1fr;
+    }
+
+    .inventory-card-image-shell {
+        height: 210px;
+    }
+
+    .inventory-inspect-stats {
+        grid-template-columns:
+            1fr;
+    }
+
+}

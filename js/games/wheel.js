@@ -1183,19 +1183,35 @@ async function renderHistory() {
             document.createElement("span");
 
 
-        if (entry.type === "coins") {
+if (entry.type === "coins") {
 
-            icon.textContent =
-                "💧";
+    icon.textContent =
+        "💧";
 
-            title.textContent =
-                `${formatSoggyCoins(entry.amount)} sc`;
+    title.textContent =
+        `${formatSoggyCoins(entry.amount)} sc`;
 
-            detail.textContent =
-                `${entry.multiplier}×`;
-        }
+    detail.textContent =
+        `${entry.multiplier}×`;
+}
 
-        else if (entry.anomaly) {
+else if (
+    entry.type === "nothing"
+) {
+
+    icon.textContent =
+        "◌";
+
+    title.textContent =
+        "nothing";
+
+    detail.textContent =
+        `${formatSoggyCoins(
+            entry.spinCost
+        )} sc lost`;
+}
+
+else if (entry.anomaly) {
 
             icon.textContent =
                 "█";

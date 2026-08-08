@@ -16,6 +16,8 @@
 
 **no crypto, nft or real money is involved. we are just gambling soggy cats here**
 
+*join the discord | https://discord.gg/2AeAsX3R*
+
 </div>
 
 ---

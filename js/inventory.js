@@ -1069,15 +1069,23 @@ function renderInventory() {
         getVisibleInventory();
 
 
+if (
+    visible.length === 0
+) {
     inventoryEmpty.hidden =
-        visible.length > 0;
+        false;
 
+    inventoryEmpty.style.display =
+        "grid";
 
-    if (
-        !visible.length
-    ) {
-        return;
-    }
+    return;
+}
+
+inventoryEmpty.hidden =
+    true;
+
+inventoryEmpty.style.display =
+    "none";
 
 
     const fragment =

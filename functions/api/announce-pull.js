@@ -187,18 +187,20 @@ export async function onRequestPost(context) {
         };
 
 
-        if (
-            !isAnomaly &&
-            soggy.image
-        ) {
+if (
+    !isAnomaly &&
+    soggy.image
+) {
+    const imageUrl =
+        soggy.image.startsWith("http")
+            ? soggy.image
+            : `https://soggybet.pages.dev${soggy.image}`;
 
-            embed.thumbnail = {
-                url:
-                    soggy.image
-            };
-
-        }
-
+    embed.thumbnail = {
+        url:
+            imageUrl
+    };
+}
 
         const response =
             await fetch(

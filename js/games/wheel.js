@@ -1937,10 +1937,30 @@ await waitForSpin(
 );
 
 
-wheelStatus.textContent =
+if (
+    result.type === "nothing"
+) {
+
+    wheelStatus.textContent =
+        "nothing. absolutely nothing.";
+
+}
+
+else if (
     result.anomaly
-        ? "..."
-        : `landed on ${result.soggy.rarity.replaceAll("-", " ")}.`;
+) {
+
+    wheelStatus.textContent =
+        "...";
+
+}
+
+else {
+
+    wheelStatus.textContent =
+        `landed on ${result.soggy.rarity.replaceAll("-", " ")}.`;
+
+}
 
 fadeOutSound(
     "wheelSpin",
@@ -1954,21 +1974,36 @@ playSound(
     }
 );
 
-        announceRarePull(
-    result
-);
+if (
+    result.type === "nothing"
+) {
 
-await playCutscene(
-    result.soggy
-);
+    showToast(
+        `${formatSoggyCoins(cost)} sc vanished into the litterbox.`,
+        "error"
+    );
 
-playSound(
-    "cardReveal"
-);
+}
 
-await showSoggy(
-    result
-);
+else {
+
+    announceRarePull(
+        result
+    );
+
+    await playCutscene(
+        result.soggy
+    );
+
+    playSound(
+        "cardReveal"
+    );
+
+    await showSoggy(
+        result
+    );
+
+}
 
 } catch (error) {
 
